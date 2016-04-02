@@ -1,13 +1,13 @@
 \BOOKMARK [0][-]{chapter.1}{\332vod}{}% 1
 \BOOKMARK [0][-]{chapter.2}{Problematika virtualizace s\355tov\375ch funkc\355}{}% 2
-\BOOKMARK [1][-]{section.2.1}{Z\341kladn\355 pojmy}{chapter.2}% 3
-\BOOKMARK [1][-]{section.2.2}{Softwarove definovac\351 s\355te}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.1}{Z\341kladn\355 problematika}{chapter.2}% 3
+\BOOKMARK [1][-]{section.2.2}{Softwarove definovan\351 s\355te}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.3}{Proc NFV a NVFs}{chapter.2}% 5
 \BOOKMARK [0][-]{chapter.3}{Testovac\355 prostred\355}{}% 6
 \BOOKMARK [1][-]{section.3.1}{OpenStack}{chapter.3}% 7
 \BOOKMARK [1][-]{section.3.2}{OpenContrail}{chapter.3}% 8
 \BOOKMARK [0][-]{chapter.4}{Pr\355klady virtualizace s\355tov\375ch funkc\355}{}% 9
-\BOOKMARK [1][-]{section.4.1}{Heat templates}{chapter.4}% 10
+\BOOKMARK [1][-]{section.4.1}{Heat templaty}{chapter.4}% 10
 \BOOKMARK [1][-]{section.4.2}{LbaaS}{chapter.4}% 11
 \BOOKMARK [2][-]{subsection.4.2.1}{Neutron HAproxy}{section.4.2}% 12
 \BOOKMARK [2][-]{subsection.4.2.2}{AVI networks}{section.4.2}% 13
