@@ -1,9 +1,9 @@
 \chapter{Základní problematika virtualizace síťových funkcí}
 
-Pro pochopení konceptu virtuálních síťových funkcí je nejprve nutvé vysvětlení několika základních pojmů a oblastí se kterou se souvisí.
+Tato kapitola se zabývá základní problematikou virtuálních síťových funkcí. Pro pochopení konceptu virtuálních síťových funkcí je nejprve nutvé vysvětlení několika základních pojmů a oblastí se kterou se souvisí. Proto jsou v této kapitole postupně popsány základní principy virtualizace, cloud computingu, softwarově definovaných sítí a následně již samotná oblast virtualizace síťových funkcí.
 
 
-\section{Virtualizace}
+\section{Princip virtualizace}
 
 Virtualizace je hlavní technologie, která umožnila vývoj nových řešení používaných v moderních datových centrech po celém světě. 
 Základní pojmy. 
@@ -12,14 +12,24 @@ Virtualní stroj (VM)
 
 Hypervizory
 
+Host OS
+
+Guest OS
+
 Přestože cíl virtualizace je vždy stejný, tak existuje více přístupů, jak ho dosáhnout. V praxi se dnes používají tyto 2 hlavní metody virtualizace:
 
 \begin{itemize}
 
 \item Úplná virtualizace
-
+\item Částečná virtualizace
 \item Paravirtualizace
 
+\end{itemize}
+
+Typy hypervizorů:
+\begin{itemize}
+\item Typ 1 - nativní (Bare-metal)
+\item Typ 2 - hostovaný
 \end{itemize}
 
 
