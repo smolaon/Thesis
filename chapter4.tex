@@ -1,13 +1,15 @@
-\chapter{Příklady virtualizace síťových funkcí}
+\chapter{Příklady návrhu virtualizace síťových funkcí}
 
-V této kapitole budeno několik příkladů, jak lze jednoduše vytvořit NFV v prostředí OpenStack a OpenContrail pomocí heat templatu. Všechna uvedená řešení byla testována v 
+V této kapitole bude uvedeno několik příkladů, jak lze jednoduše vytvořit NFV v prostředí OpenStack a OpenContrail pomocí heat templatů. Všechna uvedená řešení byla testována v prostředí OpenStack s OpenContrailem, které bylo pro tyto účely poskytnuto společností tcp cloud a.s. 
 
+
+\section{Architektura komponent}\label{sub:interaction}
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.21]{images/VNF_overview}
+\includegraphics[scale=0.51]{images/VNF_overview}
 \par\end{centering}
-\caption{Architektura řešení\label{fig:VNF_overview}}
+\caption{Architektura komponent\label{fig:VNF_overview}}
 \end{figure}
 
 
@@ -17,13 +19,10 @@ Load-balancer as a Service má umožňovat uživatelům jednoduše
 
 \subsection{Neutron HAproxy}\label{sub:interaction}
 
-
-\subsection{AVI networks}\label{sub:interaction}
-
+Obrázek s virtuální topologii
+Heat template + popis co v něm je
 
 \section{FwaaS}\label{sub:interaction}
-
-
 
 \subsection{PfSense}\label{sub:interaction}
 
@@ -31,5 +30,7 @@ PFSense je open-source firewall/router postavený nad operačním systémem Free
 
 \subsection{Fortigate VM}\label{sub:interaction}
 
-
+Popis fortigate VM
+Obrázek s topologii
+Automatizace
 

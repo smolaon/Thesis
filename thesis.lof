@@ -1,9 +1,12 @@
 \select@language {czech}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'\i } zn\IeC {\'a}zorn\IeC {\v e}n\IeC {\'\i } virtualizace\relax }}{2}{figure.caption.6}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Vize Virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }\relax }}{4}{figure.caption.7}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces NFV architektura\relax }}{5}{figure.caption.8}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Popis heat orchestrace\relax }}{3}{figure.caption.6}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Popis heat orchestrace\relax }}{6}{figure.caption.9}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Architektura \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }\relax }}{4}{figure.caption.7}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Architektura komponent\relax }}{7}{figure.caption.10}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

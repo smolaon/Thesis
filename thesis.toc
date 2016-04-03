@@ -4,22 +4,30 @@
 \contentsline {subsubsection}{\nonumberline Anotace}{v}{section*.3}
 \contentsline {subsubsection}{\nonumberline Annotation}{v}{section*.4}
 \contentsline {chapter}{\numberline {1}\IeC {\'U}vod}{1}{chapter.1}
-\contentsline {chapter}{\numberline {2}Problematika virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{2}{chapter.2}
-\contentsline {section}{\numberline {2.1}Z\IeC {\'a}kladn\IeC {\'\i } problematika}{2}{section.2.1}
-\contentsline {section}{\numberline {2.2}Softwarov\IeC {\v e} definovan\IeC {\'e} s\IeC {\'\i }t\IeC {\v e}}{2}{section.2.2}
-\contentsline {section}{\numberline {2.3}Pro\IeC {\v c} NFV a NVFs}{2}{section.2.3}
-\contentsline {chapter}{\numberline {3}Testovac\IeC {\'\i } prost\IeC {\v r}ed\IeC {\'\i }}{3}{chapter.3}
-\contentsline {section}{\numberline {3.1}OpenStack}{3}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.2}Heat Templates}{3}{subsection.3.1.2}
-\contentsline {section}{\numberline {3.2}OpenContrail}{3}{section.3.2}
-\contentsline {chapter}{\numberline {4}P\IeC {\v r}\IeC {\'\i }klady virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{4}{chapter.4}
-\contentsline {section}{\numberline {4.1}LbaaS}{4}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Neutron HAproxy}{4}{subsection.4.1.1}
-\contentsline {subsection}{\numberline {4.1.2}AVI networks}{4}{subsection.4.1.2}
-\contentsline {section}{\numberline {4.2}FwaaS}{4}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}PfSense}{4}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Fortigate VM}{4}{subsection.4.2.2}
-\contentsline {chapter}{\numberline {5}Shrnut\IeC {\'\i } poznatk\IeC {\r u}}{5}{chapter.5}
-\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{6}{chapter.6}
-\contentsline {part}{Literatura}{7}{chapter.6}
-\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.8}
+\contentsline {chapter}{\numberline {2}Z\IeC {\'a}kladn\IeC {\'\i } problematika virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{2}{chapter.2}
+\contentsline {section}{\numberline {2.1}Virtualizace}{2}{section.2.1}
+\contentsline {section}{\numberline {2.2}Cloud computing}{3}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Model nasazen\IeC {\'\i }}{3}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Distribu\IeC {\v c}n\IeC {\'\i } model}{3}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}V\IeC {\'y}hody}{3}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Softwarov\IeC {\v e} definovan\IeC {\'e} s\IeC {\'\i }t\IeC {\v e}}{3}{section.2.3}
+\contentsline {section}{\numberline {2.4}Virtualizovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce}{3}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Z\IeC {\'a}kladn\IeC {\'\i } architektura}{4}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Management a orchestrace}{4}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Popis pou\IeC {\v z}it\IeC {\'y}ch technologi\IeC {\'\i } a testovac\IeC {\'\i }ho prost\IeC {\v r}ed\IeC {\'\i }}{6}{chapter.3}
+\contentsline {section}{\numberline {3.1}OpenStack}{6}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.2}Heat Templates}{6}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}OpenContrail}{6}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Service Chaining}{6}{subsection.3.2.1}
+\contentsline {section}{\numberline {3.3}P\IeC {\v r}ehled testovac\IeC {\'\i } topologie}{6}{section.3.3}
+\contentsline {chapter}{\numberline {4}P\IeC {\v r}\IeC {\'\i }klady n\IeC {\'a}vrhu virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Architektura komponent}{7}{section.4.1}
+\contentsline {section}{\numberline {4.2}LbaaS}{7}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Neutron HAproxy}{7}{subsection.4.2.1}
+\contentsline {section}{\numberline {4.3}FwaaS}{8}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}PfSense}{8}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Fortigate VM}{8}{subsection.4.3.2}
+\contentsline {chapter}{\numberline {5}Shrnut\IeC {\'\i } poznatk\IeC {\r u}}{9}{chapter.5}
+\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{10}{chapter.6}
+\contentsline {part}{Literatura}{11}{chapter.6}
+\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.11}
