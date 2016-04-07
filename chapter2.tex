@@ -27,9 +27,6 @@ Hlavní výhody NFV:
 \end{itemize}
 
 
-\section{Souvislost NFV a SDN}\label{sub:interaction}
-
-
 \section{Architektura NFV a VNF}\label{sub:interaction}
 
 Hypervizor + hovna k tomu
@@ -52,7 +49,11 @@ Základní komponenty virtualizované platform, ve které může být NFV framew
 
 	\subsection{Heat engine v OpenStacku}\label{sub:interaction}
 
-\section{}
+\section{Souvislost NFV a SDN}\label{sub:interaction}
+
+The building blocks for NFV are Virtual Network Functions (VNF’s). VNF handle specific network function such as firewalling, intrusion protection, load balancing and caching. They run in one or more virtual machines and can be service chained by a SDN controller or some other mechanism. Once the network services are virtualized they can be dynamically chained to a required sequence by an SDN Controller, for example Contrail SDN Controller. The chain is usually carried out by creating dynamic tunnels between endpoints and routing traffic through the network function by changing the next hop. The chaining technology is not limited to the control of an SDN Controller. Locator/ID Separation Protocol (LISP) can also be used to implement service chaining with its encapsulation / decapsulation functions. Once the network functions are in place, LISP can be used to set up the encapsulations paths.
+
+\section{Use case}
 
 
 
