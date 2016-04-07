@@ -1,24 +1,23 @@
 \select@language {czech}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'\i } zn\IeC {\'a}zorn\IeC {\v e}n\IeC {\'\i } virtualizace\relax }}{3}{figure.caption.6}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Vize Virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }\relax }}{4}{figure.caption.7}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces NFV architektura\relax }}{5}{figure.caption.8}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Koncept virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i } (NFV)\relax }}{3}{figure.caption.6}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces NFV architektura\relax }}{4}{figure.caption.7}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Popis heat orchestrace\relax }}{6}{figure.caption.9}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Testovac\IeC {\'\i } topologie\relax }}{7}{figure.caption.10}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Popis heat orchestrace\relax }}{6}{figure.caption.8}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Architektura NFV \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }\relax }}{9}{figure.caption.11}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{10}{figure.caption.12}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{10}{figure.caption.13}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{11}{figure.caption.14}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{11}{figure.caption.15}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Test konektivity a load balancingu\relax }}{12}{figure.caption.16}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{13}{figure.caption.17}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Test konektivity PFSense\relax }}{13}{figure.caption.18}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{14}{figure.caption.19}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{14}{figure.caption.20}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{15}{figure.caption.21}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Test konektivity\relax }}{15}{figure.caption.22}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Testovac\IeC {\'\i } topologie\relax }}{9}{figure.caption.9}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Architektura NFV \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }\relax }}{10}{figure.caption.10}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{10}{figure.caption.11}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{11}{figure.caption.12}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{11}{figure.caption.13}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{12}{figure.caption.14}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Test konektivity a load balancingu\relax }}{13}{figure.caption.15}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{13}{figure.caption.16}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Test konektivity PFSense\relax }}{14}{figure.caption.17}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{14}{figure.caption.18}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{14}{figure.caption.19}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{15}{figure.caption.20}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Test konektivity\relax }}{15}{figure.caption.21}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -1,111 +1,39 @@
 \chapter{Základní problematika virtualizace síťových funkcí}
 
-Tato kapitola se zabývá základní problematikou virtuálních síťových funkcí. Pro pochopení konceptu virtuálních síťových funkcí je nejprve nutvé vysvětlení několika základních pojmů a oblastí se kterou se souvisí. Proto jsou v této kapitole postupně popsány základní principy virtualizace, cloud computingu, softwarově definovaných sítí a následně již samotná oblast virtualizace síťových funkcí.
+Tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuální síťových funkcí. V tradičních počítačových sítích je v
 
+Routery, Firewally, IPS, IDS, Load-balancery a další.
 
-Co je to VNF a NFV. 
-
-
-\section{Princip virtualizace}
-
-Virtualizace je hlavní technologie, která umožnila vývoj nových řešení používaných v moderních datových centrech po celém světě. 
-Základní pojmy. 
-
-Virtualní stroj (VM)
-
-Hypervizory
-
-Host OS
-
-Guest OS
-
-Přestože cíl virtualizace je vždy stejný, tak existuje více přístupů, jak ho dosáhnout. V praxi se dnes používají tyto 2 hlavní metody virtualizace:
-
-\begin{itemize}
-
-\item Úplná virtualizace
-\item Částečná virtualizace
-\item Paravirtualizace
-
-\end{itemize}
-
-Typy hypervizorů:
-\begin{itemize}
-\item Typ 1 - nativní (Bare-metal)
-\item Typ 2 - hostovaný
-\end{itemize}
-
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.5]{images/virtualization}
-\par\end{centering}
-\caption{Základní znázornění virtualizace\label{fig:virtualization}}
-\end{figure}
-
-
-\section{Cloud computing}\label{sub:interaction}
-
-Cloud Computing je hlavní oblast, která virtualizaci využívá. Z tohoto důvodu bude v této práci stručně vysvětlen. 
-
-Obrázek cloudu.
-
-
-\subsection{Model nasazení}
-
-Existuje několik modelů, které určují, jak může být cloud nasazen. Tyto modely jsou vždy závislé na uživatelských požadavcích a potřebách. Uživatel za základě těchto parametrů může vybírat z těchto čtyř možných modelů pro nasazení cloudu.
-\begin{itemize}
-\item Privátní cloud
-\item Veřejný cloud
-\item Hybridní cloud
-\item Komunitní cloud
-\end{itemize}
-
-Privátní cloud je cloudové prostředí vytvořené pro jednu organizaci. 
-
-Veřejný cloud je cloudová infrastruktura, která je k dispozici k užívání veřejnosti. 
-
-Hybridní cloud je 
-
-Posledním modelem nasazení je komunitní cloud. V tomto modelu je 
-
-\subsection{Distribuční model}
-
-SaaS
-
-PaaS
-
-IaaS
-
-NaaS
-
-\subsection{Výhody}
-
-\section{Softwarově definované sítě}\label{sub:interaction}
-
-Architektura sítí - virtualizace síťové infrastruktury a návrh nových protokolů
-
-\section{Virtualizované síťové funkce}\label{sub:interaction}
-
-\begin{itemize}
-\item Router
-\item Firewall
-\item IPS
-\item IDS
-\item Load-balancer
-\item ...
-\end{itemize}
 
 \begin{figure}[h]
 \begin{centering}
 \includegraphics[scale=0.5]{images/vize_NFV}
 \par\end{centering}
-\caption{Vize Virtualizace síťových funkcí\label{fig:vize_NFV}}
+\caption{Koncept virtualizace síťových funkcí (NFV)\label{fig:vize_NFV}}
 \end{figure}
 
-Tady bude napsaný rozdíl mezi tradičním HW přístupem a virtualizovaným přístupem
+\begin{itemize}
+\item Virtualizace síťových funkcí (Network Functions Virtualization - NFV)
+\item Virtuální síťové funkce (Virtual network function - VNF)
+\end{itemize}
 
-\subsection{Základní architektura}\label{sub:interaction}
+Hlavní výhody NFV:
+
+\begin{itemize}
+\item Eliminace CapEx – snížení potřeby nákupu jednoúčelových hardwarových zařízení, možnost platby pouze za využité kapacity a snížení rizik přílišného předimenzování kapacit
+\item Eliminace provozních nákladů – snížení prostoru, napájení a požadavky na chlazení, zjednodušení správy a řízení síťových služeb
+\item Urychlení Time-to-market –zkrácení doby pro nasazení nových síťových služeb, chopení se nových příležitosti na trhu, vyhovění potřebám zákazníka
+\item Doručit agilitu a flexibilitu – možnost rychle škálovat (rozšiřovat nebo zmenšovat služby) dle měnících se požadavků od zákazníka. Podpora služeb, které mají být dodány pomocí softwaru na libovolném standartním serverovém hardwaru
+\end{itemize}
+
+
+\section{Souvislost NFV a SDN}\label{sub:interaction}
+
+
+\section{Architektura NFV a VNF}\label{sub:interaction}
+
+Hypervizor + hovna k tomu
+Základní komponenty virtualizované platform, ve které může být NFV framework nasazen, jsou následující:
 
 
 \begin{figure}[h]
@@ -115,9 +43,18 @@ Tady bude napsaný rozdíl mezi tradičním HW přístupem a virtualizovaným p�
 \caption{NFV architektura\label{fig:NFV_architektura}}
 \end{figure}
 
-\subsection{Management a orchestrace}\label{sub:interaction}
 
-Obrázek s popisem VNF frameworku
+\section{Management a orchestrace NFV a VNF}\label{sub:interaction}
 
-MANO
-TOSCA a podobny hovna
+	\subsection{Tosca}\label{sub:interaction}
+
+	\subsection{Netconf/Yang}\label{sub:interaction}
+
+	\subsection{Heat engine v OpenStacku}\label{sub:interaction}
+
+\section{}
+
+
+
+
+
