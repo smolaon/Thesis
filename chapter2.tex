@@ -12,7 +12,7 @@ Pro vyřešení toho problému bylo navrženo v publikacích \cite{NFV_paper2012
 \item Doručit agilitu a flexibilitu – možnost rychle škálovat (rozšiřovat nebo zmenšovat služby) dle měnících se požadavků od zákazníka. Podpora služeb, které mají být dodány pomocí softwaru na libovolném standardním serverovém hardwaru
 \end{itemize}
 
-Celá myšlenka je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. To umožní se síťovými funkcemi zacházek jako s klasickými softwarovými aplikacemi, které mohou běžet na standardním komerčně dostupných serverech jenž organizace v současnosti používají. Hlavní koncept virtualizace síťových funkcí znázorňuje obrázek č. \ref{fig:vize_NFV}. 
+Jak je uvedeno v \cite{NFVState} a \cite{NFVChalanges}, tak celá myšlenka je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. To umožní se síťovými funkcemi zacházek jako s klasickými softwarovými aplikacemi, které mohou běžet na standardním komerčně dostupných serverech jenž organizace v současnosti používají. Tím bude zároveň umožněno flexibilní nasazování těchto síťových funkcí a jejich dynamický provisioning. Díky tomu, že jsou síťová funkce odděleny od hardwaru, tak je také možné jejich vhodnější umístění v topologii. To znamená dle požadavků na umístění mohou být nasazeny v datových centrech, síťových uzlech či přímo v uživatelově koncovém bodě. Hlavní koncept virtualizace síťových funkcí znázorňuje obrázek č. \ref{fig:vize_NFV}. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -21,7 +21,9 @@ Celá myšlenka je založena na tom, že dojde k separování softwarové funkci
 \caption{Koncept virtualizace síťových funkcí (NFV)\label{fig:vize_NFV}}
 \end{figure}
 
-Pro lepší pochopení a přehlednost celé této práce zde budou ještě rozlišeny následující pojmy, se kterými se lze také setkat v odborné literatuře. 
+Z zmínění stojí poznámka v \cite{NFVState}, kde je řečeno, že obecný koncept oddělení síťové funkce od hardwaru ještě nutně neznamená potřebu využití virtualizace. Protože budou síťové funkce dostupně jako software, tak mohou být nainstalovány a provozovány přímo na fyzickém stroji. Ovšem rozdíl je, že tento stroj již nebude speciální hardware, ale klasický server. Tento scénář může být do jisté míry použit při nasazovaní síťových funkcí v malém měřítku např. v uživatelských koncových bodech. Avšak pro plné využití všech výše zmíněných výhod, které jsou třeba ve velkých datových centrech, je třeba s použitím virtualizace počítat. To vše umocňuje fakt, že většina datových center v současnosti již využívá cloud computing.
+
+Pro lepší pochopení a přehlednost celé této práce zde budou rozlišeny následující pojmy, se kterými se lze také setkat v odborné literatuře a které budou dále v této práci používány. 
 
 \begin{itemize}
 \item Síťová funkce (Network function - NF) - Toto je komponenta síťové infrastruktury, která má dobře definované funkční chování, jako například směrování, NAT, Load balancing, Intrusion detection, atd.
@@ -29,15 +31,42 @@ Pro lepší pochopení a přehlednost celé této práce zde budou ještě rozli
 \item Virtualizace síťových funkcí (Network Functions Virtualization - NFV) - Zde se jedná o označení celého konceptu či frameworku.
 \end{itemize}
 
-
-\section{Příklady využití}
-
 \section{NFV a Cloud Computing}
+
+Cloud Computing a virtualizace obecně jsou hlavní technologie, které umožnily virtualizaci síťových funkcí. Z toho důvodu zde budou stručně představeny. 
+
+Virtualizací obecně označujeme techniky, které umožňují k dostupným hardwarovým zdrojům přistupovat jiným způsobem, než jakým fyzicky existují. Je tomu díky softwaru, který tento hardware abstrahuje a vytvoří tím virtuální prostředí. Virtualizované prostředí se dá snadněji přizpůsobit potřebám uživatelů, případně skrýt pro uživatele nepodstatné detaily (jako např. rozmístění hardwarových prostředků). Tento software se nazývá hypervisor.\cite{VM_book}
+
+Jak zmiňuje \cite{VM_architektura}, tak existují tyto dva základní typy hypervisorů:
+
+\begin{itemize}
+\item Typ 1 (Nativní) - Tento hypervisor běží přímo na fyzickém hardwaru. Tím umožňuje provozovat více operačních systému na jednom fyzickém stroji. Příkladem takového hypervisoru je VMware ESXi a XEN.
+\item Typ 2 (Hostovaný) - Na rozdíl od předchozího případu tento typ hypervisoru běží v prostředí operačního systému. Příkladem je například KVM či Microsoft Hyper-V
+\end{itemize}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.5]{images/virtualization}
+\par\end{centering}
+\caption{Schéma hypervisorů \label{fig:virtualization}}
+\end{figure}
+
+Obrázek \ref{fig:virtualization} zobrazuje schématický popis obou hypervisoru a jejich rozdíl. Problematika virtualizace je velice rozsáhlá a více informací o ní poskytují zdroje \cite{VM_book} a \cite{VM_architektura}.
+
+Cloud Computing je nejpokročilejší formou virtualizace, kterou v poslední době začala provozovat většina větších organizací, jak ukazuje \cite{Cloud_adoption}. Definici cloud computingu uvádí \cite{Cloud_definice} jako 
+
+Existuje několik modelu nasazení cloudových platforem.
+
+\subsection{Modely nasazení}
+
+\subsection{Distribuční modely}
+
 
 \section{NFV a SDN}
 
 \section{Architektura NFV a VNF}
 
+Jak již bylo zmíněno, tak cílem této práce je navržení 
 V předchozí sekci byla popsána myšlenka a motivace související s virtualizací síťových funkcí. Pro úspěšné splnění těchto záměrů byla v \cite{NFV_architektura} navržena referenční architektura pro framework virtualizace síťových funkcí (NFV framework). !!! Jedná se pouze o funkční návrh bez náznaků konkrétní implementace. 
 
 \begin{figure}[h]
