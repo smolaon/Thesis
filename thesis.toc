@@ -5,25 +5,29 @@
 \contentsline {subsubsection}{\nonumberline Annotation}{v}{section*.4}
 \contentsline {chapter}{\numberline {1}\IeC {\'U}vod}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Z\IeC {\'a}kladn\IeC {\'\i } problematika virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Souvislost NFV a SDN}{4}{section.2.1}
-\contentsline {section}{\numberline {2.2}Architektura NFV a VNF}{4}{section.2.2}
-\contentsline {section}{\numberline {2.3}Management a orchestrace NFV a VNF}{5}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Tosca}{5}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Netconf/Yang}{5}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Heat engine v OpenStacku}{5}{subsection.2.3.3}
-\contentsline {chapter}{\numberline {3}Popis navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i } a pou\IeC {\v z}it\IeC {\'y}ch technologi\IeC {\'\i }}{6}{chapter.3}
-\contentsline {section}{\numberline {3.1}OpenStack}{6}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Heat Templates}{6}{subsection.3.1.1}
-\contentsline {section}{\numberline {3.2}OpenContrail}{6}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Service Chaining}{7}{subsection.3.2.1}
-\contentsline {chapter}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i } navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{8}{chapter.4}
-\contentsline {section}{\numberline {4.1}Testovac\IeC {\'\i } topologie}{8}{section.4.1}
-\contentsline {section}{\numberline {4.2}Testovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce}{8}{section.4.2}
-\contentsline {section}{\numberline {4.3}Heat template pro LbaaS}{9}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Testov\IeC {\'a}n\IeC {\'\i } LbaaS}{10}{subsection.4.3.1}
-\contentsline {section}{\numberline {4.4}Heat template pro FwaaS}{11}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Testov\IeC {\'a}n\IeC {\'\i } FwaaS}{12}{subsection.4.4.1}
-\contentsline {chapter}{\numberline {5}Shrnut\IeC {\'\i } poznatk\IeC {\r u}}{16}{chapter.5}
-\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{17}{chapter.6}
-\contentsline {part}{Literatura}{18}{chapter.6}
-\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.22}
+\contentsline {section}{\numberline {2.1}P\IeC {\v r}\IeC {\'\i }klady vyu\IeC {\v z}it\IeC {\'\i }}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}NFV a Cloud Computing}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}NFV a SDN}{5}{section.2.3}
+\contentsline {section}{\numberline {2.4}Architektura NFV a VNF}{5}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Infrastruktura NFV}{6}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Virtu\IeC {\'a}ln\IeC {\'\i } s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} funkce}{7}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Management a orchestrace NFV}{8}{subsection.2.4.3}
+\contentsline {subsubsection}{\numberline {2.4.3.1}Orchestrator}{8}{subsubsection.2.4.3.1}
+\contentsline {subsubsection}{\numberline {2.4.3.2}VNF manager}{8}{subsubsection.2.4.3.2}
+\contentsline {subsubsection}{\numberline {2.4.3.3}Virtualised Infrastructure Manager}{8}{subsubsection.2.4.3.3}
+\contentsline {chapter}{\numberline {3}Popis navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i } a pou\IeC {\v z}it\IeC {\'y}ch technologi\IeC {\'\i }}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}OpenStack}{9}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Heat Templates}{9}{subsection.3.1.1}
+\contentsline {section}{\numberline {3.2}OpenContrail}{9}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Service Chaining}{10}{subsection.3.2.1}
+\contentsline {chapter}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i } navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Testovac\IeC {\'\i } topologie}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}Testovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce}{11}{section.4.2}
+\contentsline {section}{\numberline {4.3}Heat template pro LbaaS}{12}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Testov\IeC {\'a}n\IeC {\'\i } LbaaS}{13}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Heat template pro FwaaS}{14}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Testov\IeC {\'a}n\IeC {\'\i } FwaaS}{15}{subsection.4.4.1}
+\contentsline {chapter}{\numberline {5}Shrnut\IeC {\'\i } poznatk\IeC {\r u}}{19}{chapter.5}
+\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{20}{chapter.6}
+\contentsline {part}{Literatura}{21}{chapter.6}
+\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.24}
