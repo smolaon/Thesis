@@ -77,9 +77,18 @@ Existuje několik základních modelů nasazení cloud computingu resp. cloudov�
 \end{itemize}
 
 
-\section{NFV a SDN}
+\section{NFV a SDN} \label{sub:SDN}
 
+Softwarově definované sítě (SDN) je další z nových technologii, která se snaží vylepšit a automatizovat správu stávajících počítačových sítí. Dle \cite{SDN_clanek} jde o koncept, ve které je oddělena řídící logika (control plane) z jednotlivých routerů a switchů, které přeposílají traffic (data plane). Tím, že dojde k oddělení datové a řídící vrstvy, se routery a switche stanou pouze přeposílající data a veškerá řídí logika může být implementována v jednom logicky centrálním místě (SDN Controller). Z tohoto centrálního místa lze do jednotlivých routerů a switchů předávat instrukce pomocí aplikačních programovacích rozhraní (API). Samotný SDN Controller také obsahuje API, které mohou využívat aplikace a tím řídit, resp. programovat celou počítačovou síť. Obrázek č. \ref{fig:SDN} úkazuje jednoduché schéma softwarově definovaných sítí.
 
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.60]{images/SDN}
+\par\end{centering}
+\caption{Schéma SDN, převzato z \cite{SDN_clanek}\label{fig:SDN}}
+\end{figure}
+
+Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak se navzájem se doplňují. Fakt, že SDN umožňuje programaticky ovládat počítačovou síť, lze využít pro poskytnutí programovatelné konektivity mezi jednotlivými virtuálními síťovými funkcemi. Naopak SDN může využít NFV tím, že implementuje potřebné síťové funkce jako software. Může tak virtualizovat SDN Controller, který tak může běžet na co nejvíhodnějším místě v datovém centru. Je vidět, že tyto dvě technologie se dobře doplňují, proto jsou často součástí jednoho řešení. \cite{SDN_book}
 
 \section{Architektura NFV a VNF}
 
@@ -125,23 +134,51 @@ Funkci obsaženou v jednotlivých doménách znázorňuje obrázek č. \ref{fig:
 
 \subsection{Virtuální síťová funkce}
 
-Virtuální síťová funkce (VNF) je dle \cite{NFV_VNF} určitá síťová funkce, která běží na NVF infrastruktuře a je zárověň NVF frameworkem řízena a spravována. Zároveň musí mít dobře definovaný interface k ostatním síťovým funkcím, k VNF Managerovi a měla by obsahovat management interface. 
+Virtuální síťová funkce (VNF) je dle \cite{NFV_VNF} určitá síťová funkce, která běží na NVF infrastruktuře a je zárověň NVF frameworkem řízena a spravována. Zároveň musí mít dobře definované rozhraní k ostatním síťovým funkcím, k VNF Managerovi a měla by obsahovat management rozhraní či port. 
 
-Síťové funkce jsou tedy realizovány pomocí virtuálních strojů či dnes již často používaných konteinerů. Zavisí na použité virtualizační platformě. Jedna VNF může být být obsažena v jednom virtuálním stroji nebo může být roztažena přes více virtuálních strojů. 
+Síťové funkce jsou tedy obvykle realizovány pomocí virtuálních strojů či dnes již často používaných konteinerů. Závisí na použité virtualizační platformě. Jedna VNF může být být obsažena v jednom virtuálním stroji nebo může být roztažena přes více virtuálních strojů. 
 
 Na obrázku č. \ref{fig:VNF} je vidět jednoduché schéma virtuální síťové funkce. Celý životní cyklus VNF, což je vytvoření, spuštění, zastavení, smazání a škálování, řídí VNF Manager, který je součástí NVF managementu a orchestrace. Současně je možné dynamicky změnit aktuální konfiguraci pomocí Entity manageru (EM) přes management interface. EM může spravovat více VNF nebo právě jednu. Vnitřní struktura celé instance může být tvořena více komponentami (VNFC), které spolu mohou být navzájem provázány. Toto provázání však nemusí být viditelné zvenčí.
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.65]{images/VNF}
+\includegraphics[scale=0.67]{images/VNF}
 \par\end{centering}
 \caption{Schéma virtuální síťové funkce\label{fig:VNF}}
 \end{figure}
 
+\subsubsection{Service Chaining}
 
+Jednou z výhod NFV je možnost využít Service Chaining. Service chaining je ve skutečnosti součást SDN, které bylo zmíněno v kapitole \ref{sub:SDN}. Jde o princip jakým lze dynamicky pospojovat jednotlivé VNF. \cite{SDN_book}
+
+Service chaining není ve skutečnosti nic nového. V klasických počítačových sítích je používán také, ale pomocí fyzických síťových prvků. Jedná se zjednodušeně o způsob zapojení mezi jednotlivými síťovými prvky (či VNF) a způsob, jakým na sebe navazují. Příklad takového zapojení je vidět na obrázku č. \ref{fig:service_chaining}. Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Potřeba jednotlivých síťových služeb se samozřejmě může v čase měnit. Příklad takové sítě lze nalézt ve většině datových center. 
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.55]{images/service_chaining}
+\par\end{centering}
+\caption{Ukázka klasického service chainigu pomocí fyzických síťových prvků\label{fig:service_chaining}}
+\end{figure}
+
+Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existují jako virtuální stroje, tak mohou být dynamicky nasazovány dle aktuálním požadavků jednotlivých klientů a pomocí SDN mohou být tyto VM dynamicky pospojovány. Obrázek č. \ref{fig:service_chaining_new} ukazuje schéma zapojení, kde každý klient může mít jinou požadovanou cestu do internetu. Je možná i varianta, kde každý klient má své vlastní VNF s jinou konfigurací.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.55]{images/service_chaining_new}
+\par\end{centering}
+\caption{Ukázka VNF service chainigu\label{fig:service_chaining_new}}
+\end{figure}
 
 \subsection{Management a orchestrace NFV}
 
+Management a orchestrace virtualizace síťových funkcí (NFV MANO) je nejdůležitější celého NFV frameworku. 
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.65]{images/VNF}
+\par\end{centering}
+\caption{Schéma NFV MANO\label{fig:VNF}}
+\end{figure}
 
 
 	\subsubsection{Orchestrator}
