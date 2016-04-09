@@ -53,21 +53,37 @@ Jak zmiňuje \cite{VM_architektura}, tak existují tyto dva základní typy hype
 
 Obrázek \ref{fig:virtualization} zobrazuje schématický popis obou hypervisoru a jejich rozdíl. Problematika virtualizace je velice rozsáhlá a více informací o ní poskytují zdroje \cite{VM_book} a \cite{VM_architektura}.
 
-Cloud Computing je nejpokročilejší formou virtualizace, kterou v poslední době začala provozovat většina větších organizací, jak ukazuje \cite{Cloud_adoption}. Definici cloud computingu uvádí \cite{Cloud_definice} jako 
+Cloud Computing je nejpokročilejší formou virtualizace, kterou v poslední době začala provozovat většina větších organizací, jak ukazuje \cite{Cloud_adoption}. Cloud Computing má mnoho definic. V \cite{Cloud_book} je uvedeno, že se jedná o model, ve kterém lze uchovávat a poskytovat výpočetní zdroje, které jsou dostupné pomocí počítačové sítě s tím, že uživatelé k nim mohou přistupovat vzdáleně. Virtualizace síťových služeb umístěná v datových centrech je přímo svázaná s touto technologii. Z tohoto důvodu zde bude podrobněji popsán jejich vztah.
 
-Existuje několik modelu nasazení cloudových platforem.
+\subsection{Distribuční modely}
+
+Dle \cite{CloudSurvey} lze cloudové služby lze rozdělit do 3 základních kategorii. V \cite{NFV_use_cases} jsou k těmto kategorii přiřazeny příklady užití z oblasti virtualizace síťových funkcí. 
+
+\begin{itemize}
+\item Infrastracture as a Service (IaaS) - Nejzákladnější  model  poskytování  cloudových  služeb. IaaS cloudové platformy nabízejí například výpočetní výkon, virtuální disky, blokové a souborové úložiště či virtuální sítě.  Poskytovatelé  IaaS  cloudových  platforem  poskytují tyto zdroje na vyžádání ze svých datových center. Toto je možné díky skupiny hypervisorů v rámci cloudu, které mohou provozovat velké množství virtuálních strojů  a  mají  schopnost  škálovat  poskytované  služby v  závislosti  na  měnících  se požadavcích přicházejících od zákazníků. Tento model může tedy sloužit i pro poskytnutí všech potřebných zdrojů celé infrastruktury pro virtualizaci síťových prvků, neboli Network Function Virtualization Infrastrakture as a Service. Zde má uživatel pod nejvíce možností, jak navrhnout a spravovat virtuální síťové funkce, protože vzásadě dokáže nasazovat i vlastně navržené síťové funkce a nejen ty, které mu poskytuje provozovatel cloudu.
+\item Platform as a Service (PaaS) - V  modelu  Platforma  jako  služba  (PaaS)  hostují  poskytovatelé cloudových  služeb určitou počítačovou  platformu, kterou následně poskytují koncovým uživatelům přes Internet. Tato platforma většinou bývá prostředí nějakého operačního systému, prostředí  pro  běh  určitého programovacího  jazyka,  databáze  a  webový  server.  Vývojáři  aplikací tím pádem  mohou provozovat a případně vyvíjet svá softwarová řešení bez výrazných nákladů a složitého nákupu a konfiguraci potřebného hardwaru a softwaru. Některé PaaS platformy nastavuje výpočetní  a  úložné  prostředky  aplikace  automaticky  tak,  aby  odpovídala  aktuálním požadavkům aplikace bez nutnosti zásahu zákazníka. NVF v tomto modelu může nabízet síťové služby, které se mohou skládat z více virtuálních síťových funkcí, neboli Virtual Network Platform as a Service. Zde je poskytnuta uživately velká kontrola nad konfigurací a ovládáním celé platformy.
+\item Software as a Servicec (SaaS) - V modelu SaaS provozují poskytovatelé cloudových služeb aplikační software v cloudu a uživatelé  k  tomuto  softwaru  přistupují  pomocí  klientského  software  (např.  webové prohlížeče). Uživatelé  cloudu tedy  nespravují infrastrukturu  ani platformu, kde aplikace běží.  Není  proto  třeba zde nic instalovat  a  spouštět  aplikace  na  vlastních  počítačích uživatele, což velmi zjednodušuje údržbu. Cloudové aplikace se liší od ostatních aplikací v možnostech  škálování, kterého  může  být  dosaženo  díky  distribuci  úkolů  na  více virtuálních strojů, a tím reagovat na měnící se poptávku. Tento proces je pro uživatele služby transparentní, uživatel vidí pouze jeden přístupový bod pro danou aplikaci. Do této kategorie služeb může patřit poskytování virtuálních síťových funkcí, která je pouze ve formě softwarové aplikace, neboli VNFaaS. Takovéto aplikace poskytují síťovou funkci pro síťové správce a uživatele nejčastěji v privatním cloudu. 
+\end{itemize}
 
 \subsection{Modely nasazení}
 
-\subsection{Distribuční modely}
+Existuje několik základních modelů nasazení cloud computingu resp. cloudových platforem, které uvádí \cite{CloudSurvey}. V \cite{NFV_use_cases} lze k nim opět najít určité příklady z oblasti virtualizace síťových funkcí.
+
+\begin{itemize}
+\item Privátní cloud - Privátní cloud je  infrastruktura  provozována  výhradně  v  rámci  jedné  organizace. Může být spravován interně nebo prostřednictvím třetí strany a hostování může být opět interní nebo externí.  Aby  mohl  podnik  využít  privátní  cloud,  musí  nejprve  navrhnout a uzpůsobit k tomuto účelu svoji stávající infrastrukturu, která musí být virtualizována.  Vlastní  přechod  vyvolává  řadu  bezpečnostních  otázek,  které  je třeba řešit, aby se zabránilo vážným zranitelnostem celého řešení. Privátní cloud je přesně ten typ modelu, kde lze najít využití pro virtualizaci síťových funkcí.
+\item Veřejný cloud - Veřejné cloudové jsou cloudové služby, jako jsou aplikace, výpočetní výkon, úložiště a další, které jsou k dispozici široké  veřejnosti.  Služby  jsou  poskytovány  zdarma  nebo  podle modelu  platby  za  množství  použitých  služeb.  Je  zvykem,  že  veřejní  poskytovatelé cloudových  služeb,  jako  je  Amazon  AWS,  Microsoft  nebo  Google,  vlastní  a  provozují hardwarovou infrastrukturu a nabízejí k ní přístup pouze přes Internet. V tomto modelu není očekáváno využívání NFV.
+\item Hybridní cloud - Hybridní  cloud je  spojení  dvou  nebo  více  cloudů  (soukromých,  komunitních  nebo veřejných),  které  zůstávají  samostatné,  ale  jsou  těsně  propojeny.  Toto  složení  rozšiřuje možnosti  nasazení  cloudových  služeb  a  tím  umožňuje  IT  organizacím  využít  veřejné cloudové prostředky k uspokojení dočasných potřeb. Tato schopnost umožňuje hybridním cloudům škálovat přes více nezávislých cloudů. V tomto modelu může být využito NFV především na straně soukromého cloudu.
+\item Komunitní cloud - V rámci komunitního cloudu sdílí infrastrukturu cloudu několik organizací, které mají společné zájmy (bezpečnost, dodržování předpisů, působnost, atd.). Komunitní cloud může být spravován interně nebo prostřednictvím třetí strany. Náklady jsou rozloženy mezi méně uživatelů než na veřejném cloudu. V tomto modelu může být využito NVF, pokud se provozovatelé takovéhoto cloudu domluví. 
+\end{itemize}
 
 
 \section{NFV a SDN}
 
+
+
 \section{Architektura NFV a VNF}
 
-Jak již bylo zmíněno, tak cílem této práce je navržení 
-V předchozí sekci byla popsána myšlenka a motivace související s virtualizací síťových funkcí. Pro úspěšné splnění těchto záměrů byla v \cite{NFV_architektura} navržena referenční architektura pro framework virtualizace síťových funkcí (NFV framework). !!! Jedná se pouze o funkční návrh bez náznaků konkrétní implementace. 
+V předchozí sekci byla popsána myšlenka a motivace související s virtualizací síťových funkcí. Protože cílem této práce je navržení jednoduchého NFV frameworku, tak je nejprve nutné se seznámit s jeho obecnou architekturou. V této práci se bude vycházet z referenční architektury NVF \cite{NFV_architektura}, která byla navržena organizací ETSI. Jedná se pouze o funkční návrh bez náznaků konkrétní implementace. Od této skupiny existují i podrobnější návrhy jednotlivých částí celého NFV frameworku, které v této práci budou také popsány v příslušných kapitolách.
 
 \begin{figure}[h]
 \begin{centering}
