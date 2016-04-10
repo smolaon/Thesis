@@ -123,7 +123,7 @@ Pro zjednodušení lze celou NFV infrastrukturu rozdělit do 3 následujících 
 \item Infrastructure Network Domain - V této doméně je řešeno veškeré propojení výše zmíněných domén. Tedy fyzické i virtuální infrastruktury.\cite{NFV_network}
 \end{itemize}
 
-Funkci obsaženou v jednotlivých doménách znázorňuje obrázek č. \ref{fig:infrastruktura}. Detailní popis těchto domén je nad rámec této práce. Více informací na tuto problematiku lze nalézt v \cite{NFV_infrastructure} a ve zdrojích uvedených u každé domény. Dá se však říci, že návrh infrastruktury pro NVF je podobný jako pro návrh infrastruktury pro cloud computing platformu. Měl by se tedy skládat z generických a komerčně vysoce dostupných serverů, na které je nasazen jeden z dostupných hypervisorů jako je např. KVM, Hyper-V či VMware. Tyto servery by následně měli být zapojeny do switche a tím by měla být zajištěna konektivita. 
+Funkci obsaženou v jednotlivých doménách znázorňuje obrázek č. \ref{fig:infrastruktura}. Více informací na tuto problematiku lze nalézt v \cite{NFV_infrastructure} a ve zdrojích uvedených u každé domény. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -131,6 +131,8 @@ Funkci obsaženou v jednotlivých doménách znázorňuje obrázek č. \ref{fig:
 \par\end{centering}
 \caption{Schéma NFV infrastruktury\label{fig:infrastruktura}}
 \end{figure}
+
+Dá se říci, že návrh infrastruktury pro NVF je podobný jako pro návrh infrastruktury pro cloud computing platformu. Měl by se tedy skládat z generických a komerčně vysoce dostupných serverů, které by měli být zapojeny do switche a tím by měla být zajištěna konektivita. Na tyto servery je následně nasazen jeden z dostupných hypervisorů. Výběr správného hypervisoru, které jsou v současné době dostupné na trhu, je hlavní podmínka správného a funkčního návrhu této části NFV frameworku. Přehled hypervisorů je uveden v kapitole \ref{sub:Hypervisor}. V produkčním prostředí by součástí řešení bylo samozřejmě řešení síťového návrhu. Tato práce však má sloužit pouze jako ukázka a z tohoto důvodu zde nebude síťový návrh zmíněn.
 
 \subsection{Virtuální síťová funkce}
 
@@ -189,7 +191,24 @@ Management a orchestrace virtualizace síťových funkcí (NFV MANO) je nejdůle
 
 
 
+\section{Možné technologie pro řešení}
 
+\subsection{Hypervisory} \label{sub:Hypervisor}
+
+KVM, Hyper-V, VMware ESXi
+
+
+\subsection{VNF}
+
+Juniper vSRX, Fortigate VM, PFSense, Cisco ASAv, Vyatta, M0n0wall, OpenStack Neutron HAproxy
+
+\subsection{Cloud platforma}
+
+OpenStack, VMware
+
+\subsection{SDN}
+
+OpenContrail, VMware
 
 
 

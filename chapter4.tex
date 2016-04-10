@@ -30,27 +30,8 @@ Aby mohla být nějaká VNF vůbec vytvořena, tak musel být nejprve zvolen sof
 
 Následující diagram znázorňuje logickou architekturu navrženého řešení dle referenční architektury zmíněné v kapitole 2.4. OpenStack spolu s OpenContrailem poskytují NFV infrastrukturu jednotlivé VNF jsou řízeny pomocí Heat.
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.51]{images/VNF_overview}
-\par\end{centering}
-\caption{Architektura NFV řešení\label{fig:VNF_overview}}
-\end{figure}
 
-\section{Heat template pro LbaaS}\label{sub:interaction}
-
-Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, které se po spuštění pokusí vytvořit.
-
-\begin{itemize}
-\item pool
-\item members
-\item health monitoring
-\item 2 web instance
-\item privatni síť
-\item public síť
-\end{itemize}
-
-\subsection{Testování LbaaS}\label{sub:interaction}
+\section{Testování LbaaS}\label{sub:interaction}
 
 Pro vytvoření heat stacku s Load balancerem je nutné daný template vytvořit pomocí příkazu:
 
@@ -101,21 +82,8 @@ Otestování webových serverů lze provést příkazem curl, kterému dáme jak
 \end{figure}
 
 
-\section{Heat template pro FwaaS}\label{sub:interaction}
 
-Pro FwaaS je narhnut heat template, který obsahuje:
-
-\begin{itemize}
-\item 1 firewall instanci
-\item 1 testovaci instanci
-\item 1 management instanci
-\item management síť
-\item privátní síť
-\item contrail policy
-\end{itemize}
-
-
-\subsection{Testování FwaaS}\label{sub:interaction}
+\section{Testování FwaaS}\label{sub:interaction}
 
 Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
 
@@ -174,3 +142,8 @@ There is also NAT session in pfsense. In shell run command:
 \par\end{centering}
 \caption{Test konektivity\label{fig:fortigate_ping}}
 \end{figure}
+
+
+\subsection{Fortigate VM}
+
+\subsection{PFSense}

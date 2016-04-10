@@ -1,14 +1,30 @@
 \chapter{Popis navrženého řešení a použitých technologií}
 
+
+\section{Architektura navrženého řešení}
+
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.51]{images/VNF_overview}
+\par\end{centering}
+\caption{Architektura NFV řešení\label{fig:VNF_overview}}
+\end{figure}
+
+
 \section{OpenStack}\label{sub:interaction}
 
 Popis Openstacku
 
-\subsection{Heat Templates}
+OpenStack Heat Templates are used to demonstrate load balancing and firewalling inside of Openstack.
 
-Popis co jsou to heat templates.
+\section{OpenContrail}\label{sub:interaction}
 
-Heat is the main project of the OpenStack orchestration program. It allows users to describe deployments of complex cloud applications in text files called templates. These templates are then parsed and executed by the Heat engine.
+Popis OpenContrailu.
+
+
+\section{Heat Templates}
+
 
 \begin{figure}[h]
 \begin{centering}
@@ -17,13 +33,35 @@ Heat is the main project of the OpenStack orchestration program. It allows users
 \caption{Popis heat orchestrace\label{fig:heat}}
 \end{figure}
 
-OpenStack Heat Templates are used to demonstrate load balancing and firewalling inside of Openstack.
+Popis co jsou to heat templates.
 
-\section{OpenContrail}\label{sub:interaction}
+Heat is the main project of the OpenStack orchestration program. It allows users to describe deployments of complex cloud applications in text files called templates. These templates are then parsed and executed by the Heat engine.
 
-Popis OpenContrailu.
+\subsection{FwaaS template}
 
-\subsection{Service Chaining}
+Pro FwaaS je narhnut heat template, který obsahuje:
 
-Popis service chaining v contrail a service instanci.
-a jak to může být využito pro VNF.
+\begin{itemize}
+\item 1 firewall instanci
+\item 1 testovaci instanci
+\item 1 management instanci
+\item management síť
+\item privátní síť
+\item contrail policy
+\end{itemize}
+
+
+
+\subsection{LbaaS template}
+
+
+Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, které se po spuštění pokusí vytvořit.
+
+\begin{itemize}
+\item pool
+\item members
+\item health monitoring
+\item 2 web instance
+\item privatni síť
+\item public síť
+\end{itemize}
