@@ -16,15 +16,20 @@
 \contentsline {section}{\numberline {2.4}Mo\IeC {\v z}n\IeC {\'e} technologie pro \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{14}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}Hypervisory}{14}{subsection.2.4.1}
 \contentsline {subsection}{\numberline {2.4.2}VNF}{14}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Cloud platforma}{14}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.3}Cloud platforma}{15}{subsection.2.4.3}
 \contentsline {subsection}{\numberline {2.4.4}SDN}{15}{subsection.2.4.4}
 \contentsline {chapter}{\numberline {3}Popis navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i } a pou\IeC {\v z}it\IeC {\'y}ch technologi\IeC {\'\i }}{16}{chapter.3}
 \contentsline {section}{\numberline {3.1}Architektura navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{16}{section.3.1}
-\contentsline {section}{\numberline {3.2}OpenStack}{16}{section.3.2}
-\contentsline {section}{\numberline {3.3}OpenContrail}{16}{section.3.3}
+\contentsline {subsection}{\numberline {3.1.1}OpenStack}{16}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}OpenContrail}{16}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Firewall as a Service}{17}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} NAT}{17}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} Service Chaining}{17}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} HA firewall}{17}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Load balancer as a Service}{17}{section.3.3}
 \contentsline {section}{\numberline {3.4}Heat Templates}{17}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}FwaaS template}{17}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}LbaaS template}{17}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.2}LbaaS template}{18}{subsection.3.4.2}
 \contentsline {chapter}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i } navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{19}{chapter.4}
 \contentsline {section}{\numberline {4.1}Testovac\IeC {\'\i } topologie}{19}{section.4.1}
 \contentsline {section}{\numberline {4.2}Testovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce}{19}{section.4.2}
