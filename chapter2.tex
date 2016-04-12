@@ -1,6 +1,14 @@
 \chapter{Základní problematika virtualizace síťových funkcí}
 Jak již vyplývá z názvu, tak tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuální síťových funkcí. 
 
+Pro lepší pochopení a přehlednost celé této práce zde budou rozlišeny následující pojmy, se kterými se lze také setkat v odborné literatuře a které budou dále v této práci používány. 
+
+\begin{itemize}
+\item Síťová funkce (Network function - NF) - Toto je komponenta síťové infrastruktury, která má dobře definované funkční chování, jako například směrování, NAT, Load balancing, Intrusion detection, atd.
+\item Virtuální síťové funkce (Virtual network function - VNF) - Je stejná jako NF, ale zde je funkčnost implementována pomocí softwaru a je nezávislá na hardwaru, na kterém běží.
+\item Virtualizace síťových funkcí (Network Functions Virtualization - NFV) - Zde se jedná o označení celého konceptu či frameworku.
+\end{itemize}
+
 Produkční vývoj v telekomunikačním průmyslu se tradičně řídil přísnými standardy kvůli stabilitě a kvalitě komunikace. Přestože tento model v minulosti fungoval, tak vedl nevyhnutelně k dlouhým produkčním cyklům, pomalému tempu vývoje a spoléhání se na proprietární či specializovaný hardware. S příchodem výrazné konkurence v komunikačních službách, od rychle postupujících organizací operujících ve velkém měřítku na veřejném internetu, podnítil poskytovatele služeb pro hledat nových způsobů, jak změnit dosavadní způsob produkčního vývoje.
 
 Pro vyřešení toho problému bylo navrženo v publikacích \cite{NFV_paper2012} a \cite{NFV_paper2013} skupinou několika telekomunikačních provozovatelů řešení ve formě virtualizace síťových funkcí (network functions virtualization). Toto řešení má za cíl zlepšit následující aspekty provozu telekomunikačních sítí:
@@ -23,13 +31,7 @@ Jak je uvedeno v \cite{NFVState} a \cite{NFVChalanges}, tak celá myšlenka je z
 
 Z zmínění stojí poznámka v \cite{NFVState}, kde je řečeno, že obecný koncept oddělení síťové funkce od hardwaru ještě nutně neznamená potřebu využití virtualizace. Protože budou síťové funkce dostupně jako software, tak mohou být nainstalovány a provozovány přímo na fyzickém stroji. Ovšem rozdíl je, že tento stroj již nebude speciální hardware, ale klasický server. Tento scénář může být do jisté míry použit při nasazovaní síťových funkcí v malém měřítku např. v uživatelských koncových bodech. Avšak pro plné využití všech výše zmíněných výhod, které jsou třeba ve velkých datových centrech, je třeba s použitím virtualizace počítat. To vše umocňuje fakt, že většina datových center v současnosti již využívá cloud computing.
 
-Pro lepší pochopení a přehlednost celé této práce zde budou rozlišeny následující pojmy, se kterými se lze také setkat v odborné literatuře a které budou dále v této práci používány. 
-
-\begin{itemize}
-\item Síťová funkce (Network function - NF) - Toto je komponenta síťové infrastruktury, která má dobře definované funkční chování, jako například směrování, NAT, Load balancing, Intrusion detection, atd.
-\item Virtuální síťové funkce (Virtual network function - VNF) - Je stejná jako NF, ale zde je funkčnost implementována pomocí softwaru a je nezávislá na hardwaru, na kterém běží.
-\item Virtualizace síťových funkcí (Network Functions Virtualization - NFV) - Zde se jedná o označení celého konceptu či frameworku.
-\end{itemize}
+\section{Síťové prvky}
 
 \section{NFV a Cloud Computing}
 
@@ -90,6 +92,29 @@ Softwarově definované sítě (SDN) je další z nových technologii, která se
 
 Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak se navzájem se doplňují. Fakt, že SDN umožňuje programaticky ovládat počítačovou síť, lze využít pro poskytnutí programovatelné konektivity mezi jednotlivými virtuálními síťovými funkcemi. Naopak SDN může využít NFV tím, že implementuje potřebné síťové funkce jako software. Může tak virtualizovat SDN Controller, který tak může běžet na co nejvíhodnějším místě v datovém centru. Je vidět, že tyto dvě technologie se dobře doplňují, proto jsou často součástí jednoho řešení. \cite{SDN_book}
 
+
+\subsection{Service Chaining}
+
+Jednou z výhod NFV je možnost využít Service Chaining. Service chaining je ve skutečnosti součást SDN, které bylo zmíněno v kapitole \ref{sub:SDN}. Jde o princip jakým lze dynamicky pospojovat jednotlivé VNF. \cite{SDN_book}
+
+Service chaining není ve skutečnosti nic nového. V klasických počítačových sítích je používán také, ale pomocí fyzických síťových prvků. Jedná se zjednodušeně o způsob zapojení mezi jednotlivými síťovými prvky (či VNF) a způsob, jakým na sebe navazují. Příklad takového zapojení je vidět na obrázku č. \ref{fig:service_chaining}. Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Potřeba jednotlivých síťových služeb se samozřejmě může v čase měnit. Příklad takové sítě lze nalézt ve většině datových center. 
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.55]{images/service_chaining}
+\par\end{centering}
+\caption{Ukázka klasického service chainigu pomocí fyzických síťových prvků\label{fig:service_chaining}}
+\end{figure}
+
+Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existují jako virtuální stroje, tak mohou být dynamicky nasazovány dle aktuálním požadavků jednotlivých klientů a pomocí SDN mohou být tyto VM dynamicky pospojovány. Obrázek č. \ref{fig:service_chaining_new} ukazuje schéma zapojení, kde každý klient může mít jinou požadovanou cestu do internetu. Je možná i varianta, kde každý klient má své vlastní VNF s jinou konfigurací.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.55]{images/service_chaining_new}
+\par\end{centering}
+\caption{Ukázka VNF service chainigu\label{fig:service_chaining_new}}
+\end{figure}
+
 \section{Architektura NFV a VNF}
 
 V předchozí sekci byla popsána myšlenka a motivace související s virtualizací síťových funkcí. Protože cílem této práce je navržení jednoduchého NFV frameworku, tak je nejprve nutné se seznámit s jeho obecnou architekturou. V této práci se bude vycházet z referenční architektury NVF \cite{NFV_architektura}, která byla navržena organizací ETSI. Jedná se pouze o funkční návrh bez náznaků konkrétní implementace. Od této skupiny existují i podrobnější návrhy jednotlivých částí celého NFV frameworku, které v této práci budou také popsány v příslušných kapitolách.
@@ -149,31 +174,10 @@ Na obrázku č. \ref{fig:VNF} je vidět jednoduché schéma virtuální síťov�
 \caption{Schéma virtuální síťové funkce\label{fig:VNF}}
 \end{figure}
 
-\subsubsection{Service Chaining}
-
-Jednou z výhod NFV je možnost využít Service Chaining. Service chaining je ve skutečnosti součást SDN, které bylo zmíněno v kapitole \ref{sub:SDN}. Jde o princip jakým lze dynamicky pospojovat jednotlivé VNF. \cite{SDN_book}
-
-Service chaining není ve skutečnosti nic nového. V klasických počítačových sítích je používán také, ale pomocí fyzických síťových prvků. Jedná se zjednodušeně o způsob zapojení mezi jednotlivými síťovými prvky (či VNF) a způsob, jakým na sebe navazují. Příklad takového zapojení je vidět na obrázku č. \ref{fig:service_chaining}. Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Potřeba jednotlivých síťových služeb se samozřejmě může v čase měnit. Příklad takové sítě lze nalézt ve většině datových center. 
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.55]{images/service_chaining}
-\par\end{centering}
-\caption{Ukázka klasického service chainigu pomocí fyzických síťových prvků\label{fig:service_chaining}}
-\end{figure}
-
-Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existují jako virtuální stroje, tak mohou být dynamicky nasazovány dle aktuálním požadavků jednotlivých klientů a pomocí SDN mohou být tyto VM dynamicky pospojovány. Obrázek č. \ref{fig:service_chaining_new} ukazuje schéma zapojení, kde každý klient může mít jinou požadovanou cestu do internetu. Je možná i varianta, kde každý klient má své vlastní VNF s jinou konfigurací.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.55]{images/service_chaining_new}
-\par\end{centering}
-\caption{Ukázka VNF service chainigu\label{fig:service_chaining_new}}
-\end{figure}
 
 \subsection{Management a orchestrace NFV}
 
-Management a orchestrace virtualizace síťových funkcí (NFV MANO) je nejdůležitější část celého NFV frameworku. Je tomu tak, protože MANO zajišťuje správné fungování NFV infrastruktury i jednotlivých virtuálních síťových funkcí. MANO také poskytuje funkce nutné pro provisioning VNF a související operace, jako je jejich konfigurace jednotlivých VNF a infrastruktury, na které běží. Zároveň spravuje a řídí životní cyklus fyzických a virtuálních zdrojů, které slouží pro podporu VNF. \cite{NFV_MANO}
+Management a orchestrace virtualizace síťových funkcí (NFV MANO) je nejdůležitější část celého NFV frameworku. Je tomu tak, protože MANO zajišťuje správné fungování NFV infrastruktury i jednotlivých virtuálních síťových funkcí. MANO také poskytuje funkce nutné pro provisioning VNF a související operace, jako je jejich konfigurace jednotlivých VNF a infrastruktury, na které běží. Zároveň spravuje a řídí životní cyklus fyzických a virtuálních zdrojů, které slouží pro podporu VNF. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -182,26 +186,68 @@ Management a orchestrace virtualizace síťových funkcí (NFV MANO) je nejdůle
 \caption{Schéma NFV MANO\label{fig:MANO}}
 \end{figure}
 
-	\subsubsection{Orchestrator}
+Jak vyplívá z obrázku č. \ref{fig:MANO}, tak refenreční návrh MANO dle \cite{NFV_MANO} se skládá ze hlavních 3 částí, které se zábývájí správnou jednotlivých vrstev NFV frameworku.
 
-	\subsubsection{VNF manager}
+\begin{itemize}
 
-	\subsubsection{Virtualised Infrastructure Manager}
+\item Virtualized infrastructure manager (VIM) - Řídí a spravuje fyzické a virtuální zdroje v jedné doméně infrastuktury. Celková infrastruktura se může skládat z více domén a každá musí mít svůj VIM. Jeho typickými úlohami jsou vytvýření, udržování a uvolňování VM na dostupných zdrojích v doméně. Zároveň musí mít přehled o všech těchto a stavu hardwarových zdrojů.
+
+\item VNF manager - Dohlíží na lifecycle management jednotlivých VNF instancí. To znamená, že výtváří, udržuke a ukončuje VNF instance, které běží na jednotlivých VM (ty však spravuje VIM). Opět může existovat více VNF managerů, kteří mohou spravovat jednu či více VNF.
+
+\item NFV orchestator - Zjednodušeně slouží jako řízení a správu všech VIM a všech VNF managerů. Pomocí komunikace s VIM dokáže spravovat dostupné zdroje a pomocí komunikace s VNF managery dokáže řídit síťové služby. Jeho další funkcí je i přehled všech dostupných VNF, neboli katalog VNF, a registrace nových VNF do tohoto katalogu. Ten je pak dostupný uživatelům.
+\end{itemize}
+
+Celý systém je navržen tak, že by měl pracovat společńě se stavajícími aplikacemi a systémi, které potencionální uživatelé používají pro provoz své infastuktury a podnikových procesů (Operation support system).
+
+V oblasti NFV MANO probíhá v součastnosti rozsáhlí vývoj a existuje několik projektů, které se tím zabývají. V článek \cite{NFV_orchestration} je nabídnut zajímavý přehled.
+
 
 \section{Možné technologie pro řešení}
 
+V předchozí části byla popsána referenční architektura, kterou navrhla ETSI. V té jsou specifikovány funkční požadavky a nastíněny potřebná rozhraní. Přesto lze tento návrh považovat za poněkud omezený v rozsahu. Není v něm například definována řízení a správa starších zařízení, což může velice zkomplikovat provoz síťové infrastruktury, která se skládá z VNF i těchto starších zařízení. Kromě toho standardy a referenční implementace VNF, infrastruktury, a MANO pozatím nejsou k dispozici.
+
+Z tohoto důvodu následuje návrh možnosti pro každou z oblastí architektury, které v součastnosti mohou sloužit jako její řešení.
+
+
 \subsection{Hypervisory} \label{sub:Hypervisor}
 
-KVM, Hyper-V, VMware ESXi
+Hypervizor je hlavní součástí návrhu NVF. Zde je přehled těch nejpoužívanějších.
+
+\begin{itemize}
+\item XEN
+\item KVM
+\item Hyper-V
+\item WMware ESXi
+\end{itemize}
 
 \subsection{VNF}
 
-Juniper vSRX, Fortigate VM, PFSense, Cisco ASAv, Vyatta, M0n0wall, OpenStack Neutron HAproxy
+Pokud se podíváme na trh s VNF u některých vendorů, tak zjistíme, že mnozí poskytují virtuální instance, které se dají použít pro účely VNF v této práci. Tato práce je zaměřena především na funkce firewallu a proto zde jsou uvedy příklady pouze pro ně.
+
+\begin{itemize}
+\item Juniper vSRX
+\item Fortigate VM
+\item PFSense
+\item Cisco ASAv
+\item M0n0wall
+\end{itemize} 
 
 \subsection{Cloud platforma}
 
-OpenStack, VMware
+Pro účely vytvoření infrastruktury, a vůbec možnost využití NFV v datovém centru, je nutná cloudová platforma.
+
+\begin{itemize}
+\item OpenStack
+\item VMware
+\end{itemize} 
 
 \subsection{SDN}
 
-OpenContrail, VMware
+Součástí řešení pro datové centrum je dnes i SDN. Zde můžete vidět dvě nejpoužívanější řešení.
+
+\begin{itemize}
+\item OpenContrail
+\item VMware
+\end{itemize} 
+
+
