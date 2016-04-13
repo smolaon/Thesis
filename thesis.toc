@@ -25,7 +25,7 @@
 \contentsline {subsection}{\numberline {3.3.2}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} Service Chaining}{19}{subsection.3.3.2}
 \contentsline {subsection}{\numberline {3.3.3}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} HA firewall}{19}{subsection.3.3.3}
 \contentsline {section}{\numberline {3.4}Heat Templates}{19}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}FwaaS template}{20}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.1}FwaaS template}{19}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}LbaaS template}{20}{subsection.3.4.2}
 \contentsline {chapter}{\numberline {4}Testov\IeC {\'a}n\IeC {\'\i } navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{21}{chapter.4}
 \contentsline {section}{\numberline {4.1}Testovac\IeC {\'\i } topologie}{21}{section.4.1}

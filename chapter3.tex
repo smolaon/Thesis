@@ -1,4 +1,4 @@
-\chapter{Popis navrženého řešení}
+\chapter{Popis navržených řešení}
 
 V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Nejprve zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře a způsob jakým jsou navrženy.
 
@@ -17,6 +17,8 @@ OpenStack byl zvolen, protože se jedná o největší open-source cloudovou pla
 
 Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterémi mohou být jednotlivé VM a VNF dynamicky spojovány.
 
+Jednou z částí OpenStacku je i Heat engine. Ten bude v tomto návrhu zastávat roli VFN manager, pomocí kterého budou jednotlivé VNF spravováný.
+
 Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to zdůvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato čast potřeba. 
 
 
@@ -26,7 +28,7 @@ První VNF, která byla pro uživatele navržena, je Load balancing.
 
 Součástí OpenStacku je Neutron HAproxy. Ta může sloužit 
 
-Obrázek pro matta + scénář
+Obrázek + scénář
 První síťovou funkcí, která může být  
 
 \section{Firewall as a Service}
@@ -37,12 +39,7 @@ První síťovou funkcí, která může být
 
 \subsection{Scénář HA firewall}
 
-
-
-
 \section{Heat Templates}
-
-
 
 \begin{figure}[h]
 \begin{centering}
@@ -68,10 +65,7 @@ Pro FwaaS je narhnut heat template, který obsahuje:
 \item contrail policy
 \end{itemize}
 
-
-
 \subsection{LbaaS template}
-
 
 Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, které se po spuštění pokusí vytvořit.
 
