@@ -1,11 +1,10 @@
 \chapter{Popis navrženého řešení}
 
-V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Bude zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře, způsob jakým jsou navrženy a způsob jakým mohou uživatelé tyto virtuální síťově funkce spravovat.
+V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Nejprve zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře a způsob jakým jsou navrženy.
 
 \section{Architektura navrženého řešení}
 
-Architektura navrženého řešení vychází z referenční architektury popsané v kapitole \ref{sub:architektura}. Jak je vidět na obrázku č. \ref{fig:VNF_overview}
-
+Architektura navrženého řešení byla implementována pomocí cloudové platformy OpenStack a SDN řešení OpenContrail. Obrázku č. \ref{fig:VNF_overview} znázorňuje tyto technologie v souvislosti s referenční architekturou popsanou v kapitole \ref{sub:architektura}. Je nutné říci, že obě technologie nezapadají přímo do jedné z částí referenční architektury. Naopak v některých případech se překrývají či některou část neimplementují vůbec.
 
 \begin{figure}[h]
 \begin{centering}
@@ -14,20 +13,23 @@ Architektura navrženého řešení vychází z referenční architektury popsan
 \caption{Architektura NFV řešení\label{fig:VNF_overview}}
 \end{figure}
 
+OpenStack byl zvolen, protože se jedná o největší open-source cloudovou platformu. OpenStack tvoří část správy infrastuktury. Hardwarová vrstva insfrastruktury se může skládat z libovolných serverů, na kterých KVM hypervizor. Tento hypervizor tvoří virtuální vrsvu a byl vybrán, protože je nejčastěji používán společně s OpenStackem. Avšak v případě potřeby by zde mohl být použit i jiný, pokud bude zachována kompatibilita vůči OpenStacku.
 
-\subsection{OpenStack}\label{sub:interaction}
+Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterémi mohou být jednotlivé VM a VNF dynamicky spojovány.
 
-Popis Openstacku
+Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to zdůvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato čast potřeba. 
 
-OpenStack Heat Templates are used to demonstrate load balancing and firewalling inside of Openstack.
 
-\subsection{OpenContrail}\label{sub:interaction}
+\section{Load balancer as a Service}
 
-Popis OpenContrailu.
+První VNF, která byla pro uživatele navržena, je Load balancing. 
 
+Součástí OpenStacku je Neutron HAproxy. Ta může sloužit 
+
+Obrázek pro matta + scénář
+První síťovou funkcí, která může být  
 
 \section{Firewall as a Service}
-
 
 \subsection{Scénář NAT}
 
@@ -36,9 +38,6 @@ Popis OpenContrailu.
 \subsection{Scénář HA firewall}
 
 
-\section{Load balancer as a Service}
-
-Popis funkce load balanceru v 
 
 
 \section{Heat Templates}
