@@ -2,6 +2,15 @@
 
 V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Nejprve zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře a způsob jakým jsou navrženy.
 
+\section{Požadavky na VNF řešení}
+
+\begin{itemize}
+\item Univerzálnost - Celé řešení musí být postavené tak, aby ho mohli využívat všichni uživatelé dané cloudové platformy. 
+\item Jednoduchost - 
+\item Otevřenost a Flexibilita - 
+\item Kompatibilita se stávající síťovými prvky - 
+\end{itemize}
+
 \section{Architektura navrženého řešení}
 
 Architektura navrženého řešení byla implementována pomocí cloudové platformy OpenStack a SDN řešení OpenContrail. Obrázku č. \ref{fig:VNF_overview} znázorňuje tyto technologie v souvislosti s referenční architekturou popsanou v kapitole \ref{sub:architektura}. Je nutné říci, že obě technologie nezapadají přímo do jedné z částí referenční architektury. Naopak v některých případech se překrývají či některou část neimplementují vůbec.
@@ -13,33 +22,15 @@ Architektura navrženého řešení byla implementována pomocí cloudové platf
 \caption{Architektura NFV řešení\label{fig:VNF_overview}}
 \end{figure}
 
-OpenStack byl zvolen, protože se jedná o největší open-source cloudovou platformu. OpenStack tvoří část správy infrastuktury. Hardwarová vrstva insfrastruktury se může skládat z libovolných serverů, na kterých KVM hypervizor. Tento hypervizor tvoří virtuální vrsvu a byl vybrán, protože je nejčastěji používán společně s OpenStackem. Avšak v případě potřeby by zde mohl být použit i jiný, pokud bude zachována kompatibilita vůči OpenStacku.
+OpenStack byl zvolen, protože se jedná o největší open-source cloudovou platformu na světě. OpenStack tvoří část správy infrastruktury. Hardwarová vrstva infrastruktury se může skládat z libovolných serverů, na kterých je nainstalován KVM hypervizor. Tento hypervizor tvoří virtuální vrsvu a byl vybrán, protože je nejčastěji používán společně s OpenStackem. Avšak v případě potřeby by zde mohl být použit i jiný hypervizor, pokud bude zachována kompatibilita vůči OpenStacku.
 
-Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterémi mohou být jednotlivé VM a VNF dynamicky spojovány.
+Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterými jsou dynamicky propojovány jednotlivé VM a VNF.
 
 Jednou z částí OpenStacku je i Heat engine. Ten bude v tomto návrhu zastávat roli VFN manager, pomocí kterého budou jednotlivé VNF spravováný.
 
 Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to zdůvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato čast potřeba. 
 
-
-\section{Load balancer as a Service}
-
-První VNF, která byla pro uživatele navržena, je Load balancing. 
-
-Součástí OpenStacku je Neutron HAproxy. Ta může sloužit 
-
-Obrázek + scénář
-První síťovou funkcí, která může být  
-
-\section{Firewall as a Service}
-
-\subsection{Scénář NAT}
-
-\subsection{Scénář Service Chaining}
-
-\subsection{Scénář HA firewall}
-
-\section{Heat Templates}
+Heat je hlavní projekt v OpenStacku pro orchestraci. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -48,22 +39,30 @@ První síťovou funkcí, která může být
 \caption{Popis heat orchestrace\label{fig:heat}}
 \end{figure}
 
-Popis co jsou to heat templates.
+\section{Load balancer as a Service}
 
-Heat is the main project of the OpenStack orchestration program. It allows users to describe deployments of complex cloud applications in text files called templates. These templates are then parsed and executed by the Heat engine.
+První VNF, která byla pro uživatele navržena, je Load balancing. 
 
-\subsection{FwaaS template}
+Součástí OpenStacku je Neutron HAproxy. Ta může sloužit 
 
-Pro FwaaS je narhnut heat template, který obsahuje:
+Pro účely load balancingu byla použita existující implementace HAProxy Neutron LbaaS v OpenContrail. 
 
-\begin{itemize}
-\item 1 firewall instanci
-\item 1 testovaci instanci
-\item 1 management instanci
-\item management síť
-\item privátní síť
-\item contrail policy
-\end{itemize}
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.43]{images/LoadBalancer}
+\par\end{centering}
+\caption{Load Balancer as a Service\label{fig:LoadBalancer}}
+\end{figure}
+
+\subsection{Neutron LbaaS}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.63]{images/NeutronLbaaS}
+\par\end{centering}
+\caption{Neutron LbaaS\label{fig:NeutronLbaaS}}
+\end{figure}
+
 
 \subsection{LbaaS template}
 
@@ -77,3 +76,45 @@ Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, 
 \item privatni síť
 \item public síť
 \end{itemize}
+
+
+
+\section{Firewall as a Service}
+
+\begin{itemize}
+\item 1 firewall instanci
+\item 1 testovaci instanci
+\item 1 management instanci
+\item management síť
+\item privátní síť
+\item contrail policy
+\end{itemize}
+
+\subsection{Scénář NAT}
+
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.43]{images/firewall}
+\par\end{centering}
+\caption{Firewall as a Service\label{fig:firewall}}
+\end{figure}
+
+\subsection{Scénář HA firewall}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.11]{images/contrailHA}
+\par\end{centering}
+\caption{High Availability Firewall\label{fig:contrailHA}}
+\end{figure}
+
+
+\subsection{FwaaS template}
+
+Pro FwaaS je narhnut heat template, který obsahuje:
+
+
+
+
+
