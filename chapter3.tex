@@ -13,7 +13,7 @@ V předešlé kapitole byla vysvětlena základní problematika, která souvisí
 
 \section{Architektura navrženého řešení}
 
-Architektura navrženého řešení byla implementována pomocí cloudové platformy OpenStack a SDN řešení OpenContrail. Obrázku č. \ref{fig:VNF_overview} znázorňuje tyto technologie v souvislosti s referenční architekturou popsanou v kapitole \ref{sub:architektura}. Je nutné říci, že obě technologie nezapadají přímo do jedné z částí referenční architektury. Naopak v některých případech se překrývají či některou část neimplementují vůbec.
+Architektura navrženého řešení byla implementována pomocí cloudové platformy OpenStack a SDN řešení OpenContrail. Obrázku č. \ref{fig:VNF_overview} znázorňuje tyto technologie v souvislosti s referenční architekturou popsanou v kapitole \ref{sub:architektura}. Je nutné říci, že obě technologie nezapadají přímo do jedné z částí referenční architektury. Naopak v některých případech se překrývají nebo se v ní doplňují.
 
 \begin{figure}[h]
 \begin{centering}
@@ -24,13 +24,19 @@ Architektura navrženého řešení byla implementována pomocí cloudové platf
 
 OpenStack byl zvolen, protože se jedná o největší open-source cloudovou platformu na světě. OpenStack tvoří část správy infrastruktury. Hardwarová vrstva infrastruktury se může skládat z libovolných serverů, na kterých je nainstalován KVM hypervizor. Tento hypervizor tvoří virtuální vrsvu a byl vybrán, protože je nejčastěji používán společně s OpenStackem. Avšak v případě potřeby by zde mohl být použit i jiný hypervizor, pokud bude zachována kompatibilita vůči OpenStacku.
 
-Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterými jsou dynamicky propojovány jednotlivé VM a VNF.
+OpenStack spravuje převážně zdroje týkající se výpočeního výkonu (Compute) a uložiště (Storage). Tyto zdroje následně přiděluje dle potřeby virtuálním instancím nebo v našem případě instancím, které slouží jako VNF.
 
-Jednou z částí OpenStacku je i Heat engine. Ten bude v tomto návrhu zastávat roli VFN manager, pomocí kterého budou jednotlivé VNF spravováný.
+Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterými jsou dynamicky propojovány jednotlivé VM a VNF. 
+
+Jednotlivá VNF mohou být v OpenContrailu vytvořena pomocí tzv. Servisních Instance a Servisní Templatů. Ty budou v této práci použity pro vytvoření VNF sloužící jako Firewall a budou podrobně popsány v kapitole věnující se vytváření této služby.
+
+Další součástí, která musela být v architektuře navrhnuta, je způsob řízení a správy jednotlivých VNF. Zde se muselo jednat o řešení, jakým automaticky vytvořit a popřípadě i smazat všechny potřebné části potřebné pro VNF. Pro tuto část byl zvolen Heat. Heat je část OpenStacku, která slouží pro automatickou orchestraci. Ten bude v tomto návrhu zastávat roli VFN managera, pomocí kterého budou jednotlivé VNF spravováný. Avšak dalo by se říci, že do této role spadá i OpenContrail, protože právě on umožnuje také spravovat jednostlivá VNF za běhu.  
+
+Heat je hlavní projekt v OpenStacku pro orchestraci. Umožňuje uživatelům popsat nasazení komplexních cloudových aplikací v jednom textovém souboru, který se nazývá Heat template. Tyto soubory se dají předat heat enginu, který podle nich dokáže automaticky vytvořit požadované zdroje v OpenStacku i v OpenContrailu. 
 
 Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to zdůvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato čast potřeba. 
 
-Heat je hlavní projekt v OpenStacku pro orchestraci. 
+
 
 \begin{figure}[h]
 \begin{centering}
@@ -43,9 +49,7 @@ Heat je hlavní projekt v OpenStacku pro orchestraci.
 
 První VNF, která byla pro uživatele navržena, je Load balancing. 
 
-Součástí OpenStacku je Neutron HAproxy. Ta může sloužit 
-
-Pro účely load balancingu byla použita existující implementace HAProxy Neutron LbaaS v OpenContrail. 
+ 
 
 \begin{figure}[h]
 \begin{centering}
@@ -55,6 +59,12 @@ Pro účely load balancingu byla použita existující implementace HAProxy Neut
 \end{figure}
 
 \subsection{Neutron LbaaS}
+
+Součástí OpenStacku je Neutron HAproxy. 
+
+Pro účely load balancingu byla použita existující implementace HAProxy Neutron LbaaS v OpenContrail.
+
+Výhodou tohoto řešení je, že není nutná dodatečná kongigurace load balanceru. Vše co třeba je obsaženo v heat templatu.
 
 \begin{figure}[h]
 \begin{centering}
@@ -80,6 +90,20 @@ Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, 
 
 
 \section{Firewall as a Service}
+
+Servisní Template obsahuje obecný předpis pro danou VNF. Mezi tyto informace patří:
+
+\begin{itemize}
+\item Název - Název je označení daného Servisního Templatu. Pomocí něho lze následně identifikovat daný template a spustit dle jeho parametrů Servisní instanci. 
+\item Image - Image je image, který má být použit pro vytvoření dané servisní instance. V našem případě se bude jednat o image, který obsahuje požadované síťové funkce. Tento image musí před tím než může být použit  nahrán do OpenStacku přes glance.
+\item Service Type - V OpenContrailu, prozatím existují dva typy. Jsou to Trafic Analyzer a Firewall. Pro účely této práce bude používán pouze typ Firewall.
+\item Service Mode - Zde se určuje v jakém modu daný template bude nastaven. Jsou zde možnosti In-Network, In-Network-NAT.
+
+\item Typy síťových portů - Zde se určuje kolik portů bude daná instance, vytvořená pomocí tohoto templatu mít a jaká bude jejich role. Jsou zde možnosti Left, Right a Management. 
+
+\end{itemize}
+
+Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí. Ty běží jako klasické instance v OpenStacku, avšak OpenContrail s nimi zachází jiným způsobem. 
 
 \begin{itemize}
 \item 1 firewall instanci
