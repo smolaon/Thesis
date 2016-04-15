@@ -4,6 +4,8 @@ V předešlé kapitole byla vysvětlena základní problematika, která souvisí
 
 \section{Požadavky na VNF řešení}
 
+
+
 \begin{itemize}
 \item Univerzálnost - Celé řešení musí být postavené tak, aby ho mohli využívat všichni uživatelé dané cloudové platformy. 
 \item Jednoduchost - 
@@ -45,11 +47,9 @@ Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to
 
 \section{Load balancer as a Service}
 
-Jednou z nejčastějších funkcí, která je v dnešních počítačových síťích a datových centrech vyžadována je load balancing. Pokud se 
+Jednou z nejčastějších síťových funkcí, která je v dnešních počítačových síťích a datových centrech vyžadována je load balancing. Load balancer spravuje příchozí komunikaci a distrubuje ji do několika serverů či jiných síťových zdrojů. Tím je zajištěna rozloha zátěže.  V cloudovém prostředí je tedy možné velice rychle, dle požadavků uživale či automaticky dle nastavených parametrů, škálovat (přidávat či odstraňovat) webové servery. Load balancer zároveň monitoruje stav jednotlivých sleduje stav jednotlivých instancí a posílá komunika pouze správně fungujícím instancím. 
 
-Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. 
-
- 
+Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. Každý uživatel má možnost si dle potřeby vytvořit load balancer pro sve webové servery. Pokud provozuje několik webových služeb v jednom projektu (tenantu), může pro každou tuto službu vytvořit vlastní load balancer, který bude nakonfigurován dle požadavků. Tento load balancer je dostupný pro všechny uživatele cloudu, tedy ve všech tenantech.
 
 \begin{figure}[h]
 \begin{centering}
@@ -60,11 +60,26 @@ Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru po
 
 \subsection{Neutron LbaaS}
 
-Součástí OpenStacku je Neutron HAproxy. 
+Při výběru řešení pro load balancing je nutné zvážit především výkon load balanceru. Na trhu již existuje celá řada fyzických i virtuálních produktů. Fyzická řešení nabízí větší výkon a obvykle i více funkcí. Virtuální pak větší flexibilitu v nasazení a jednodušší konfiguraci.
 
-Pro účely load balancingu byla použita existující implementace HAProxy Neutron LbaaS v OpenContrail.
+Avšak existuje jednotná množina funkcí, kterou uživatelé požadují a kterou většina load balancerů poskytuje. 
+OpenStack Neutron navrhl LBaaS jako pokročilou službu Neutronu, která umožňuje použít jeden soubor API k využítí load balancing funkce poskytnuté celou řadou poskztovatelů.
 
-Výhodou tohoto řešení je, že není nutná dodatečná kongigurace load balanceru. Vše co třeba je obsaženo v heat templatu.
+Zjednodušeně toto umožňuje uživatelům OpenStacku přes jedno společné rozhraní ovládat několik různých řešení pro load balancing. Zároveň díky tomu odpadá nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
+
+V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Avšak zde ukázané řešení může být použito s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. Dle dokumentace OpenContrailu \cite{contrail_loadbalancer} je v něm kontrétní implementace load balanceru řešena pomocí HAProxy. HAProxy je zdarma dostupný open source software pro unix operační systémy \cite{HAProxy}. 
+
+
+Load balancer se v Neutron LbaaS skládá ze 4 objektů.
+
+\begin{itemize}
+\item Pool - Označuje síťový rozsah pro webové servery
+\item Virtální IP (VIP) - ip adresa, na kteru příchází komunikace
+\item Member - Označuje konktétní instanci, která je členem poolu.
+\item Monitor - Monitoruje stav aplikace. Pomocí HTTP, TCP či PING.
+\end{itemize}
+
+Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty. Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku.
 
 \begin{figure}[h]
 \begin{centering}
@@ -73,10 +88,9 @@ Výhodou tohoto řešení je, že není nutná dodatečná kongigurace load bala
 \caption{Neutron LbaaS\label{fig:NeutronLbaaS}}
 \end{figure}
 
+\subsection{LbaaS heat template}
 
-\subsection{LbaaS template}
-
-Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, které se po spuštění pokusí vytvořit.
+Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizovám pomocí heat templatu. Tím byla vytvořena VNF Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, které se po spuštění pokusí vytvořit.
 
 \begin{itemize}
 \item pool
@@ -86,6 +100,55 @@ Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, 
 \item privatni síť
 \item public síť
 \end{itemize}
+
+Pro vytvoření heat stacku s Load balancerem je nutné daný template vytvořit pomocí příkazu:
+
+\verb!heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas!
+
+Tento příkaz vytvoří všechny již uvedené prostředky pro load balancing. Konkrétní load balancer má nakonfigurovanou virtual ip adresu (VIP) a k ní přiřazenou floating adresu, která je přístupná z externích sítí. Zároveň má tento load balancer přiřazený pool, ke kterému je přiřazena přiřazena privátní síť 10.10.10.0/24. Na obrázku č. X znázorňuje tento pool a obrázek č. X+1 jsou vidět členové (members) toho poolu.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/lbaas1}
+\par\end{centering}
+\caption{Vytvořený pool\label{fig:lbaas1}}
+\end{figure}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/lbaas2}
+\par\end{centering}
+\caption{Vytvoření members\label{fig:lbaas2}}
+\end{figure}
+
+Další zdrojem, který byl vytvořen je health monitor, který lze viděn na obrázku č. X+2. Díky němu má load balancer přehled o aktuálním stavu webových instancí. Pokud by náhodou některá z nich přestala odpovídat, v tomto případě na ping, tak by load balancer na tuto instanci přestal zasílat traffic.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/lbaas3}
+\par\end{centering}
+\caption{Vytvořený health monitor\label{fig:lbaas3}}
+\end{figure}
+
+Finální síťovou topologii znázorňuje obrázek č. X+3. 
+
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/lbaas_topologie}
+\par\end{centering}
+\caption{Vytvořená síťová topologie\label{fig:lbaas_topologie}}
+\end{figure}
+
+Otestování webových serverů lze provést příkazem curl, kterému dáme jako paramert ip VIP nebo floating ip load balanceru. Po několika takovýchto zadání tohoto příkazu je vidět, že oba web servery odpovídají a je probíhá mezi nimi load balancing metodou round robin.  Celý tento test je vidět na obr. č. X+4
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/lbaas_testing}
+\par\end{centering}
+\caption{Test konektivity a load balancingu\label{fig:lbaas_testing}}
+\end{figure}
+
 
 
 

@@ -23,19 +23,12 @@
 \BOOKMARK [1][-]{section.3.2}{Architektura navr\236en\351ho re\235en\355}{chapter.3}% 23
 \BOOKMARK [1][-]{section.3.3}{Load balancer as a Service}{chapter.3}% 24
 \BOOKMARK [2][-]{subsection.3.3.1}{Neutron LbaaS}{section.3.3}% 25
-\BOOKMARK [2][-]{subsection.3.3.2}{LbaaS template}{section.3.3}% 26
+\BOOKMARK [2][-]{subsection.3.3.2}{LbaaS heat template}{section.3.3}% 26
 \BOOKMARK [1][-]{section.3.4}{Firewall as a Service}{chapter.3}% 27
 \BOOKMARK [2][-]{subsection.3.4.1}{Sc\351n\341r NAT}{section.3.4}% 28
 \BOOKMARK [2][-]{subsection.3.4.2}{Sc\351n\341r HA firewall}{section.3.4}% 29
 \BOOKMARK [2][-]{subsection.3.4.3}{FwaaS template}{section.3.4}% 30
-\BOOKMARK [0][-]{chapter.4}{Testov\341n\355 navr\236en\351ho re\235en\355}{}% 31
-\BOOKMARK [1][-]{section.4.1}{Testovac\355 topologie}{chapter.4}% 32
-\BOOKMARK [1][-]{section.4.2}{Testovan\351 s\355tov\351 funkce}{chapter.4}% 33
-\BOOKMARK [1][-]{section.4.3}{Testov\341n\355 LbaaS}{chapter.4}% 34
-\BOOKMARK [1][-]{section.4.4}{Testov\341n\355 FwaaS}{chapter.4}% 35
-\BOOKMARK [2][-]{subsection.4.4.1}{Fortigate VM}{section.4.4}% 36
-\BOOKMARK [2][-]{subsection.4.4.2}{PFSense}{section.4.4}% 37
-\BOOKMARK [0][-]{chapter.5}{Shrnut\355 poznatku}{}% 38
-\BOOKMARK [0][-]{chapter.6}{Z\341ver}{}% 39
-\BOOKMARK [-1][-]{chapter.6}{Literatura}{}% 40
-\BOOKMARK [-1][-]{chapter*.33}{Pr\355lohy}{}% 41
+\BOOKMARK [0][-]{chapter.4}{Shrnut\355 poznatku}{}% 31
+\BOOKMARK [0][-]{chapter.5}{Z\341ver}{}% 32
+\BOOKMARK [-1][-]{chapter.5}{Literatura}{}% 33
+\BOOKMARK [-1][-]{chapter*.26}{Pr\355lohy}{}% 34

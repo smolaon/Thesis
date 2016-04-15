@@ -15,20 +15,12 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Popis heat orchestrace\relax }}{22}{figure.caption.16}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Load Balancer as a Service\relax }}{23}{figure.caption.17}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Neutron LbaaS\relax }}{24}{figure.caption.18}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Firewall as a Service\relax }}{25}{figure.caption.19}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces High Availability Firewall\relax }}{26}{figure.caption.20}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Testovac\IeC {\'\i } topologie\relax }}{28}{figure.caption.21}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{29}{figure.caption.22}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{29}{figure.caption.23}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{30}{figure.caption.24}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{30}{figure.caption.25}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Test konektivity a load balancingu\relax }}{31}{figure.caption.26}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{31}{figure.caption.27}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Test konektivity PFSense\relax }}{32}{figure.caption.28}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{32}{figure.caption.29}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{32}{figure.caption.30}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{33}{figure.caption.31}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Test konektivity\relax }}{33}{figure.caption.32}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{25}{figure.caption.19}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{25}{figure.caption.20}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{26}{figure.caption.21}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{26}{figure.caption.22}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Test konektivity a load balancingu\relax }}{27}{figure.caption.23}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Firewall as a Service\relax }}{28}{figure.caption.24}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces High Availability Firewall\relax }}{29}{figure.caption.25}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
