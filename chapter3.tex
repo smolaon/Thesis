@@ -2,15 +2,15 @@
 
 V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Nejprve zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře a způsob jakým jsou navrženy.
 
-\section{Požadavky na VNF řešení}
+\section{Požadavky na NFV řešení}
 
-
+Při navrhování ukázek řešení VNF v cloudovém prostředí byli definovány některé parametry které dané návrhy museli splňovat.
 
 \begin{itemize}
 \item Univerzálnost - Celé řešení musí být postavené tak, aby ho mohli využívat všichni uživatelé dané cloudové platformy. 
-\item Jednoduchost - 
-\item Otevřenost a Flexibilita - 
-\item Kompatibilita se stávající síťovými prvky - 
+\item Jednoduchost - Vytvoření a správa VNF musí být jednoduchá.
+\item Otevřenost a Flexibilita - Vytvořené VNF by mělo být možné v případě potřeby snadno upravit uživatelem. Úpravou by měla vzniknout nová verze VNF, kterou mohou využívat další uživatelé.  
+\item Kompatibilita se stávající síťovými prvky - Všechny VNF by měly být schopné komunikovat se všemi stávajícími fyzickými síťovými prvky. V tomto případě by měla být schopno provázat celý NFV framework se stávající infrastrukturou.
 \end{itemize}
 
 \section{Architektura navrženého řešení}
@@ -32,11 +32,11 @@ Speciálně pro vyřešení síťování v této infrastruktuře je součástí 
 
 Jednotlivá VNF mohou být v OpenContrailu vytvořena pomocí tzv. Servisních Instance a Servisní Templatů. Ty budou v této práci použity pro vytvoření VNF sloužící jako Firewall a budou podrobně popsány v kapitole věnující se vytváření této služby.
 
-Další součástí, která musela být v architektuře navrhnuta, je způsob řízení a správy jednotlivých VNF. Zde se muselo jednat o řešení, jakým automaticky vytvořit a popřípadě i smazat všechny potřebné části potřebné pro VNF. Pro tuto část byl zvolen Heat. Heat je část OpenStacku, která slouží pro automatickou orchestraci. Ten bude v tomto návrhu zastávat roli VFN managera, pomocí kterého budou jednotlivé VNF spravováný. Avšak dalo by se říci, že do této role spadá i OpenContrail, protože právě on umožnuje také spravovat jednostlivá VNF za běhu.  
+Další součástí, která musela být v architektuře navrhnuta, je způsob řízení a správy jednotlivých VNF. Zde se muselo jednat o řešení, jakým automaticky vytvořit a popřípadě i smazat všechny potřebné části potřebné pro VNF. Pro tuto část byl zvolen Heat. Heat je část OpenStacku, která slouží pro automatickou orchestraci. Ten bude v tomto návrhu zastávat roli VFN managera, pomocí kterého budou jednotlivé VNF spravovány. Avšak dalo by se říci, že do této role spadá i OpenContrail, protože právě on umožnuje také spravovat jednostlivá VNF za běhu.  
 
 Heat je hlavní projekt v OpenStacku pro orchestraci. Umožňuje uživatelům popsat nasazení komplexních cloudových aplikací v jednom textovém souboru, který se nazývá Heat template. Tyto soubory se dají předat heat enginu, který podle nich dokáže automaticky vytvořit požadované zdroje v OpenStacku i v OpenContrailu. 
 
-Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to zdůvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato čast potřeba. 
+Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to z důvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato část potřeba. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -45,9 +45,15 @@ Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to
 \caption{Popis heat orchestrace\label{fig:heat}}
 \end{figure}
 
+
+\section{Fyzická topologie}
+
+
 \section{Load balancer as a Service}
 
 Jednou z nejčastějších síťových funkcí, která je v dnešních počítačových síťích a datových centrech vyžadována je load balancing. Load balancer spravuje příchozí komunikaci a distrubuje ji do několika serverů či jiných síťových zdrojů. Tím je zajištěna rozloha zátěže.  V cloudovém prostředí je tedy možné velice rychle, dle požadavků uživale či automaticky dle nastavených parametrů, škálovat (přidávat či odstraňovat) webové servery. Load balancer zároveň monitoruje stav jednotlivých sleduje stav jednotlivých instancí a posílá komunika pouze správně fungujícím instancím. 
+
+\subsection{Scénář použití LbaaS}
 
 Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. Každý uživatel má možnost si dle potřeby vytvořit load balancer pro sve webové servery. Pokud provozuje několik webových služeb v jednom projektu (tenantu), může pro každou tuto službu vytvořit vlastní load balancer, který bude nakonfigurován dle požadavků. Tento load balancer je dostupný pro všechny uživatele cloudu, tedy ve všech tenantech.
 
@@ -205,7 +211,7 @@ Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libo
 Pro FwaaS je narhnut heat template, který obsahuje:
 
 
-\section{Ukázka použítí FwaaS heat templatu}\label{sub:interaction}
+\subsection{Ukázka použítí FwaaS heat templatu}\label{sub:interaction}
 
 Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
 

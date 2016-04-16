@@ -209,7 +209,6 @@ Pohledem na současný trh zjistíme, že VNF je prakticky poskytována ve 3 zá
 \item Kompletní VM - Poskytovatel VNF může dát k dispozici rovnou přetvořený obraz virtuálního stroje (image), který může obsahovat operační systém se síťovými funkcemi. Tento systém však nemusí být klasicky dostupný operační systém jako je GNU/Linux či FreeBSD, ale může se jednat o speciálně vytvořený systém od výrobce. Tento způsob budou využívat poskytovatelé, kteří mají proprietární řešení pro síťová řešení jako je například Cisco či Juniper.
 \end{itemize}
 
-
 \subsection{Management a orchestrace NFV}
 
 Management a orchestrace virtualizace síťových funkcí (NFV MANO) je nejdůležitější část celého NFV frameworku. Je tomu tak, protože MANO zajišťuje správné fungování NFV infrastruktury i jednotlivých virtuálních síťových funkcí. MANO také poskytuje funkce nutné pro provisioning VNF a související operace, jako je jejich konfigurace jednotlivých VNF a infrastruktury, na které běží. Zároveň spravuje a řídí životní cyklus fyzických a virtuálních zdrojů, které slouží pro podporu VNF. 
@@ -274,21 +273,83 @@ Pro účely vytvoření infrastruktury, a vůbec možnost využití NFV v datov�
 
 \subsubsection{OpenStack}
 
-OpenStack je open-source platformou umožňující postavit IaaS cloud, který může být nainstalován i na běžném hardwaru. Toto řešení má za cíl vytvořit dostupnou cloudovou platformu, která bude splňovat všechny potřeby privátních a veřejných cloudů nezávisle na velikosti řešení.
+OpenStack je open-source platformou umožňující postavit IaaS cloud, který může být nainstalován i na běžném hardwaru. Toto řešení má za cíl vytvořit dostupnou cloudovou platformu, která bude splňovat všechny potřeby privátních a veřejných cloudů nezávisle na velikosti řešení. \cite{OpenStack}
 
-Celá stavba systému OpenStack se skládá z několika na sobě nezávislých projektů, které řeší různé oblasti cloudové platformy. Tyto projekty mezi sebou komunikují pomocí otevřených API a mohou být spravovány pomocí dashboardu. Celé administrace OpenStacku může být prováděna přes webově rozhraní, příkazovou řádku či přímo pomocí příkazů zaslaných do API. Celé toto řešení se vyznačuje jednoduchostí implementace, škálovatelností a rychlým vývojem nových vylepšení. Toto
+Celá stavba systému OpenStack se skládá z několika na sobě nezávislých projektů (modulů), které řeší různé oblasti cloudové platformy. Tyto projekty mezi sebou komunikují pomocí otevřených API a mohou být spravovány pomocí dashboardu. Celé administrace OpenStacku může být prováděna přes webově rozhraní, příkazovou řádku či přímo pomocí příkazů zaslaných do API. Celé toto řešení se vyznačuje jednoduchostí implementace, škálovatelností a rychlým vývojem nových vylepšení. Hlavními moduly OpenStacku jsou \cite{OpenStack} \cite{OpenStack2}:
+
+\begin{itemize}
+\item Keystone - identifikační služba používaná OpenStackem pro autorizaci a autentizaci. Ověřování probíhá pomocí tokenů. Uživatel přihlášením odesílá žádost na Keystone, který tento modul zpracuje, zjistí pověření a vytvoří token. Vytvořený token je poté odesílán s žádostí do ostatních služeb. Zde dojde ke komparaci tokenu se současnou přístupovou politikou a dojde ke zjištění, zdali má uživatel dostatečná oprávnění pro provedení požadovaného úkonu.
+\item Glance - služba umožňující práci s virtuálními diskovými obrazy (imagy). Tyto obrazy mohou být uloženy na mnoha různých místech od lokálních systémových disků až po distribuované souborové systémy, jako je OpenStack Storage.
+\item Nova - tento modul poskytuje výpočetní služby. Umožňuje tedy běh několika instancí virtuálních strojů na několika hostitelských strojích, nan kterých je nainstalována služba OpenStack compute. OpenStack podporuje hypervizory KVM, QEMU, VMware ESX, Hyper-V, Xen. 
+\item Neutron - je služba pro správu všech síťových aspektů OpenStacku. Jedná se tedy o SDN komponentu. Neutron podporuje možnost rozšíření o tzv. pluginy, které umožňují využívat řešení třetích stran pro síťování.
+\item Cinder - poskytuje infrastrukturu pro mapování volumů v OpenStacku.
+\item Ceilometer - služba, která sbírá měřená data a monitoruje tak využívané zdroje.
+\item Heat - umožňuje automatizovanou orchestraci virtuálních strojů na základě vytvořených templatů.
+\item Horizon - představuje dashboard, který umožňuje cloudovým administrátorům a uživatelům spravovat různé zdroje a služby OpenStacku. Dashboard umožňuje interakci s OpenStackovým kontrolerem prostředníctvím API. 
+\end{itemize}
 
 \subsubsection{VMware vCloud}
 
-Společnost Vmware poskytuje pro privátní cloudové systémy své řešení, které označuje jako VMware vCloud. 
+Společnost Vmware poskytuje pro privátní cloudové systémy své řešení, které označuje jako VMware vCloud. Toto řešení je poskládané z jednotlivých produktů této společnosti. Celá architektura má hierarchická model, který je vidět na obrázku č. \ref{fig:vmware}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.65]{images/vmware}
+\par\end{centering}
+\caption{Schéma VMware vCloud, převzato z \cite{vmware}\label{fig:vmware}}
+\end{figure}
+
+Dle \cite{vmware} se VMware vCloud skláda především z těchto komponent.
+
+\begin{itemize}
+\item VMware vCloud Director - je  jedna  ze základních součástí potřebných pro vytvoření  privátního  cloudu ve stylu VMwaru.  Umožňuje vytvořit  a  doručovat  koncovým  zákazníkům infrastrukturu jako službu. Je propojen a přímo spolupracuje s VMware vSphere center.
+\item VMware vSphere - tento produkt slouží pro vytvoření virtualizované infrastruktury. Je to sdružení více komponent. Ty nejhlavnější jsou:
+
+\begin{itemize}
+\item VMware ESX (ESXi) - hypervisor, který byl popsán v kapitole \ref{sub:Hypervisor}.
+\item VMware vCenter Server - umožňuje efektivní a pokročilejčí správu virtualizovaného prostředí, bez ohledu na jeho velikost. Jedná se např.o snadné vytváření nových virtuálních počítačů, jejich  klonování  nebo  importování  z jiného  úložiště.  
+\item VMware vSphere Client - je určený pro dálkovou správu hostitelů ESXi. Připojit se můžeme prostřednictvím vCenter serveru nebo přímo přes ESXi server.
+\end{itemize} 
+\item VMware vCloud Networking and Security - poskytuje síťování a bezpečnost pro vituální prostředí. Poskytuje mnoho síťových funkcí a poskytuje framework pro integraci řešeí třetích stran.
+\item VMware vShield - představuje možnost zabezpečení v prostředí VMware VSphere. Může být konfigurován pomocí vShield Managera, který umožňuje centrální správu přes webové rozhraní, vSphere klient plug-in, nebo command line interface (CLI).
+\item VMware vCenter Chargeback - slouží pro monitorování virtuálních strojů, které následně může být účtováno.
+\end{itemize}
 
 \subsection{SDN}
 
 Součástí řešení pro datové centrum je dnes i SDN. I zde existuje několik možností. Dvě z nejpoužívanější řešení jsou:
 
+\subsubsection{OpenContrail} 
+
+OpenContrail je systém, který může být použit v mnoha síťových scénářích jako například v cloud networkingu nebo v sítích poskytovatele síťových služeb. V privátním cloudu, ve Virtual Private Cloud (VPC) a v IaaS se vyskytuje prostředí s velkým množstvím tenantů, kde několik tenantů sdílí stejné fyzické zdroje (server, uložiště, fyzickou síť). Každý tenant má přiřazeny vlastní logické zdroje (virtuální stroje, virtuální uložiště, virtuální sítě). Tyto logické zdroje různých tenantů musí být od sebe odděleny. Virtuální sítě v datacentrech mohou být také spojeny s fyzickou IP VPN nebo L2 VPN. \cite{OpenContrail}
+
+OpenContrail je složen ze dvou hlavních komponent. První z nich je Controller, který je logicky centralizovaný, ale fyzicky distribuovaný. To znamená, že je složen z několika typů rolí a každý z nich má několik instancí z důvodu vysoké dostupnosti a horizontální škálovatelnosti. Tyto role mohou být fyzické servery nebo virtuální stroje. Tyto role jsou \cite{OpenContrail2}: 
+
 \begin{itemize}
-\item OpenContrail
-\item VMware NSX
-\end{itemize} 
+\item Configuration role - poskytuje north-bound REST API. Toto API může být použito pro konfiguraci systému nebo pro extrahování operačního stavu systému.
+\item Control role - implementuje logicky centralizovanou část control planu.
+\item Analytics role - je zodpovědný za sběr, porovnání a prezentaci analytických informací.
+\end{itemize}
 
+Další komponentou je vRouter, který má na starost přenos dat. VRouter běží na virtualizovaném serveru, na kterém běží hypervizor. Rozšiřuje fyzickou síť v datovém centru o virtuální overlay síť hostovanou ve virtualizovaných serverech. VRouter narozdíl od vSwitchů poskytuje směrování a služby vyšších vrstev. Data plane, tedy vRoutery mezi sebou, může používat různé technologie overlay jako MPLS over GRE, MPLS over UDP a VXLAN. Control plane protocol mezi Controllerem a fyzickým gateway routerem (nebo switchem) je BGP. Protokol používaný mezi Controllerem a vRoutery se nazývá XMPP. Obrázek č. \ref{fig:contrail} ukazuje schéma OpenContrailu.
 
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.35]{images/contrail}
+\par\end{centering}
+\caption{Schéma OpenContrail, převzato z \cite{OpenContrail}\label{fig:contrail}}
+\end{figure}
+
+\subsubsection{VMware NSX}
+
+VMware NSX představuje technologii síťové virtualizace od společnosti VMware. NSX umožňuje vytváření a správu softwarových virtuálních sítí napříč celým datovým centrem. Architektura NSX je složená z Consumption, Management plane, Control plane a Data plane. \cite{VMware_NSX}
+
+\begin{itemize}
+\item Data plane - je představován virtuálními switchi, jako je NSX vSwitch či Open vSwitch. 
+\item Control role - zde je komponentou NSX controller či jejich cluster. NSX controller přijímá instrukce, na konfiguraci logických sítí od tenantů, prostřednictvím NSX API. Poté pomocí OpenFlow konfiguruje vSwitche.
+\item Management plane a Consumption - je tvořen NSX managerem, který poskytuje centralizovanou možnost konfigurace a REST API. \cite{VMware_NSX}
+\end{itemize}
+
+U tohoto řešení existují dva pohledy na síťovou infrastrukturu. První je transportní, který představuje underlay síť. Ta se skládá z síťový hardwaru propojující hypervizory. Druhý pohled je logický. Ten představuje množinu síťových služeb, které vidí každý tenant či virtualizovaný stroj v tomto tenantu. V multi-tenant prostředí má každý tenant svůj vlastní logický pohled na svoji síť a nemůže vidět sítě ostatních tenantů. \cite{VMware_NSX}
+
+VMware NSX je dostupný ve dvou verzích - NSX-v a NSX-mh. NSX-v je verze závislá na proprietárním VMware řešení, tedy spolupracuje pouze s hypervizorem vSphere od VMware. Druhá verze je NSX-mh, kde mh znamená multi hypervizor a je tedy možné použití s různými hypervizory. 
