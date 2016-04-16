@@ -101,6 +101,9 @@ Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý pr
 \item public síť
 \end{itemize}
 
+
+\subsection{Ukázka použítí LbaaS heat templatu}
+
 Pro vytvoření heat stacku s Load balancerem je nutné daný template vytvořit pomocí příkazu:
 
 \verb!heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas!
@@ -202,6 +205,63 @@ Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libo
 Pro FwaaS je narhnut heat template, který obsahuje:
 
 
+\section{Ukázka použítí FwaaS heat templatu}\label{sub:interaction}
+
+Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
+
+\verb!heat stack-create -f heat/templates/fwaas_mnmg_template.hot -e heat/env/fwaas_pfsense_env.env pfsense!
+
+a pro vytvoření heat stacku s Fortigate VM jde vytvořit pomocí příkazu:
+
+\verb!heat stack-create -f heat/templates/fwaas_mnmg_template.hot -e heat/env/fwaas_fortios_contrail.env fortios!
 
 
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/fwaas_topologie}
+\par\end{centering}
+\caption{Síťová topologie\label{fig:fwaas_topologie}}
+\end{figure}
+
+
+By default, pfsense firewall is configured to NAT after the heat stack is started. As a result, there is no need to make any configuration for this function. Pfsense image was preconfigured with DHCP services on every interface and there is outbound policy for NAT.
+
+After we start the heat with pfsense there is already functional service chaining. Testing instance has default gateway to contrail and contrail redirects it to pfsense.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/pfsense_ping}
+\par\end{centering}
+\caption{Test konektivity PFSense\label{fig:pfsense_ping}}
+\end{figure}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/pfsense_nat}
+\par\end{centering}
+\caption{Ukázka NAT session\label{fig:pfsense_nat}}
+\end{figure}
+
+There is also NAT session in pfsense. In shell run command:
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/fortigate_int}
+\par\end{centering}
+\caption{Fortigate VM intergace konfigurace\label{fig:fortigate_int}}
+\end{figure}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/fortigate_nat}
+\par\end{centering}
+\caption{Fortigate VM NAT konfigurace\label{fig:fortigate_nat}}
+\end{figure}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.45]{images/fortigate_ping}
+\par\end{centering}
+\caption{Test konektivity\label{fig:fortigate_ping}}
+\end{figure}
 
