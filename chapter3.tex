@@ -68,14 +68,13 @@ OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeh
 
 V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Tento příklad je však univerzální a může být použit s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. Dle dokumentace \cite{contrail_loadbalancer} je v OpenContrailu implementace load balanceru řešena pomocí HAProxy. HAProxy je zdarma dostupný open source software pro unix operační systémy \cite{HAProxy}. 
 
-
 Load balancer se v Neutron LbaaS skládá ze 4 objektů.
 
 \begin{itemize}
-\item Pool - Označuje síťový rozsah pro webové servery
-\item Virtální IP (VIP) - ip adresa, na kteru příchází komunikace
-\item Member - Označuje konktétní instanci, která je členem poolu.
-\item Monitor - Monitoruje stav aplikace. Pomocí HTTP, TCP či PING.
+\item Pool - Označuje síťový rozsah pro webové servery.
+\item Virtuální IP (VIP) - ip adresa, na kterou přichází komunikace
+\item Member - Označuje konkrétní instanci, která je členem poolu.
+\item Monitor - Monitoruje stav jednotlivých serverů a aplikací.
 \end{itemize}
 
 \begin{figure}[h]
@@ -85,90 +84,214 @@ Load balancer se v Neutron LbaaS skládá ze 4 objektů.
 \caption{Neutron LbaaS\label{fig:NeutronLbaaS}}
 \end{figure}
 
-Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty. Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku.
+Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty. Tato implementace má tyto hlavní funkce:
 
+\begin{itemize}
+\item Poskytuje Load balancing komunikace od klientů do poolu serverů. Load balancer zprostředkovává spojení prostřednictvím své VIP.
+\item Poskytuje load balancing pro HTTP, TCP a HTTPS komunikaci.
+\item Poskytuje možnosti pro monitorování aplikací. Prostřednictvím HTTP, TCP či PING. Zde celý proces tak, že se load balancer pokusí v určeném časové intervalu navázat s daným serverem v pool spojení dle vybraného protokolu.
+\item Umožňuje asociaci floating ip (veřejné adresy) k VIP, čímž umožňuje přístup k serverů z veřejné sítě.
+\end{itemize}
 
+Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku. Výběr serveru může probíhat pomocí jedné z následujících metod:
+
+\begin{itemize}
+\item Round robin - zde se komunikace distribuuje rovnoměrně, resp. dle vah zadaných u jednotlivých memberů v poolu.
+\item Least connection - zde je vybran member s nejméně spojeními.
+\item Source IP - u této metody je vybrán member na základě zdrojové ip adresy klienta.
+\end{itemize}
 
 \subsection{LbaaS heat template}
 
-Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizovám pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Dále budou stručně popsány jeho části.
+Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizován pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Celý template v sobě obsahuje i webové instance, které slouží pro testování. V produkci by však byly v odděleném templatu. Template je parametrizovaný a konktétní hodnoty pro jednotlivě zdroje (ip adresy, ip) jsou v tzv. enviroment file, který se zadává při spouštění daného templatu. Dále jsou popsány pouze hlavní části heat templatu.
 
 \begin{itemize}
-\item privatni síť
-\item public síť
-\item web instance 1
-\item web instance 2
-\item pool - jedná se o definování 
-\item member 1
-\item member 2
-\item health monitoring
+\item privatni síť - k této síti jsou připojeny obě webové instance, load balancer a router. Součástí je definice toho zdroje jsou je i subnet, který má dále paramentry týkající se DHCP ip adres.
+
+\begin{lstlisting}[caption=Privátní síť a subnet]
+private_net:
+    type: OS::Neutron::Net
+    properties:
+      admin_state_up: True
+      name: { get_param: private_net_name }
+      shared: False
+  private_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      allocation_pools:
+      - start: { get_param: private_net_pool_start }
+        end: { get_param: private_net_pool_end }
+      cidr: { get_param: private_net_cidr }
+      enable_dhcp: True
+      ip_version: 4
+      name: { get_param: private_net_name }
+      network_id: { get_resource: private_net }
+\end{lstlisting}
+
+\item 2 x web instance - jedná se o virtuální instance s operačním systémem Ubuntu 14.04. Po spuštění heat templatu se na tyto instance nainstaluje Apache server a vytvoří se index.html. Díky tomu je možné následně otestovat zda load balancer distubuje komunikaci mezi těmito dvěma servery.
+
+\begin{lstlisting}[caption=Web server 1]
+  instance_01:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor }
+      key_name: { get_param: key_name }
+      name: test-web01
+      networks:
+      - network: { get_resource: private_net }
+      security_groups:
+      - default
+      - { get_resource: http_security_group }
+      user_data_format: RAW
+      user_data: |
+        #!/bin/bash -v
+        apt-get install apache2 -yy
+        echo "Instance 01" > /var/www/html/index.html
+\end{lstlisting}
+
+
+\item router - toto je Neutron router implementují SNAT. V tomto příkladě je využívaný webovými servery pro konektivitu k Internetu. Toto je nutné pro nainstalování programu Apache na webové servery.
+
+\begin{lstlisting}[caption=Web server 1]
+  router:
+    type: OS::Neutron::Router
+    properties:
+      name: { get_param: router_name }
+      external_gateway_info:
+        network: { get_param: public_net_id }
+\end{lstlisting}
+
+\item public síť - toto je veřejná síť, ze které je získána VIP pro load balancer. Na tuto VIP bude dále asociována floating ip. 
+
+\begin{lstlisting}[caption=Public síť a subnet]
+  public_net:
+    type: OS::Neutron::Net
+    properties:
+      admin_state_up: True
+      name: { get_param: public_net_name }
+      shared: False
+  public_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      allocation_pools:
+      - start: { get_param: public_net_pool_start }
+        end: { get_param: public_net_pool_end }
+      cidr: { get_param: public_net_cidr }
+      enable_dhcp: True
+      ip_version: 4
+      name: { get_param: public_net_name }
+      network_id: { get_resource: public_net }
+  lb_floating:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network_id: {get_param: public_net_id}
+      port_id: {get_attr: [lb_pool, vip, port_id]}
+\end{lstlisting}
+
+\item pool - jedná se o definování poolu pro load balancer. Na ukázce je vidět, že byla zvolena metoda Round Robin. Tato metoda byla zvolena kvůli co nejjednoduššímu testování tohoto templatu.
+
+\begin{lstlisting}[caption=Load balancer pool]
+  lb_pool:
+    type: OS::Neutron::Pool
+    properties:
+      admin_state_up: True
+      lb_method: ROUND_ROBIN
+      name: { get_param: lb_name }
+      protocol: HTTP
+      monitors:
+      - { get_resource: lb_ping_healt_monitor }
+      subnet_id: { get_resource: private_subnet }
+      vip:
+        protocol_port: 80
+        address: { get_param: public_net_ip }
+        admin_state_up: True
+        subnet: { get_resource: public_subnet }
+\end{lstlisting}
+
+\item members - po vytvoření instancí je nutné jejich přidání do poolu jako membery. Pokud webová aplikace na serverch využívá jiný port než port 80, je možné ho zde změnit.
+
+\begin{lstlisting}[caption=Members]
+  lb_pool_member_instance_01:
+    type: OS::Neutron::PoolMember
+    properties:
+      address: { get_attr: [ instance_01 , first_address ] }
+      admin_state_up: True
+      pool_id: { get_resource: lb_pool }
+      protocol_port: 80
+\end{lstlisting}
+
+\item health monitoring - zdroj pro monitoring. Dle zvolených parametrů je vidět, že každých 5 sekund bude poslán ping na servery a bude se čekat 5 sekund na odpověď. Pokud nepříjde, tak load balancer usoudí, že je daný server není v pořádku a přestane na něj přeposílat komunikaci.
+
+\begin{lstlisting}[caption=Monitor]
+  lb_ping_healt_monitor:
+    type: OS::Neutron::HealthMonitor
+    properties:
+      admin_state_up: True
+      delay: 5
+      max_retries: 1
+      timeout: 5
+      type: PING
+\end{lstlisting}
 \end{itemize}
 
+V celém heat templatu je ještě více zdrojů, které se vytváří. Ty zde však nebudou popsány. V případě zájmu lze nálest komletní heat template v příloze. 
 
-\subsection{Ukázka použítí LbaaS heat templatu}
-
-Pro vytvoření heat stacku s Load balancerem je nutné daný template vytvořit pomocí příkazu:
-
-\verb!heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas!
-
-Tento příkaz vytvoří všechny již uvedené prostředky pro load balancing. Konkrétní load balancer má nakonfigurovanou virtual ip adresu (VIP) a k ní přiřazenou floating adresu, která je přístupná z externích sítí. Zároveň má tento load balancer přiřazený pool, ke kterému je přiřazena přiřazena privátní síť 10.10.10.0/24. Na obrázku č. X znázorňuje tento pool a obrázek č. X+1 jsou vidět členové (members) toho poolu.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas1}
-\par\end{centering}
-\caption{Vytvořený pool\label{fig:lbaas1}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas2}
-\par\end{centering}
-\caption{Vytvoření members\label{fig:lbaas2}}
-\end{figure}
-
-Další zdrojem, který byl vytvořen je health monitor, který lze viděn na obrázku č. X+2. Díky němu má load balancer přehled o aktuálním stavu webových instancí. Pokud by náhodou některá z nich přestala odpovídat, v tomto případě na ping, tak by load balancer na tuto instanci přestal zasílat traffic.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas3}
-\par\end{centering}
-\caption{Vytvořený health monitor\label{fig:lbaas3}}
-\end{figure}
-
-Finální síťovou topologii znázorňuje obrázek č. X+3. 
-
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas_topologie}
-\par\end{centering}
-\caption{Vytvořená síťová topologie\label{fig:lbaas_topologie}}
-\end{figure}
-
-Otestování webových serverů lze provést příkazem curl, kterému dáme jako paramert ip VIP nebo floating ip load balanceru. Po několika takovýchto zadání tohoto příkazu je vidět, že oba web servery odpovídají a je probíhá mezi nimi load balancing metodou round robin.  Celý tento test je vidět na obr. č. X+4
 
 \section{Firewall as a Service}
 
-Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využít. 
+Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využívat. U tohoto příkladu služby bude uvedeno několik scénářů, které 
 
 \subsection{Servisní instance v OpenContrailu}
 
-Přestože je možné jednotlivá VNF
+Servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. Pro vytvoření takového virtuálního stroje jsou nutné 3 základní elementy. 
 
-Servisní Template obsahuje obecný předpis pro danou VNF. Mezi tyto informace patří:
+
+\begin{itemize}
+ 	\item Service Template
+    \item Service Instance
+    \item Service Policy
+\end{itemize}
+
+Servisní Template obsahuje obecný předpis pro danou VNF v OpenContrailu. Pro správné fungování je nutné zadat nastavit správné parametry patří:
 
 \begin{itemize}
 \item Název - Název je označení daného Servisního Templatu. Pomocí něho lze následně identifikovat daný template a spustit dle jeho parametrů Servisní instanci. 
-\item Image - Image je image, který má být použit pro vytvoření dané servisní instance. V našem případě se bude jednat o image, který obsahuje požadované síťové funkce. Tento image musí před tím než může být použit  nahrán do OpenStacku přes glance.
-\item Service Type - V OpenContrailu, prozatím existují dva typy. Jsou to Trafic Analyzer a Firewall. Pro účely této práce bude používán pouze typ Firewall.
-\item Service Mode - Zde se určuje v jakém modu daný template bude nastaven. Jsou zde možnosti In-Network, In-Network-NAT.
+\item Image - Je image, který má být použit pro vytvoření dané servisní instance. V našem případě se bude jednat o image, který obsahuje požadované síťové funkce. Tento image musí před tím než může být použit  nahrán do OpenStacku Glance.
+\item Service Type - V OpenContrailu, prozatím existují dva typy. Jsou to Trafic Analyzer a Firewall.
+\item Service Mode - Zde se určuje v jakém modu daný template bude nastaven. Jsou zde 3 možnosti. , .
+
+	\begin{itemize}
+	\item Transparent - v tomto případě se jedná o neroutovaný firewall, neboli L2 firewall.
+	\item In-Network - poskytuje výchozí bránu a průchozí traffic je routovaný. Tento mode může být využit pro NAT, HTTP proxy, atd.
+	\item In-Network-NAT - zde je situace podobná jako u In-Network, ale navracející traffic nemusí být routovaný zpět do zdrojové sítě.
+	\end{itemize}
 
 \item Typy síťových portů - Zde se určuje kolik portů bude daná instance, vytvořená pomocí tohoto templatu mít a jaká bude jejich role. Jsou zde možnosti Left, Right a Management. 
-
 \end{itemize}
 
-Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí. Ty běží jako klasické instance v OpenStacku, avšak OpenContrail s nimi zachází jiným způsobem. 
+Po úspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí.  Ty běží jako klasické instance v OpenStacku. Jak tedy vyplývá z výše uvedených informací, tak existují dva druhy servisních instancí v OpenContrailu. 
+
+První z nich je Analyzer. Ten slouží k analýze a zachytávání síťového trafficu. Image pro tento typ servisní instance obvykle obsahuje protokolový analyzér a paketový sniffer, jako je například oblíbený program Wireshark. Tato instance dostává traffic, který je posílán mezi dvěma sítěmi. Tento traffic vybírá OpenContrail podle nastaveného pravidla pro dané sítě. Podle těchto pravidel je vybrána jen část trafficu, která je následně dána k dispozici servisní instanci. Samotná servisní instance nijak nemanipuluje s trafficem a ani do něj žádný negeneruje. Jednoduše lze říci, že má nastavený síťový port v promiskuitním modu a pouze pozoruje traffic. Poté jen hlásí zachycené události uživateli čí jiným entitám v síti. Obrázek č. \ref{fig:service_instance_anal} znázorňuje tento typ servisní instance.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.63]{images/service_instance_anal}
+\par\end{centering}
+\caption{Schéma zapojení servisní instance Analyzer\label{fig:service_instance_anal}}
+\end{figure}
+
+Druhým typen servisní instance je firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem při vytváření servisní instance jako firewall je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat třetí síťový port, který slouží pro out-of-band management. Přestože některá řešení pro servisní instance sloužící jako firewall mohou mít již své požadované chování definované hned při jejich startu, tak tento port může být velice užitečný při konfiguraci dané servisní instance. A to ať už se jedná o konfiguraci manuální či pomocí nějaké vyšší management entity.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.63]{images/service_instance}
+\par\end{centering}
+\caption{Schéma zapojení servisní instance\label{fig:service_instance}}
+\end{figure}
+
+
+Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká systému, aby ho posílal skrze servisní instanci.
 
 \subsection{Scénář NAT}
 
@@ -180,7 +303,10 @@ Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libo
 \caption{Firewall as a Service\label{fig:firewall}}
 \end{figure}
 
+
 \subsection{Scénář HA firewall}
+
+
 
 \begin{figure}[h]
 \begin{centering}
@@ -188,6 +314,10 @@ Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libo
 \par\end{centering}
 \caption{High Availability Firewall\label{fig:contrailHA}}
 \end{figure}
+
+
+\subsection{Scénář Service Chaining}
+
 
 
 \subsection{FwaaS template}
@@ -202,29 +332,5 @@ Pro FwaaS je narhnut heat template, který obsahuje:
 \item privátní síť
 \item contrail policy
 \end{itemize}
-
-
-\subsection{Ukázka použítí FwaaS heat templatu}\label{sub:interaction}
-
-Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
-
-\verb!heat stack-create -f heat/templates/fwaas_mnmg_template.hot -e heat/env/fwaas_pfsense_env.env pfsense!
-
-a pro vytvoření heat stacku s Fortigate VM jde vytvořit pomocí příkazu:
-
-\verb!heat stack-create -f heat/templates/fwaas_mnmg_template.hot -e heat/env/fwaas_fortios_contrail.env fortios!
-
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fwaas_topologie}
-\par\end{centering}
-\caption{Síťová topologie\label{fig:fwaas_topologie}}
-\end{figure}
-
-
-By default, pfsense firewall is configured to NAT after the heat stack is started. As a result, there is no need to make any configuration for this function. Pfsense image was preconfigured with DHCP services on every interface and there is outbound policy for NAT.
-
-After we start the heat with pfsense there is already functional service chaining. Testing instance has default gateway to contrail and contrail redirects it to pfsense.
 
 
