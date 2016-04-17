@@ -8,7 +8,7 @@ Při navrhování ukázek řešení VNF v cloudovém prostředí byli definován
 
 \begin{itemize}
 \item Univerzálnost - Celé řešení musí být postavené tak, aby ho mohli využívat všichni uživatelé dané cloudové platformy. 
-\item Jednoduchost - Vytvoření a správa VNF musí být jednoduchá.
+\item Jednoduchost - Vytvoření a správa VNF musí být pro uživatele jednoduchá a rychlá.
 \item Otevřenost a Flexibilita - Vytvořené VNF by mělo být možné v případě potřeby snadno upravit uživatelem. Úpravou by měla vzniknout nová verze VNF, kterou mohou využívat další uživatelé.  
 \item Kompatibilita se stávající síťovými prvky - Všechny VNF by měly být schopné komunikovat se všemi stávajícími fyzickými síťovými prvky. V tomto případě by měla být schopno provázat celý NFV framework se stávající infrastrukturou.
 \end{itemize}
@@ -28,26 +28,22 @@ OpenStack byl zvolen, protože se jedná o největší open-source cloudovou pla
 
 OpenStack spravuje převážně zdroje týkající se výpočeního výkonu (Compute) a uložiště (Storage). Tyto zdroje následně přiděluje dle potřeby virtuálním instancím nebo v našem případě instancím, které slouží jako VNF. Bylo však nutné zvolit řešení, které se bude starat o síťování.
 
-Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLSoverGRE, kterými jsou dynamicky propojovány jednotlivé VM a VNF. 
+Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLS over GRE, kterými jsou dynamicky propojovány jednotlivé VM a VNF. 
 
-Jednotlivá VNF mohou být v OpenContrailu vytvořena pomocí tzv. Servisních Instance a Servisní Templatů. Ty budou v této práci použity pro vytvoření VNF sloužící jako Firewall a budou podrobně popsány v kapitole věnující se vytváření této služby.
+Jednotlivá VNF mohou být v OpenContrailu vytvořena pomocí tzv. Servisních Instance a Servisní Templatů. Ty budou v této práci použity pro vytvoření VNF sloužící jako firewally a budou podrobně popsány v kapitole věnující se vytváření této služby.
 
 Další součástí, která musela být v architektuře navrhnuta, je způsob řízení a správy jednotlivých VNF. Zde se muselo jednat o řešení, jakým automaticky vytvořit a popřípadě i smazat všechny potřebné části potřebné pro VNF. Pro tuto část byl zvolen Heat. Heat je část OpenStacku, která slouží pro automatickou orchestraci. Ten bude v tomto návrhu zastávat roli VFN managera, pomocí kterého budou jednotlivé VNF spravovány. Avšak dalo by se říci, že do této role spadá i OpenContrail, protože právě on umožnuje také spravovat jednostlivá VNF za běhu.  
 
 Heat je hlavní projekt v OpenStacku pro orchestraci. Umožňuje uživatelům popsat nasazení komplexních cloudových aplikací v jednom textovém souboru, který se nazývá Heat template. Tyto soubory se dají předat heat enginu, který podle nich dokáže automaticky vytvořit požadované zdroje v OpenStacku i v OpenContrailu. 
 
-Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to z důvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato část potřeba. 
-
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.21]{images/heat}
+\includegraphics[scale=0.41]{images/heat_engine}
 \par\end{centering}
-\caption{Popis heat orchestrace\label{fig:heat}}
+\caption{Popis heat orchestrace\label{fig:heat_engine}}
 \end{figure}
 
-
-\section{Fyzická topologie}
-
+Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to z důvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato část potřeba. 
 
 \section{Load balancer as a Service}
 
@@ -55,7 +51,7 @@ Jednou z nejčastějších síťových funkcí, která je v dnešních počíta�
 
 \subsection{Scénář použití LbaaS}
 
-Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. Každý uživatel má možnost si dle potřeby vytvořit load balancer pro sve webové servery. Pokud provozuje několik webových služeb v jednom projektu (tenantu), může pro každou tuto službu vytvořit vlastní load balancer, který bude nakonfigurován dle požadavků. Tento load balancer je dostupný pro všechny uživatele cloudu, tedy ve všech tenantech.
+Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. Každý uživatel má možnost si dle potřeby vytvořit load balancer pro své webové servery. Pokud provozuje několik webových služeb v jednom projektu (tenantu), může pro každou tuto službu vytvořit vlastní load balancer, který bude nakonfigurován dle požadavků. Tento load balancer je dostupný pro všechny uživatele cloudu, tedy ve všech tenantech.
 
 \begin{figure}[h]
 \begin{centering}
@@ -66,14 +62,11 @@ Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru po
 
 \subsection{Neutron LbaaS}
 
-Při výběru řešení pro load balancing je nutné zvážit především výkon load balanceru. Na trhu již existuje celá řada fyzických i virtuálních produktů. Fyzická řešení nabízí větší výkon a obvykle i více funkcí. Virtuální pak větší flexibilitu v nasazení a jednodušší konfiguraci.
+Při výběru řešení pro load balancing je nutné zvážit především výkon load balanceru. Na trhu již existuje celá řada fyzických i virtuálních produktů. Fyzická řešení nabízí větší výkon a obvykle i více funkcí. Virtuální pak větší flexibilitu v nasazení a jednodušší konfiguraci. U obou však existuje jednotná množina funkcí, kterou uživatelé požadují a kterou většina load balancerů poskytuje. 
 
-Avšak existuje jednotná množina funkcí, kterou uživatelé požadují a kterou většina load balancerů poskytuje. 
-OpenStack Neutron navrhl LBaaS jako pokročilou službu Neutronu, která umožňuje použít jeden soubor API k využítí load balancing funkce poskytnuté celou řadou poskztovatelů.
+OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
 
-Zjednodušeně toto umožňuje uživatelům OpenStacku přes jedno společné rozhraní ovládat několik různých řešení pro load balancing. Zároveň díky tomu odpadá nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
-
-V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Avšak zde ukázané řešení může být použito s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. Dle dokumentace OpenContrailu \cite{contrail_loadbalancer} je v něm kontrétní implementace load balanceru řešena pomocí HAProxy. HAProxy je zdarma dostupný open source software pro unix operační systémy \cite{HAProxy}. 
+V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Tento příklad je však univerzální a může být použit s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. Dle dokumentace \cite{contrail_loadbalancer} je v OpenContrailu implementace load balanceru řešena pomocí HAProxy. HAProxy je zdarma dostupný open source software pro unix operační systémy \cite{HAProxy}. 
 
 
 Load balancer se v Neutron LbaaS skládá ze 4 objektů.
@@ -85,8 +78,6 @@ Load balancer se v Neutron LbaaS skládá ze 4 objektů.
 \item Monitor - Monitoruje stav aplikace. Pomocí HTTP, TCP či PING.
 \end{itemize}
 
-Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty. Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku.
-
 \begin{figure}[h]
 \begin{centering}
 \includegraphics[scale=0.63]{images/NeutronLbaaS}
@@ -94,17 +85,23 @@ Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmi
 \caption{Neutron LbaaS\label{fig:NeutronLbaaS}}
 \end{figure}
 
+Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty. Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku.
+
+
+
 \subsection{LbaaS heat template}
 
-Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizovám pomocí heat templatu. Tím byla vytvořena VNF Navržený heat template pro LbaaS v sobě obsahuje následující prostředky, které se po spuštění pokusí vytvořit.
+Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizovám pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Dále budou stručně popsány jeho části.
 
 \begin{itemize}
-\item pool
-\item members
-\item health monitoring
-\item 2 web instance
 \item privatni síť
 \item public síť
+\item web instance 1
+\item web instance 2
+\item pool - jedná se o definování 
+\item member 1
+\item member 2
+\item health monitoring
 \end{itemize}
 
 
@@ -151,17 +148,13 @@ Finální síťovou topologii znázorňuje obrázek č. X+3.
 
 Otestování webových serverů lze provést příkazem curl, kterému dáme jako paramert ip VIP nebo floating ip load balanceru. Po několika takovýchto zadání tohoto příkazu je vidět, že oba web servery odpovídají a je probíhá mezi nimi load balancing metodou round robin.  Celý tento test je vidět na obr. č. X+4
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas_testing}
-\par\end{centering}
-\caption{Test konektivity a load balancingu\label{fig:lbaas_testing}}
-\end{figure}
-
-
-
-
 \section{Firewall as a Service}
+
+Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využít. 
+
+\subsection{Servisní instance v OpenContrailu}
+
+Přestože je možné jednotlivá VNF
 
 Servisní Template obsahuje obecný předpis pro danou VNF. Mezi tyto informace patří:
 
@@ -176,15 +169,6 @@ Servisní Template obsahuje obecný předpis pro danou VNF. Mezi tyto informace 
 \end{itemize}
 
 Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí. Ty běží jako klasické instance v OpenStacku, avšak OpenContrail s nimi zachází jiným způsobem. 
-
-\begin{itemize}
-\item 1 firewall instanci
-\item 1 testovaci instanci
-\item 1 management instanci
-\item management síť
-\item privátní síť
-\item contrail policy
-\end{itemize}
 
 \subsection{Scénář NAT}
 
@@ -210,6 +194,15 @@ Po uspěšném vytvoření Servisního templatu je možné z něj vytvořit libo
 
 Pro FwaaS je narhnut heat template, který obsahuje:
 
+\begin{itemize}
+\item 1 firewall instanci
+\item 1 testovaci instanci
+\item 1 management instanci
+\item management síť
+\item privátní síť
+\item contrail policy
+\end{itemize}
+
 
 \subsection{Ukázka použítí FwaaS heat templatu}\label{sub:interaction}
 
@@ -234,40 +227,4 @@ By default, pfsense firewall is configured to NAT after the heat stack is starte
 
 After we start the heat with pfsense there is already functional service chaining. Testing instance has default gateway to contrail and contrail redirects it to pfsense.
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/pfsense_ping}
-\par\end{centering}
-\caption{Test konektivity PFSense\label{fig:pfsense_ping}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/pfsense_nat}
-\par\end{centering}
-\caption{Ukázka NAT session\label{fig:pfsense_nat}}
-\end{figure}
-
-There is also NAT session in pfsense. In shell run command:
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fortigate_int}
-\par\end{centering}
-\caption{Fortigate VM intergace konfigurace\label{fig:fortigate_int}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fortigate_nat}
-\par\end{centering}
-\caption{Fortigate VM NAT konfigurace\label{fig:fortigate_nat}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fortigate_ping}
-\par\end{centering}
-\caption{Test konektivity\label{fig:fortigate_ping}}
-\end{figure}
 
