@@ -1,6 +1,12 @@
-\chapter{Popis navržených řešení}
+\chapter{Tvorba VNF v cloudovém prostředí}
 
 V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Nejprve zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře a způsob jakým jsou navrženy.
+
+
+//TODO Požadavky od TCP cloud 
+//Proč jsem si vybral OpenStack??
+
+
 
 \section{Požadavky na NFV řešení}
 
@@ -295,6 +301,10 @@ Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká 
 
 \subsection{Scénář NAT}
 
+Nejčastěji servisní instance nasazována jako firewall, který bude sloužit pro NAT (Network adress translation). V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
+
+V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
+
 
 \begin{figure}[h]
 \begin{centering}
@@ -306,7 +316,7 @@ Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká 
 
 \subsection{Scénář HA firewall}
 
-
+Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
 
 \begin{figure}[h]
 \begin{centering}
@@ -316,21 +326,125 @@ Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká 
 \end{figure}
 
 
-\subsection{Scénář Service Chaining}
-
-
-
 \subsection{FwaaS template}
 
 Pro FwaaS je narhnut heat template, který obsahuje:
 
 \begin{itemize}
-\item 1 firewall instanci
-\item 1 testovaci instanci
-\item 1 management instanci
-\item management síť
+
 \item privátní síť
+
+
+\begin{lstlisting}[caption=Privátní síť]
+  private_net_1:
+    type: OS::Neutron::Net
+    properties:
+      name: { get_param: private_net_1_name } 
+
+  private_subnet_1:
+    type: OS::Neutron::Subnet
+    depends_on: private_net_1
+    properties:
+      network_id: { get_resource: private_net_1 }
+      cidr: { get_param: private_net_1_cidr }
+      gateway_ip: { get_param: private_net_1_gateway }
+      allocation_pools:
+        - start: { get_param: private_net_1_pool_start }
+          end: { get_param: private_net_1_pool_end }
+\end{lstlisting}
+
+
+\item firewall template
+
+
+\begin{lstlisting}[caption=Firewall servisní instance]
+service_template:
+    type: OS::Contrail::ServiceTemplate
+    properties:
+      name: { get_param: template_name }
+      service_mode: { get_param: template_mode }
+      service_type: { get_param: template_type }
+      image_name: { get_param: template_image }
+      service_scaling: { get_param: scaling }
+      availability_zone_enable: { get_param: availability_zone }
+      ordered_interfaces: { get_param: ordered_interfaces }
+      flavor: { get_param: template_flavor }
+      service_interface_type_list: { "Fn::Split" : [ ",", Ref: service_interface_type_list ] }
+      shared_ip_list: { "Fn::Split" : [ ",", Ref: shared_ip_list ] }
+      static_routes_list: { "Fn::Split" : [ ",", Ref: static_routes_list ] }
+
+\end{lstlisting}
+
+\item firewall instance
+\begin{lstlisting}[caption=Privátní síť]
+ service_instance:
+    type: OS::Contrail::ServiceInstance
+    depends_on: [private_subnet_1]
+    properties:
+      name: { get_param: private_instance_name }
+      service_template: { get_resource:  service_template}
+      availability_zone: { get_param: private_availability_zone}
+      scale_out: 
+          max_instances: { get_param: max_instances }
+      interface_list: [
+          {
+              virtual_network: "auto"
+          },
+          {
+              virtual_network: {get_param: public_net}
+          },
+          {
+              virtual_network: {get_resource: private_net_1}
+          }
+      ]
+\end{lstlisting}
+
+
+\item virtuální instance
+\begin{lstlisting}[caption=Virtuální instance pro testování]
+
+ test_instance_01:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor }
+      key_name: { get_param: key_name }
+      name: test-web01
+      networks:
+      - network: { get_resource: private_net_1 }
+      security_groups:
+      - default
+      user_data_format: RAW
+      user_data: |
+        #!/bin/bash -v
+        apt-get install apache2 -yy
+        echo "Instance 01" > /var/www/html/index.html
+
+\end{lstlisting}
+
 \item contrail policy
+
+\begin{lstlisting}[caption=Contrail network policy]
+
+  private_policy:
+    type: OS::Contrail::NetworkPolicy
+    depends_on: [ private_net_1, service_instance ]
+    properties:
+      name: { get_param: policy_name }
+      entries:
+        policy_rule: [
+              { 
+                "direction": { get_param: direction }, 
+                "protocol": "any", 
+                "src_ports": [{"start_port": {get_param: start_src_ports}, "end_port": {get_param: end_src_ports}}],
+                "dst_ports": [{"start_port": {get_param: start_dst_ports}, "end_port": {get_param: end_dst_ports}}],
+                "dst_addresses": [{ "virtual_network": {get_param: public_net}}], 
+                "action_list": {"apply_service": [{get_resource: service_instance}]}, 
+                "src_addresses": [{ "virtual_network": {get_resource: private_net_1}}] 
+              }, 
+        ]
+
+\end{lstlisting}
 \end{itemize}
 
 

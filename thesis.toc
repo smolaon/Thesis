@@ -12,16 +12,17 @@
 \contentsline {subsection}{\numberline {2.5.1}Infrastruktura NFV}{13}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Virtu\IeC {\'a}ln\IeC {\'\i } s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} funkce}{14}{subsection.2.5.2}
 \contentsline {subsection}{\numberline {2.5.3}Management a orchestrace NFV}{15}{subsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.3.1}TOSCA}{17}{subsubsection.2.5.3.1}
 \contentsline {section}{\numberline {2.6}Mo\IeC {\v z}n\IeC {\'e} technologie pro \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{17}{section.2.6}
 \contentsline {subsection}{\numberline {2.6.1}Hypervisory}{17}{subsection.2.6.1}
 \contentsline {subsection}{\numberline {2.6.2}VNF}{18}{subsection.2.6.2}
 \contentsline {subsection}{\numberline {2.6.3}Cloud platforma}{18}{subsection.2.6.3}
-\contentsline {subsubsection}{\numberline {2.6.3.1}OpenStack}{18}{subsubsection.2.6.3.1}
+\contentsline {subsubsection}{\numberline {2.6.3.1}OpenStack}{19}{subsubsection.2.6.3.1}
 \contentsline {subsubsection}{\numberline {2.6.3.2}VMware vCloud}{20}{subsubsection.2.6.3.2}
 \contentsline {subsection}{\numberline {2.6.4}SDN}{21}{subsection.2.6.4}
 \contentsline {subsubsection}{\numberline {2.6.4.1}OpenContrail}{21}{subsubsection.2.6.4.1}
 \contentsline {subsubsection}{\numberline {2.6.4.2}VMware NSX}{22}{subsubsection.2.6.4.2}
-\contentsline {chapter}{\numberline {3}Popis navr\IeC {\v z}en\IeC {\'y}ch \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{24}{chapter.3}
+\contentsline {chapter}{\numberline {3}Tvorba VNF v cloudov\IeC {\'e}m prost\IeC {\v r}ed\IeC {\'\i }}{24}{chapter.3}
 \contentsline {section}{\numberline {3.1}Po\IeC {\v z}adavky na NFV \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{24}{section.3.1}
 \contentsline {section}{\numberline {3.2}Architektura navr\IeC {\v z}en\IeC {\'e}ho \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{24}{section.3.2}
 \contentsline {section}{\numberline {3.3}Load balancer as a Service}{26}{section.3.3}
@@ -32,16 +33,15 @@
 \contentsline {subsection}{\numberline {3.4.1}Servisn\IeC {\'\i } instance v OpenContrailu}{33}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} NAT}{35}{subsection.3.4.2}
 \contentsline {subsection}{\numberline {3.4.3}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} HA firewall}{35}{subsection.3.4.3}
-\contentsline {subsection}{\numberline {3.4.4}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} Service Chaining}{35}{subsection.3.4.4}
-\contentsline {subsection}{\numberline {3.4.5}FwaaS template}{35}{subsection.3.4.5}
-\contentsline {chapter}{\numberline {4}Uk\IeC {\'a}zka a test pou\IeC {\v z}\IeC {\'\i }t\IeC {\'\i } \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{37}{chapter.4}
-\contentsline {section}{\numberline {4.1}Testovac\IeC {\'\i } topologie}{37}{section.4.1}
-\contentsline {section}{\numberline {4.2}Testovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce}{37}{section.4.2}
-\contentsline {section}{\numberline {4.3}Testov\IeC {\'a}n\IeC {\'\i } LbaaS}{38}{section.4.3}
-\contentsline {section}{\numberline {4.4}Testov\IeC {\'a}n\IeC {\'\i } FwaaS}{39}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Fortigate VM}{40}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}PFSense}{40}{subsection.4.4.2}
-\contentsline {chapter}{\numberline {5}Shrnut\IeC {\'\i } poznatk\IeC {\r u} a mo\IeC {\v z}n\IeC {\'a} budouc\IeC {\'\i } roz\IeC {\v s}\IeC {\'\i }\IeC {\v r}en\IeC {\'\i }}{44}{chapter.5}
-\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{45}{chapter.6}
-\contentsline {part}{Literatura}{46}{chapter.6}
+\contentsline {subsection}{\numberline {3.4.4}FwaaS template}{35}{subsection.3.4.4}
+\contentsline {chapter}{\numberline {4}Uk\IeC {\'a}zka praktick\IeC {\'e}ho spu\IeC {\v s}t\IeC {\v e}n\IeC {\'\i } jednotliv\IeC {\'y}ch VNF}{40}{chapter.4}
+\contentsline {section}{\numberline {4.1}Testovac\IeC {\'\i } topologie}{40}{section.4.1}
+\contentsline {section}{\numberline {4.2}Testovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce}{41}{section.4.2}
+\contentsline {section}{\numberline {4.3}Testov\IeC {\'a}n\IeC {\'\i } LbaaS}{41}{section.4.3}
+\contentsline {section}{\numberline {4.4}Testov\IeC {\'a}n\IeC {\'\i } FwaaS}{42}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Fortigate VM}{43}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}PFSense}{43}{subsection.4.4.2}
+\contentsline {chapter}{\numberline {5}Shrnut\IeC {\'\i } poznatk\IeC {\r u} a mo\IeC {\v z}n\IeC {\'a} budouc\IeC {\'\i } roz\IeC {\v s}\IeC {\'\i }\IeC {\v r}en\IeC {\'\i }}{47}{chapter.5}
+\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{48}{chapter.6}
+\contentsline {part}{Literatura}{49}{chapter.6}
 \contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.37}
