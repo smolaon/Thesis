@@ -1,46 +1,44 @@
 \BOOKMARK [0][-]{chapter.1}{\332vod}{}% 1
 \BOOKMARK [0][-]{chapter.2}{Z\341kladn\355 problematika virtualizace s\355tov\375ch funkc\355}{}% 2
-\BOOKMARK [1][-]{section.2.1}{Potreba virtualizaci s\355tov\375ch funkc\355 \(NFV\)}{chapter.2}% 3
-\BOOKMARK [1][-]{section.2.2}{Z\341kladn\355 princip virtualizace}{chapter.2}% 4
-\BOOKMARK [1][-]{section.2.3}{Cloud Computing}{chapter.2}% 5
-\BOOKMARK [2][-]{subsection.2.3.1}{Distribucn\355 modely}{section.2.3}% 6
-\BOOKMARK [2][-]{subsection.2.3.2}{Modely nasazen\355}{section.2.3}% 7
-\BOOKMARK [1][-]{section.2.4}{Souvislost NFV a SDN}{chapter.2}% 8
-\BOOKMARK [2][-]{subsection.2.4.1}{Service Chaining}{section.2.4}% 9
-\BOOKMARK [1][-]{section.2.5}{Architektura NFV a VNF}{chapter.2}% 10
-\BOOKMARK [2][-]{subsection.2.5.1}{Infrastruktura NFV}{section.2.5}% 11
-\BOOKMARK [2][-]{subsection.2.5.2}{Virtu\341ln\355 s\355tov\341 funkce}{section.2.5}% 12
-\BOOKMARK [2][-]{subsection.2.5.3}{Management a orchestrace NFV}{section.2.5}% 13
-\BOOKMARK [3][-]{subsubsection.2.5.3.1}{TOSCA}{subsection.2.5.3}% 14
-\BOOKMARK [1][-]{section.2.6}{Mo\236n\351 technologie pro re\235en\355}{chapter.2}% 15
-\BOOKMARK [2][-]{subsection.2.6.1}{Hypervisory}{section.2.6}% 16
-\BOOKMARK [2][-]{subsection.2.6.2}{VNF}{section.2.6}% 17
-\BOOKMARK [2][-]{subsection.2.6.3}{Cloud platforma}{section.2.6}% 18
-\BOOKMARK [3][-]{subsubsection.2.6.3.1}{OpenStack}{subsection.2.6.3}% 19
-\BOOKMARK [3][-]{subsubsection.2.6.3.2}{VMware vCloud}{subsection.2.6.3}% 20
-\BOOKMARK [2][-]{subsection.2.6.4}{SDN}{section.2.6}% 21
-\BOOKMARK [3][-]{subsubsection.2.6.4.1}{OpenContrail}{subsection.2.6.4}% 22
-\BOOKMARK [3][-]{subsubsection.2.6.4.2}{VMware NSX}{subsection.2.6.4}% 23
-\BOOKMARK [0][-]{chapter.3}{Tvorba VNF v cloudov\351m prostred\355}{}% 24
-\BOOKMARK [1][-]{section.3.1}{Po\236adavky na NFV re\235en\355}{chapter.3}% 25
-\BOOKMARK [1][-]{section.3.2}{Architektura navr\236en\351ho re\235en\355}{chapter.3}% 26
-\BOOKMARK [1][-]{section.3.3}{Load balancer as a Service}{chapter.3}% 27
-\BOOKMARK [2][-]{subsection.3.3.1}{Sc\351n\341r pou\236it\355 LbaaS}{section.3.3}% 28
-\BOOKMARK [2][-]{subsection.3.3.2}{Neutron LbaaS}{section.3.3}% 29
-\BOOKMARK [2][-]{subsection.3.3.3}{LbaaS heat template}{section.3.3}% 30
-\BOOKMARK [1][-]{section.3.4}{Firewall as a Service}{chapter.3}% 31
-\BOOKMARK [2][-]{subsection.3.4.1}{Servisn\355 instance v OpenContrailu}{section.3.4}% 32
-\BOOKMARK [2][-]{subsection.3.4.2}{Sc\351n\341r NAT}{section.3.4}% 33
-\BOOKMARK [2][-]{subsection.3.4.3}{Sc\351n\341r HA firewall}{section.3.4}% 34
-\BOOKMARK [2][-]{subsection.3.4.4}{FwaaS template}{section.3.4}% 35
-\BOOKMARK [0][-]{chapter.4}{Uk\341zka praktick\351ho spu\235ten\355 jednotliv\375ch VNF}{}% 36
-\BOOKMARK [1][-]{section.4.1}{Testovac\355 topologie}{chapter.4}% 37
-\BOOKMARK [1][-]{section.4.2}{Testovan\351 s\355tov\351 funkce}{chapter.4}% 38
-\BOOKMARK [1][-]{section.4.3}{Testov\341n\355 LbaaS}{chapter.4}% 39
-\BOOKMARK [1][-]{section.4.4}{Testov\341n\355 FwaaS}{chapter.4}% 40
-\BOOKMARK [2][-]{subsection.4.4.1}{Fortigate VM}{section.4.4}% 41
-\BOOKMARK [2][-]{subsection.4.4.2}{PFSense}{section.4.4}% 42
-\BOOKMARK [0][-]{chapter.5}{Shrnut\355 poznatku a mo\236n\341 budouc\355 roz\235\355ren\355}{}% 43
-\BOOKMARK [0][-]{chapter.6}{Z\341ver}{}% 44
-\BOOKMARK [-1][-]{chapter.6}{Literatura}{}% 45
-\BOOKMARK [-1][-]{chapter*.37}{Pr\355lohy}{}% 46
+\BOOKMARK [1][-]{section.2.1}{Virtualizace}{chapter.2}% 3
+\BOOKMARK [2][-]{subsection.2.1.1}{V\375hody virtualizace}{section.2.1}% 4
+\BOOKMARK [1][-]{section.2.2}{Cloud Computing}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.2.1}{Modely nasazen\355}{section.2.2}% 6
+\BOOKMARK [2][-]{subsection.2.2.2}{Distribucn\355 modely}{section.2.2}% 7
+\BOOKMARK [1][-]{section.2.3}{Potreba virtualizace s\355tov\375ch funkc\355 \(NFV\)}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.3.1}{Tradicn\355 n\341vrh poc\355tacov\351 s\355te}{section.2.3}% 9
+\BOOKMARK [2][-]{subsection.2.3.2}{NFV}{section.2.3}% 10
+\BOOKMARK [1][-]{section.2.4}{Souvislost NFV a SDN}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.4.1}{Architektura SDN}{section.2.4}% 12
+\BOOKMARK [2][-]{subsection.2.4.2}{Service Chaining}{section.2.4}% 13
+\BOOKMARK [1][-]{section.2.5}{Automatizace \236ivotn\355ho cyclu s\355tov\351 funkce}{chapter.2}% 14
+\BOOKMARK [0][-]{chapter.3}{Referencn\355 architektura NFV a VNF}{}% 15
+\BOOKMARK [1][-]{section.3.1}{Infrastruktura NFV}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.2}{Virtu\341ln\355 s\355tov\341 funkce}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.3}{Management a orchestrace NFV}{chapter.3}% 18
+\BOOKMARK [0][-]{chapter.4}{Specifikace a n\341vrh platformy pro VNF}{}% 19
+\BOOKMARK [1][-]{section.4.1}{Po\236adavky na framework}{chapter.4}% 20
+\BOOKMARK [1][-]{section.4.2}{Po\236adavky na \236ivotn\355 cyclu VNF}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.3}{Pou\236it\351 technologie}{chapter.4}% 22
+\BOOKMARK [2][-]{subsection.4.3.1}{OpenStack}{section.4.3}% 23
+\BOOKMARK [3][-]{subsubsection.4.3.1.1}{Heat}{subsection.4.3.1}% 24
+\BOOKMARK [2][-]{subsection.4.3.2}{OpenContrail}{section.4.3}% 25
+\BOOKMARK [2][-]{subsection.4.3.3}{SaltStack}{section.4.3}% 26
+\BOOKMARK [2][-]{subsection.4.3.4}{Pou\236it\375 software pro VNF}{section.4.3}% 27
+\BOOKMARK [1][-]{section.4.4}{Architektura pou\236it\351ho frameworku}{chapter.4}% 28
+\BOOKMARK [2][-]{subsection.4.4.1}{Fyzicka topologie - underlay}{section.4.4}% 29
+\BOOKMARK [0][-]{chapter.5}{Realizace uk\341zkov\375ch VNF}{}% 30
+\BOOKMARK [1][-]{section.5.1}{Use cases pro dan\351 VNF}{chapter.5}% 31
+\BOOKMARK [2][-]{subsection.5.1.1}{LbaaS use case}{section.5.1}% 32
+\BOOKMARK [2][-]{subsection.5.1.2}{FwaaS use case}{section.5.1}% 33
+\BOOKMARK [1][-]{section.5.2}{Tvorba Load balancer as a Service}{chapter.5}% 34
+\BOOKMARK [2][-]{subsection.5.2.1}{Neutron LbaaS}{section.5.2}% 35
+\BOOKMARK [2][-]{subsection.5.2.2}{LbaaS heat template}{section.5.2}% 36
+\BOOKMARK [2][-]{subsection.5.2.3}{Testov\341n\355 LbaaS}{section.5.2}% 37
+\BOOKMARK [1][-]{section.5.3}{Tvorba Firewall as a Service}{chapter.5}% 38
+\BOOKMARK [2][-]{subsection.5.3.1}{Servisn\355 instance v OpenContrailu}{section.5.3}% 39
+\BOOKMARK [2][-]{subsection.5.3.2}{FwaaS template}{section.5.3}% 40
+\BOOKMARK [2][-]{subsection.5.3.3}{Testov\341n\355 FwaaS}{section.5.3}% 41
+\BOOKMARK [0][-]{chapter.6}{Z\341ver}{}% 42
+\BOOKMARK [-1][-]{chapter.6}{Literatura}{}% 43
+\BOOKMARK [-1][-]{chapter*.36}{Pr\355lohy}{}% 44
