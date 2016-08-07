@@ -5,7 +5,7 @@
 \BOOKMARK [1][-]{section.2.2}{Cloud Computing}{chapter.2}% 5
 \BOOKMARK [2][-]{subsection.2.2.1}{Typy nasazen\355 cloudov\375ch platforem}{section.2.2}% 6
 \BOOKMARK [2][-]{subsection.2.2.2}{Typy distribuce cloudov\375ch slu\236eb}{section.2.2}% 7
-\BOOKMARK [2][-]{subsection.2.2.3}{V\375hody cloudu}{section.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.3}{Pr\355nosu cloudu}{section.2.2}% 8
 \BOOKMARK [1][-]{section.2.3}{Potreba virtualizace s\355tov\375ch funkc\355}{chapter.2}% 9
 \BOOKMARK [2][-]{subsection.2.3.1}{Softwarove definovan\351 s\355te - SDN}{section.2.3}% 10
 \BOOKMARK [2][-]{subsection.2.3.2}{Virtualizovan\351 s\355tov\351 funkce - NFV}{section.2.3}% 11
@@ -28,13 +28,14 @@
 \BOOKMARK [2][-]{subsection.4.3.1}{Fyzicka topologie - underlay}{section.4.3}% 28
 \BOOKMARK [0][-]{chapter.5}{Realizace uk\341zkov\375ch VNF}{}% 29
 \BOOKMARK [1][-]{section.5.1}{Tvorba Load balancer as a Service}{chapter.5}% 30
-\BOOKMARK [2][-]{subsection.5.1.1}{Neutron LbaaS}{section.5.1}% 31
-\BOOKMARK [2][-]{subsection.5.1.2}{LbaaS heat template}{section.5.1}% 32
-\BOOKMARK [2][-]{subsection.5.1.3}{Testov\341n\355 LbaaS}{section.5.1}% 33
-\BOOKMARK [1][-]{section.5.2}{Tvorba Firewall as a Service}{chapter.5}% 34
-\BOOKMARK [2][-]{subsection.5.2.1}{Servisn\355 instance v OpenContrailu}{section.5.2}% 35
-\BOOKMARK [2][-]{subsection.5.2.2}{FwaaS template}{section.5.2}% 36
-\BOOKMARK [2][-]{subsection.5.2.3}{Testov\341n\355 FwaaS}{section.5.2}% 37
-\BOOKMARK [0][-]{chapter.6}{Z\341ver}{}% 38
-\BOOKMARK [-1][-]{chapter.6}{Literatura}{}% 39
-\BOOKMARK [-1][-]{chapter*.37}{Pr\355lohy}{}% 40
+\BOOKMARK [2][-]{subsection.5.1.1}{Pr\355klad u\236it\355 VNF pro load balancing}{section.5.1}% 31
+\BOOKMARK [2][-]{subsection.5.1.2}{Neutron LbaaS}{section.5.1}% 32
+\BOOKMARK [2][-]{subsection.5.1.3}{LbaaS heat template}{section.5.1}% 33
+\BOOKMARK [2][-]{subsection.5.1.4}{Testov\341n\355 LbaaS}{section.5.1}% 34
+\BOOKMARK [1][-]{section.5.2}{Tvorba Firewall as a Service}{chapter.5}% 35
+\BOOKMARK [2][-]{subsection.5.2.1}{Servisn\355 instance v OpenContrailu}{section.5.2}% 36
+\BOOKMARK [2][-]{subsection.5.2.2}{FwaaS template}{section.5.2}% 37
+\BOOKMARK [2][-]{subsection.5.2.3}{Testov\341n\355 FwaaS}{section.5.2}% 38
+\BOOKMARK [0][-]{chapter.6}{Z\341ver}{}% 39
+\BOOKMARK [-1][-]{chapter.6}{Literatura}{}% 40
+\BOOKMARK [-1][-]{chapter*.37}{Pr\355lohy}{}% 41

@@ -4,26 +4,32 @@ V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a j
 
 \section{Tvorba Load balancer as a Service}
 
-Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz.
+Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery by následně použil fyzický load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz. Nevýhodou toho přístupu je právě nutnost pořízení fyzického load balanceru. Tím se uživatel značně omezí ve flexibilitě. Pokud například bude chtít další webové služby, které by měli být oddělené od těch stavajících, tak si bude muset opět pořizovat další hardwarový prvek. Alternativou k tomuto přístupu je využití cloudu a VNF, která bude mít load balancing funkcionalitu.
 
-V cloudovém prostředí je tedy možné velice rychle, dle požadavků uživale
-či automaticky dle nastavených parametrů, škálovat (přidávat či odstraňovat) webové
-servery. Load balancer zároveň monitoruje stav jednotlivých sleduje stav jednotlivých
-instancí a posílá komunika pouze správně fungujícím instancím.
 
-Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. Každý uživatel má možnost si dle potřeby vytvořit load balancer pro své webové servery. Pokud provozuje několik webových služeb v jednom projektu (tenantu), může pro každou tuto službu vytvořit vlastní load balancer, který bude nakonfigurován dle požadavků. Tento load balancer je dostupný pro všechny uživatele cloudu, tedy ve všech tenantech.
+\subsection{Příklad užití VNF pro load balancing}
+
+V příkladu užití VNF s load balancing funkcionalitou si uživatel jednoduše pro návrh celé virtuální infrastruktury zvolí příslušné heat template a doplní do něj požadované parametry. Vše se následně automaticky nastaví. 
+
+Prvky, které budou součástí této instastruktury jsou:
+
+\begin{itemize}
+\item Webové servery - Virtuální instance, na kterých bude umístěna požadovaná webová aplikace.
+\item Privátní síť - Je síť, kde budou tyto servery umístěny.
+\item Load balancer - Tato část je zodpovědná za řízení příchozí a odchozí komunikace webových serverů s okolním světem (Internetem).
+\end{itemize}
+
+Celé schéma zapojení znázorňuje obrázek č. \ref{fig:LoadBalancer}. 
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.43]{images/LoadBalancer}
+\includegraphics[scale=0.55]{images/LoadBalancer}
 \par\end{centering}
 \caption{Load Balancer as a Service\label{fig:LoadBalancer}}
 \end{figure}
 
 
 \subsection{Neutron LbaaS}
-
-Při výběru řešení pro load balancing je nutné zvážit především výkon load balanceru. Na trhu již existuje celá řada fyzických i virtuálních produktů. Fyzická řešení nabízí větší výkon a obvykle i více funkcí. Virtuální pak větší flexibilitu v nasazení a jednodušší konfiguraci. U obou však existuje jednotná množina funkcí, kterou uživatelé požadují a kterou většina load balancerů poskytuje. 
 
 OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
 
