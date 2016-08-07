@@ -1,8 +1,15 @@
 \chapter{Realizace ukázkových VNF}
 
-\section{Use cases pro dané VNF}
+V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a jeji architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem jsou realizovány požadavky na její životní cyclus, které byly uvedeny v předchozí kapitole. 
 
-\subsection{LbaaS use case}
+\section{Tvorba Load balancer as a Service}
+
+Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz.
+
+V cloudovém prostředí je tedy možné velice rychle, dle požadavků uživale
+či automaticky dle nastavených parametrů, škálovat (přidávat či odstraňovat) webové
+servery. Load balancer zároveň monitoruje stav jednotlivých sleduje stav jednotlivých
+instancí a posílá komunika pouze správně fungujícím instancím.
 
 Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru poskytovaného jako službu v privátním cloudu. Každý uživatel má možnost si dle potřeby vytvořit load balancer pro své webové servery. Pokud provozuje několik webových služeb v jednom projektu (tenantu), může pro každou tuto službu vytvořit vlastní load balancer, který bude nakonfigurován dle požadavků. Tento load balancer je dostupný pro všechny uživatele cloudu, tedy ve všech tenantech.
 
@@ -13,32 +20,6 @@ Na obrázku č. \ref{fig:LoadBalancer} je vidět celý koncept load balanceru po
 \caption{Load Balancer as a Service\label{fig:LoadBalancer}}
 \end{figure}
 
-\subsection{FwaaS use case}
-
-Nejčastěji servisní instance nasazována jako firewall, který bude sloužit pro NAT (Network adress translation). V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
-
-V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.43]{images/firewall}
-\par\end{centering}
-\caption{Firewall as a Service\label{fig:firewall}}
-\end{figure}
-
-Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.11]{images/contrailHA}
-\par\end{centering}
-\caption{High Availability Firewall\label{fig:contrailHA}}
-\end{figure}
-
-
-\section{Tvorba Load balancer as a Service}
-
-Jednou z nejčastějších síťových funkcí, která je v dnešních počítačových síťích a datových centrech vyžadována je load balancing. Load balancer spravuje příchozí komunikaci a distrubuje ji do několika serverů či jiných síťových zdrojů. Tím je zajištěna rozloha zátěže.  V cloudovém prostředí je tedy možné velice rychle, dle požadavků uživale či automaticky dle nastavených parametrů, škálovat (přidávat či odstraňovat) webové servery. Load balancer zároveň monitoruje stav jednotlivých sleduje stav jednotlivých instancí a posílá komunika pouze správně fungujícím instancím. 
 
 \subsection{Neutron LbaaS}
 
@@ -270,6 +251,26 @@ Otestování webových serverů lze provést příkazem curl, kterému dáme jak
 
 
 \section{Tvorba Firewall as a Service}
+
+Nejčastěji servisní instance nasazována jako firewall, který bude sloužit pro NAT (Network adress translation). V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
+
+V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.43]{images/firewall}
+\par\end{centering}
+\caption{Firewall as a Service\label{fig:firewall}}
+\end{figure}
+
+Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.11]{images/contrailHA}
+\par\end{centering}
+\caption{High Availability Firewall\label{fig:contrailHA}}
+\end{figure}
 
 Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využívat. U tohoto příkladu služby bude uvedeno několik scénářů, které 
 
