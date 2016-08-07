@@ -20,19 +20,15 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Load Balancer as a Service\relax }}{26}{figure.caption.20}
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Neutron LbaaS\relax }}{27}{figure.caption.21}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{32}{figure.caption.22}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{32}{figure.caption.23}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{32}{figure.caption.24}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{33}{figure.caption.25}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Test konektivity a load balancingu\relax }}{34}{figure.caption.26}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Firewall as a Service\relax }}{35}{figure.caption.27}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces High Availability Firewall\relax }}{36}{figure.caption.28}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance Analyzer\relax }}{36}{figure.caption.29}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance\relax }}{37}{figure.caption.30}
-\contentsline {figure}{\numberline {5.12}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{40}{figure.caption.31}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Test konektivity PFSense\relax }}{41}{figure.caption.32}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{41}{figure.caption.33}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{41}{figure.caption.34}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{42}{figure.caption.35}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Test konektivity\relax }}{42}{figure.caption.36}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{32}{figure.caption.22}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Test konektivity a load balancingu\relax }}{33}{figure.caption.23}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Firewall as a Service\relax }}{34}{figure.caption.24}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance Analyzer\relax }}{35}{figure.caption.25}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance\relax }}{36}{figure.caption.26}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{40}{figure.caption.27}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Test konektivity PFSense\relax }}{40}{figure.caption.28}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{40}{figure.caption.29}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{41}{figure.caption.30}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{41}{figure.caption.31}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Test konektivity\relax }}{42}{figure.caption.32}
 \addvspace {10\p@ }

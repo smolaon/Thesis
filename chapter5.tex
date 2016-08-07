@@ -68,6 +68,8 @@ Celý proces probíhá tak, že každý virtuální server, který je asociovan�
 \item Source IP - u této metody je vybrán member na základě zdrojové ip adresy klienta.
 \end{itemize}
 
+V tomto případě si tedy není třeba starat o automatizaci konfigurace celého řešení. Je zde pouze nutné správně nadefinovat jednotlivé komponenty v heat templatu, abychom dosáhli požadovaného chování.
+
 \subsection{LbaaS heat template}
 
 Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizován pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Celý template v sobě obsahuje i webové instance, které slouží pro testování. V produkci by však byly v odděleném templatu. Template je parametrizovaný a konktétní hodnoty pro jednotlivě zdroje (ip adresy, ip) jsou v tzv. enviroment file, který se zadává při spouštění daného templatu. Dále jsou popsány pouze hlavní části heat templatu.
@@ -206,37 +208,15 @@ V celém heat templatu je ještě více zdrojů, které se vytváří. Ty zde v�
 
 \subsection{Testování LbaaS}\label{sub:interaction}
 
-Pro vytvoření heat stacku s Load balancerem je nutné daný template vytvořit pomocí příkazu:
+V reálné případě by si uživatel heat tempalte vybral z katalogu. Avšak v případě této práce bude heat template spouštěn pomocí příkazu v terminálu:
 
-\verb!heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas!
+\begin{lstlisting}
+heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas
+\end{lstlisting}
 
-Tento příkaz vytvoří všechny již uvedené prostředky pro load balancing. Konkrétní load balancer má nakonfigurovanou virtual ip adresu (VIP) a k ní přiřazenou floating adresu, která je přístupná z externích sítí. Zároveň má tento load balancer přiřazený pool, ke kterému je přiřazena přiřazena privátní síť 10.10.10.0/24. Na obrázku č. X znázorňuje tento pool a obrázek č. X+1 jsou vidět členové (members) toho poolu.
+Tento příkaz vytvoří všechny již uvedené prostředky pro load balancing. Konkrétní load balancer má nakonfigurovanou virtual ip adresu (VIP) a k ní přiřazenou floating adresu, která je přístupná z externích sítí. Zároveň má tento load balancer přiřazený pool, ke kterému je přiřazena přiřazena privátní síť 10.10.10.0/24. Další zdrojem, který byl vytvořen je health monitor. Díky němu má load balancer přehled o aktuálním stavu webových instancí. Pokud by náhodou některá z nich přestala odpovídat, v tomto případě na ping, tak by load balancer na tuto instanci přestal zasílat traffic.
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas1}
-\par\end{centering}
-\caption{Vytvořený pool\label{fig:lbaas1}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas2}
-\par\end{centering}
-\caption{Vytvoření members\label{fig:lbaas2}}
-\end{figure}
-
-Další zdrojem, který byl vytvořen je health monitor, který lze viděn na obrázku č. X+2. Díky němu má load balancer přehled o aktuálním stavu webových instancí. Pokud by náhodou některá z nich přestala odpovídat, v tomto případě na ping, tak by load balancer na tuto instanci přestal zasílat traffic.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/lbaas3}
-\par\end{centering}
-\caption{Vytvořený health monitor\label{fig:lbaas3}}
-\end{figure}
-
-Finální síťovou topologii znázorňuje obrázek č. X+3. 
-
+Na obrázku č. \ref{fig:lbaas_topologie} je zobrazek screenshot vytvořené topologie v OpenStack dashboardu. Jsou zde vidět vytvořené servery a sítě. Není zde zobrazen load balancer, protože tato vizualizace tento prvek nezobrazuje. Lze ho nalézt v jiné části dashboardu, ale pro názornost bude rovnou otestováno jeho správné chování.
 
 \begin{figure}[h]
 \begin{centering}
@@ -245,7 +225,9 @@ Finální síťovou topologii znázorňuje obrázek č. X+3.
 \caption{Vytvořená síťová topologie\label{fig:lbaas_topologie}}
 \end{figure}
 
-Otestování webových serverů lze provést příkazem curl, kterému dáme jako paramert ip VIP nebo floating ip load balanceru. Po několika takovýchto zadání tohoto příkazu je vidět, že oba web servery odpovídají a je probíhá mezi nimi load balancing metodou round robin.  Celý tento test je vidět na obr. č. X+4
+Otestování správného chování virtuálního load balanceru, lze provést opakovaným dotazem na právě vytvořené webové servery. Tím je bude zároveň otestována jejich správná konfigurace. Pokud by totiž nevrátili správnou odpoveď je možné, že chyba může být i zde. 
+
+Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dána jako parametr public adresa load balanceru. Celý výstup toho testování znázorňuje obrázek č. \ref{fig:lbaas_testing}. Po několika takovýchto dotazech na webové servery je vidět, že odpověď příchází střídavě od obou webových serverů. Probíhá mezi nimi tedy load balancing metodou round robin tak, jak bylo požadováno.
 
 \begin{figure}[h]
 \begin{centering}
@@ -255,10 +237,9 @@ Otestování webových serverů lze provést příkazem curl, kterému dáme jak
 \end{figure}
 
 
-
 \section{Tvorba Firewall as a Service}
 
-Nejčastěji servisní instance nasazována jako firewall, který bude sloužit pro NAT (Network adress translation). V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
+Další velmi častou síťovou funkcí, která je často využívána je firewall. 
 
 V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
 
@@ -271,16 +252,13 @@ V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlast
 
 Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.11]{images/contrailHA}
-\par\end{centering}
-\caption{High Availability Firewall\label{fig:contrailHA}}
-\end{figure}
-
 Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využívat. U tohoto příkladu služby bude uvedeno několik scénářů, které 
 
+\subsection{Příklad užití NVF pro firewall}
+
 \subsection{Servisní instance v OpenContrailu}
+
+V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
 
 Servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. Pro vytvoření takového virtuálního stroje jsou nutné 3 základní elementy. 
 
