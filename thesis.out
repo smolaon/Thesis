@@ -1,11 +1,11 @@
 \BOOKMARK [0][-]{chapter.1}{\332vod}{}% 1
-\BOOKMARK [0][-]{chapter.2}{Z\341kladn\355 problematika virtualizace s\355tov\375ch funkc\355}{}% 2
-\BOOKMARK [1][-]{section.2.1}{Vysvetlen\355 virtualizace}{chapter.2}% 3
-\BOOKMARK [2][-]{subsection.2.1.1}{V\375hody virtualizace}{section.2.1}% 4
+\BOOKMARK [1][-]{section.1.1}{Po\236adavky na \236ivotn\355 cyclu VNF}{chapter.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Z\341kladn\355 problematika virtualizace s\355tov\375ch funkc\355}{}% 3
+\BOOKMARK [1][-]{section.2.1}{Prehled virtualizace}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.2}{Cloud Computing}{chapter.2}% 5
 \BOOKMARK [2][-]{subsection.2.2.1}{Typy nasazen\355 cloudov\375ch platforem}{section.2.2}% 6
 \BOOKMARK [2][-]{subsection.2.2.2}{Typy distribuce cloudov\375ch slu\236eb}{section.2.2}% 7
-\BOOKMARK [2][-]{subsection.2.2.3}{Dopady cloud computingu}{section.2.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.3}{V\375hody cloudu}{section.2.2}% 8
 \BOOKMARK [1][-]{section.2.3}{Potreba virtualizace s\355tov\375ch funkc\355}{chapter.2}% 9
 \BOOKMARK [2][-]{subsection.2.3.1}{Softwarove definovan\351 s\355te - SDN}{section.2.3}% 10
 \BOOKMARK [2][-]{subsection.2.3.2}{Virtualizovan\351 s\355tov\351 funkce - NFV}{section.2.3}% 11

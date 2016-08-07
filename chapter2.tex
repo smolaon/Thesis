@@ -2,13 +2,13 @@
 
 Jak již vyplývá z názvu, tak tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuální síťových funkcí. Budou zde vysvětleny hlavní důvody a výhody spojené s virtualizací a cloud computingem. Dále zde bude vysvětlen rozdíl oproti tradičnímu síťovému návrhu a jaká je souvislost virtualizace síťových funkcí se softwarově definovanými sítěmi.
 
-\section{Vysvětlení virtualizace}
+\section{Přehled virtualizace}
 
 Virtualizace je technologie, která změnila způsob, jakým se přistupuje k IT infrastruktuře. V tradičním modelu IT infrastuktury servery podporují pouze jeden operační systém v daném čase. Na tomto systému obvykle běží pouze jedna aplikace. Přestože by na tomto systému mohlo běžet více aplikací, tak je lepší držet aplikace odděleně na různých systech z důvodu minimalizace potencionálních bodů selhání. Pokud například nastane s aplikací problém, tak častým řešením je restartování systému. Pokud by na systému bylo více aplikací, znamenalo by to jejich vyřazení z provozu po dobu restartu, který může trvat velice dlouho. \cite{VM_book}
 
 Z výše zmíněných důvodů došlo k velkému rozvoji a nasazování virtualizace. Virtualizací obecně označujeme techniky, které umožňují k dostupným hardwarovým zdrojům přistupovat jiným způsobem, než jakým fyzicky existují. Je tomu díky softwaru, který tento hardware abstrahuje a vytvoří tím virtuální prostředí. Virtualizované prostředí se dá snadněji přizpůsobit potřebám uživatelů, případně skrýt pro uživatele nepodstatné detaily (jako např. rozmístění hardwarových prostředků). Tím je tedy umožněno na jednom fyzickém serveru provozovat více od sebe oddělených virtuálních strojů, které mají každý svůj vlastní operačních systému s aplikacemi. Software pro virtualizaci se nazývá hypervisor.\cite{VM_book}
 
-Jak zmiňuje \cite{VM_architektura}, tak existují tyto dva základní typy hypervisorů:
+Jak zmiňuje Popel a Goldberg v \cite{VM_architektura}, tak existují tyto dva základní typy hypervisorů:
 
 \begin{itemize}
 \item Typ 1 (Nativní - Bare-metal) - Tento hypervisor běží přímo na fyzickém hardwaru. Tím umožňuje provozovat více operačních systému na jednom fyzickém stroji. Příkladem takového hypervisoru je VMware ESXi, XEN a KVM.
@@ -22,20 +22,7 @@ Jak zmiňuje \cite{VM_architektura}, tak existují tyto dva základní typy hype
 \caption{Schéma hypervisorů \label{fig:virtualization}}
 \end{figure}
 
-Obrázek \ref{fig:virtualization} zobrazuje schématický popis obou hypervisoru a jejich rozdíl. Problematika virtualizace je velice rozsáhlá a více informací o ní poskytují zdroje \cite{VM_book} a \cite{VM_architektura}.
-
-\subsection{Výhody virtualizace}
-
-Hlavním důvodem k využívání virtualizace je nedostatečné využití dostupných zdrojů. Jak například zmiňuje 
-
-//TODO najít zdroj pro vyhody virtualizace
-
-\begin{itemize}
-\item Snížení nákladů - 
-\item Menší požadavky na prostor - 
-\item Lepší vytíženost serverů -
-\item Rychlejší nasazování nových aplikací a provisining -
-\end{itemize}
+Obrázek \ref{fig:virtualization} zobrazuje schématický popis obou typů hypervisorů a jejich rozdíl.
 
 \section{Cloud Computing}
 
@@ -74,7 +61,7 @@ Dle \cite{CloudSurvey} lze cloudové služby lze rozdělit do 3 základních kat
 \item Software as a Servicec (SaaS) - V modelu SaaS provozují poskytovatelé cloudových služeb aplikační software v cloudu a uživatelé  k  tomuto  softwaru  přistupují  pomocí  klientského  software  (např.  webové prohlížeče). Uživatelé  cloudu tedy  nespravují infrastrukturu  ani platformu, kde aplikace běží.  Není  proto  třeba zde nic instalovat  a  spouštět  aplikace  na  vlastních  počítačích uživatele, což velmi zjednodušuje údržbu. Cloudové aplikace se liší od ostatních aplikací v možnostech  škálování, kterého  může  být  dosaženo  díky  distribuci  úkolů  na  více virtuálních strojů, a tím reagovat na měnící se poptávku. Tento proces je pro uživatele služby transparentní, uživatel vidí pouze jeden přístupový bod pro danou aplikaci. 
 \end{itemize}
 
-\subsection{Dopady cloud computingu}
+\subsection{Výhody cloudu}
 
 \section{Potřeba virtualizace síťových funkcí}
 

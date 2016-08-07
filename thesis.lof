@@ -2,37 +2,37 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Sch\IeC {\'e}ma hypervisor\IeC {\r u} \relax }}{4}{figure.caption.6}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Sch\IeC {\'e}ma SDN, p\IeC {\v r}evzato z \cite {SDN_clanek}\relax }}{8}{figure.caption.7}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Koncept virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i } (NFV)\relax }}{10}{figure.caption.8}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces (NFV)\relax }}{11}{figure.caption.9}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Sch\IeC {\'e}ma SDN, p\IeC {\v r}evzato z \cite {SDN_clanek}\relax }}{7}{figure.caption.7}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Koncept virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i } (NFV)\relax }}{9}{figure.caption.8}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces (NFV)\relax }}{10}{figure.caption.9}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Uk\IeC {\'a}zka klasick\IeC {\'e}ho service chainigu pomoc\IeC {\'\i } fyzick\IeC {\'y}ch s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch prvk\IeC {\r u}\relax }}{11}{figure.caption.10}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Uk\IeC {\'a}zka VNF service chainigu\relax }}{12}{figure.caption.11}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Uk\IeC {\'a}zka VNF service chainigu\relax }}{11}{figure.caption.11}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces NFV architektura, p\IeC {\v r}evzato z \cite {NFV_architektura}\relax }}{13}{figure.caption.12}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Sch\IeC {\'e}ma NFV infrastruktury\relax }}{15}{figure.caption.13}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Sch\IeC {\'e}ma virtu\IeC {\'a}ln\IeC {\'\i } s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce\relax }}{16}{figure.caption.14}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Sch\IeC {\'e}ma NFV MANO\relax }}{17}{figure.caption.15}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces NFV architektura, p\IeC {\v r}evzato z \cite {NFV_architektura}\relax }}{12}{figure.caption.12}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Sch\IeC {\'e}ma NFV infrastruktury\relax }}{14}{figure.caption.13}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Sch\IeC {\'e}ma virtu\IeC {\'a}ln\IeC {\'\i } s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce\relax }}{15}{figure.caption.14}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Sch\IeC {\'e}ma NFV MANO\relax }}{16}{figure.caption.15}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Sch\IeC {\'e}ma OpenContrail, p\IeC {\v r}evzato z \cite {OpenContrail}\relax }}{22}{figure.caption.16}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Architektura NFV \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }\relax }}{23}{figure.caption.17}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Popis heat orchestrace\relax }}{25}{figure.caption.18}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Testovac\IeC {\'\i } topologie\relax }}{25}{figure.caption.19}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Sch\IeC {\'e}ma OpenContrail, p\IeC {\v r}evzato z \cite {OpenContrail}\relax }}{21}{figure.caption.16}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Architektura NFV \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }\relax }}{22}{figure.caption.17}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Popis heat orchestrace\relax }}{24}{figure.caption.18}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Testovac\IeC {\'\i } topologie\relax }}{24}{figure.caption.19}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Load Balancer as a Service\relax }}{27}{figure.caption.20}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Neutron LbaaS\relax }}{28}{figure.caption.21}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{33}{figure.caption.22}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{33}{figure.caption.23}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{33}{figure.caption.24}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{34}{figure.caption.25}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Test konektivity a load balancingu\relax }}{35}{figure.caption.26}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Firewall as a Service\relax }}{36}{figure.caption.27}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces High Availability Firewall\relax }}{37}{figure.caption.28}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance Analyzer\relax }}{37}{figure.caption.29}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance\relax }}{38}{figure.caption.30}
-\contentsline {figure}{\numberline {5.12}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{41}{figure.caption.31}
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Test konektivity PFSense\relax }}{42}{figure.caption.32}
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{42}{figure.caption.33}
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{43}{figure.caption.34}
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{43}{figure.caption.35}
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Test konektivity\relax }}{44}{figure.caption.36}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Load Balancer as a Service\relax }}{26}{figure.caption.20}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Neutron LbaaS\relax }}{27}{figure.caption.21}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} pool\relax }}{32}{figure.caption.22}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'\i } members\relax }}{32}{figure.caption.23}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'y} health monitor\relax }}{32}{figure.caption.24}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Vytvo\IeC {\v r}en\IeC {\'a} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{33}{figure.caption.25}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Test konektivity a load balancingu\relax }}{34}{figure.caption.26}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Firewall as a Service\relax }}{35}{figure.caption.27}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces High Availability Firewall\relax }}{36}{figure.caption.28}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance Analyzer\relax }}{36}{figure.caption.29}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Sch\IeC {\'e}ma zapojen\IeC {\'\i } servisn\IeC {\'\i } instance\relax }}{37}{figure.caption.30}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces S\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} topologie\relax }}{40}{figure.caption.31}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Test konektivity PFSense\relax }}{41}{figure.caption.32}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Uk\IeC {\'a}zka NAT session\relax }}{41}{figure.caption.33}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Fortigate VM intergace konfigurace\relax }}{42}{figure.caption.34}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Fortigate VM NAT konfigurace\relax }}{42}{figure.caption.35}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Test konektivity\relax }}{43}{figure.caption.36}
 \addvspace {10\p@ }
