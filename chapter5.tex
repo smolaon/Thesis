@@ -231,7 +231,7 @@ Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dán
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.45]{images/lbaas_testing}
+\includegraphics[scale=0.3]{images/lbaas_testing}
 \par\end{centering}
 \caption{Test konektivity a load balancingu\label{fig:lbaas_testing}}
 \end{figure}
@@ -243,18 +243,19 @@ Další velmi častou síťovou funkcí, která je často využívána je firewa
 
 V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.43]{images/firewall}
-\par\end{centering}
-\caption{Firewall as a Service\label{fig:firewall}}
-\end{figure}
-
 Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
 
 Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využívat. U tohoto příkladu služby bude uvedeno několik scénářů, které 
 
 \subsection{Příklad užití NVF pro firewall}
+
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.6]{images/firewall}
+\par\end{centering}
+\caption{Firewall as a Service\label{fig:firewall}}
+\end{figure}
 
 \subsection{Servisní instance v OpenContrailu}
 
