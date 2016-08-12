@@ -1,5 +1,7 @@
 \chapter{Dostupné technologie NFV a VNF}
 
+V předešlé kapitole byla popsána základní problematika a motivace pro virtualizaci síťových funkcí.
+
 \section{Architektura NFV a VNF} 
 
 V předchozí sekci byla popsána myšlenka a motivace související s virtualizací síťových funkcí. Protože cílem této práce je navržení několika VNF na cloudové platformě, tak je nejprve nutné se seznámit s jeho obecnou architekturou. V této práci se bude vycházet z referenční architektury NVF \cite{NFV_architektura}, která byla navržena organizací ETSI. Jedná se pouze o funkční návrh bez náznaků konkrétní implementace. Od této skupiny existují i podrobnější návrhy jednotlivých částí celého NFV frameworku, které v této práci budou také popsány v příslušných kapitolách.
@@ -96,8 +98,6 @@ V oblasti NFV MANO probíhá v součastnosti rozsáhlí vývoj a existuje někol
 
 \subsection{OpenStack}
 
-//Todo Proč jsem si vybral OpenStack??
-
 //Citace OpenStack a VNF.
 
 OpenStack je open-source platformou umožňující postavit IaaS cloud, který může být nainstalován i na běžném hardwaru. Toto řešení má za cíl vytvořit dostupnou cloudovou platformu, která bude splňovat všechny potřeby privátních a veřejných cloudů nezávisle na velikosti řešení. \cite{OpenStack}
@@ -116,6 +116,15 @@ Celá stavba systému OpenStack se skládá z několika na sobě nezávislých p
 \end{itemize}
 
 //Heat
+
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.41]{images/heat_engine}
+\par\end{centering}
+\caption{Popis heat orchestrace\label{fig:heat_engine}}
+\end{figure}
+
 
 \subsubsection{Vanilla Neutron}
 
@@ -141,6 +150,34 @@ Další komponentou je vRouter, který má na starost přenos dat. VRouter běž
 \end{figure}
 
 \subsection{VMware vCloud}
+
+\subsubsection{VMware vCloud}
+
+Společnost Vmware poskytuje pro privátní cloudové systémy své řešení, které označuje jako VMware vCloud. Toto řešení je poskládané z jednotlivých produktů této společnosti. Celá architektura má hierarchická model, který je vidět na obrázku č. \ref{fig:vmware}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.65]{images/vmware}
+\par\end{centering}
+\caption{Schéma VMware vCloud, převzato z \cite{vmware}\label{fig:vmware}}
+\end{figure}
+
+Dle \cite{vmware} se VMware vCloud skláda především z těchto komponent.
+
+\begin{itemize}
+\item VMware vCloud Director - je  jedna  ze základních součástí potřebných pro vytvoření  privátního  cloudu ve stylu VMwaru.  Umožňuje vytvořit  a  doručovat  koncovým  zákazníkům infrastrukturu jako službu. Je propojen a přímo spolupracuje s VMware vSphere center.
+\item VMware vSphere - tento produkt slouží pro vytvoření virtualizované infrastruktury. Je to sdružení více komponent. Ty nejhlavnější jsou:
+
+\begin{itemize}
+\item VMware ESX (ESXi) - hypervisor, který byl popsán v kapitole \ref{sub:Hypervisor}.
+\item VMware vCenter Server - umožňuje efektivní a pokročilejčí správu virtualizovaného prostředí, bez ohledu na jeho velikost. Jedná se např.o snadné vytváření nových virtuálních počítačů, jejich  klonování  nebo  importování  z jiného  úložiště.  
+\item VMware vSphere Client - je určený pro dálkovou správu hostitelů ESXi. Připojit se můžeme prostřednictvím vCenter serveru nebo přímo přes ESXi server.
+\end{itemize} 
+\item VMware vCloud Networking and Security - poskytuje síťování a bezpečnost pro vituální prostředí. Poskytuje mnoho síťových funkcí a poskytuje framework pro integraci řešeí třetích stran.
+\item VMware vShield - představuje možnost zabezpečení v prostředí VMware VSphere. Může být konfigurován pomocí vShield Managera, který umožňuje centrální správu přes webové rozhraní, vSphere klient plug-in, nebo command line interface (CLI).
+\item VMware vCenter Chargeback - slouží pro monitorování virtuálních strojů, které následně může být účtováno.
+\end{itemize}
+
 
 \section{Dostupné možnosti pro VNF}
 
