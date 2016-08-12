@@ -1,0 +1,39 @@
+
+
+
+3 Dostupna NFV & VNF
+	* Architecture NVF & VNF
+	  * Infrastruktura NFV
+	  * VNF
+	* Dostupne tech NFV
+      V teto casti predstavime dostupne NFV na trhu
+      * OpenStack
+       - openstack modularni - v nasi praci nas zajimaji predevsim Neutron a Heat. OpenStack se vyrazne meni s vyberem pluginu pro Neutron, kterych existuje vice nez 20. Mezi nejpouzivanejsi (odkaz na usersurvey) patri tzv. Vanilla Neutron a OpenContrail
+      	* Vanilla Neutron
+      	  - zakladni funkcionalita. Puvodne mel nabizet stejne funkce jako AWS, ze ktereho openstack vzesel, jelikoz jeho cilem bylo vytvorit jednotnou platformu pro privatni i verejny cloud. Postupne pribyvaji funkce jako VPNaaS, ... Problem je, ze jako samotny neposkytuje funkce pro NFV. Proto byla vytvorena iniciativa OVN (OPENFV), avsak tento projekt je v zacatcich a neni production ready.
+      	* OpenContrail
+      	  - je urcen pro telco a zvolilo si ho AT&T, Deutsche Telekom, France Telekom pro NFV platformu. V posledni verzi prinasi predevsim funkce jako BGPaaS, Physical service chainning, ....
+      * VMware vCloud orchestrator
+        - proprietarni, licencovane reseni, automatizace. Je to standrad? Heat template jede jak na AWS tak na OpenStacku. Yaml format easy. Klika se. 
+     * Dostupne pro VNF
+	  * FWaaS - fortigate, pfsense
+	  * LbaaS - haproxy, avi networks
+     * Orchestrace a management
+      * Pomoci SaltStacku
+      * Pomoci Preddefinovaneho image ci aplikace
+      * Pomoci Heat bash scriptu
+
+4 Pozadavky a architektura prostredi NVF & VNF
+	* Pozadavky na NFV
+	  - rozepises co proc a jak
+	* Pozadavky na VNF
+	  - rozepises co proc a jak
+	* Vysledna architektura reseni
+	  - na zaklade jsem vybral a navrhnul
+
+5. Testovaci scenare a realizace pro VNF a NFV
+	* predstavil ty scenare
+	  * FWaaS - fortigate, pfsense
+	  * LbaaS - haproxy, avi networks
+	* realizaci
+	* zhodnoceni a porovnani

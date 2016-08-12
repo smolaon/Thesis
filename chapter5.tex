@@ -1,17 +1,19 @@
-\chapter{Realizace ukázkových VNF}
+\chapter{Testovací scénáře a realizace pro VNF a NFV}
 
-V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a jeji architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem jsou realizovány požadavky na její životní cyclus, které byly uvedeny v předchozí kapitole. 
+V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a jeji architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem jsou realizovány požadavky na její životní cyclus, které byly uvedeny v předchozí kapitole.
 
-\section{Tvorba Load balancer as a Service}
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.41]{images/heat_engine}
+\par\end{centering}
+\caption{Popis heat orchestrace\label{fig:heat_engine}}
+\end{figure}
+
+\section{Scenáře pro použití vybraných VNF}
+
+\subsection{Scénář LbaaS}
 
 Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery by následně použil fyzický load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz. Nevýhodou toho přístupu je právě nutnost pořízení fyzického load balanceru. Tím se uživatel značně omezí ve flexibilitě. Pokud například bude chtít další webové služby, které by měli být oddělené od těch stavajících, tak si bude muset opět pořizovat další hardwarový prvek. Alternativou k tomuto přístupu je využití cloudu a VNF, která bude mít load balancing funkcionalitu.
-
-
-\subsection{Příklad užití VNF pro load balancing}
-
-V příkladu užití VNF s load balancing funkcionalitou si uživatel jednoduše pro návrh celé virtuální infrastruktury zvolí příslušné heat template a doplní do něj požadované parametry. Vše se následně automaticky nastaví. 
-
-Prvky, které budou součástí této instastruktury jsou:
 
 \begin{itemize}
 \item Webové servery - Virtuální instance, na kterých bude umístěna požadovaná webová aplikace.
@@ -19,17 +21,18 @@ Prvky, které budou součástí této instastruktury jsou:
 \item Load balancer - Tato část je zodpovědná za řízení příchozí a odchozí komunikace webových serverů s okolním světem (Internetem).
 \end{itemize}
 
-Celé schéma zapojení znázorňuje obrázek č. \ref{fig:LoadBalancer}. 
+\subsection{Scénář FwaaS}
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.55]{images/LoadBalancer}
+\includegraphics[scale=0.6]{images/firewall}
 \par\end{centering}
-\caption{Load Balancer as a Service\label{fig:LoadBalancer}}
+\caption{Firewall as a Service\label{fig:firewall}}
 \end{figure}
 
+\section{Realizace VNF pro LbaaS}
 
-\subsection{Neutron LbaaS}
+\subsection{HAproxy - Neutron HAproxy agent}
 
 OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
 
@@ -70,7 +73,7 @@ Celý proces probíhá tak, že každý virtuální server, který je asociovan�
 
 V tomto případě si tedy není třeba starat o automatizaci konfigurace celého řešení. Je zde pouze nutné správně nadefinovat jednotlivé komponenty v heat templatu, abychom dosáhli požadovaného chování.
 
-\subsection{LbaaS heat template}
+\subsubsection{LbaaS heat template}
 
 Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizován pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Celý template v sobě obsahuje i webové instance, které slouží pro testování. V produkci by však byly v odděleném templatu. Template je parametrizovaný a konktétní hodnoty pro jednotlivě zdroje (ip adresy, ip) jsou v tzv. enviroment file, který se zadává při spouštění daného templatu. Dále jsou popsány pouze hlavní části heat templatu.
 
@@ -206,7 +209,7 @@ private_net:
 
 V celém heat templatu je ještě více zdrojů, které se vytváří. Ty zde však nebudou popsány. V případě zájmu lze nálest komletní heat template v příloze. 
 
-\subsection{Testování LbaaS}\label{sub:interaction}
+\subsubsection{Testování LbaaS}\label{sub:interaction}
 
 V reálné případě by si uživatel heat tempalte vybral z katalogu. Avšak v případě této práce bude heat template spouštěn pomocí příkazu v terminálu:
 
@@ -237,81 +240,11 @@ Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dán
 \end{figure}
 
 
-\section{Tvorba Firewall as a Service}
+\subsection{AVI networks}
 
-Další velmi častou síťovou funkcí, která je často využívána je firewall. 
+\section{Realizace VNF pro FwaaS}
 
-V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
-
-Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
-
-Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využívat. U tohoto příkladu služby bude uvedeno několik scénářů, které 
-
-\subsection{Příklad užití NVF pro firewall}
-
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.6]{images/firewall}
-\par\end{centering}
-\caption{Firewall as a Service\label{fig:firewall}}
-\end{figure}
-
-\subsection{Servisní instance v OpenContrailu}
-
-V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
-
-Servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. Pro vytvoření takového virtuálního stroje jsou nutné 3 základní elementy. 
-
-\begin{itemize}
- 	\item Service Template
-    \item Service Instance
-    \item Service Policy
-\end{itemize}
-
-Servisní Template obsahuje obecný předpis pro danou VNF v OpenContrailu. Pro správné fungování je nutné zadat nastavit správné parametry patří:
-
-\begin{itemize}
-\item Název - Název je označení daného Servisního Templatu. Pomocí něho lze následně identifikovat daný template a spustit dle jeho parametrů Servisní instanci. 
-\item Image - Je image, který má být použit pro vytvoření dané servisní instance. V našem případě se bude jednat o image, který obsahuje požadované síťové funkce. Tento image musí před tím než může být použit  nahrán do OpenStacku Glance.
-\item Service Type - V OpenContrailu, prozatím existují dva typy. Jsou to Trafic Analyzer a Firewall.
-\item Service Mode - Zde se určuje v jakém modu daný template bude nastaven. Jsou zde 3 možnosti. , .
-
-	\begin{itemize}
-	\item Transparent - v tomto případě se jedná o neroutovaný firewall, neboli L2 firewall.
-	\item In-Network - poskytuje výchozí bránu a průchozí traffic je routovaný. Tento mode může být využit pro NAT, HTTP proxy, atd.
-	\item In-Network-NAT - zde je situace podobná jako u In-Network, ale navracející traffic nemusí být routovaný zpět do zdrojové sítě.
-	\end{itemize}
-
-\item Typy síťových portů - Zde se určuje kolik portů bude daná instance, vytvořená pomocí tohoto templatu mít a jaká bude jejich role. Jsou zde možnosti Left, Right a Management. 
-\end{itemize}
-
-Po úspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí.  Ty běží jako klasické instance v OpenStacku. Jak tedy vyplývá z výše uvedených informací, tak existují dva druhy servisních instancí v OpenContrailu. 
-
-První z nich je Analyzer. Ten slouží k analýze a zachytávání síťového trafficu. Image pro tento typ servisní instance obvykle obsahuje protokolový analyzér a paketový sniffer, jako je například oblíbený program Wireshark. Tato instance dostává traffic, který je posílán mezi dvěma sítěmi. Tento traffic vybírá OpenContrail podle nastaveného pravidla pro dané sítě. Podle těchto pravidel je vybrána jen část trafficu, která je následně dána k dispozici servisní instanci. Samotná servisní instance nijak nemanipuluje s trafficem a ani do něj žádný negeneruje. Jednoduše lze říci, že má nastavený síťový port v promiskuitním modu a pouze pozoruje traffic. Poté jen hlásí zachycené události uživateli čí jiným entitám v síti. Obrázek č. \ref{fig:service_instance_anal} znázorňuje tento typ servisní instance.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.63]{images/service_instance_anal}
-\par\end{centering}
-\caption{Schéma zapojení servisní instance Analyzer\label{fig:service_instance_anal}}
-\end{figure}
-
-Druhým typen servisní instance je firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem při vytváření servisní instance jako firewall je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat třetí síťový port, který slouží pro out-of-band management. Přestože některá řešení pro servisní instance sloužící jako firewall mohou mít již své požadované chování definované hned při jejich startu, tak tento port může být velice užitečný při konfiguraci dané servisní instance. A to ať už se jedná o konfiguraci manuální či pomocí nějaké vyšší management entity.
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.63]{images/service_instance}
-\par\end{centering}
-\caption{Schéma zapojení servisní instance\label{fig:service_instance}}
-\end{figure}
-
-
-Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká systému, aby ho posílal skrze servisní instanci.
-
-
-
-\subsection{FwaaS template}
+\subsection{Heat template}
 
 Pro FwaaS je narhnut heat template, který obsahuje:
 
@@ -431,12 +364,81 @@ service_template:
 \end{lstlisting}
 \end{itemize}
 
+\subsection{PfSense}
+
+//Bash script nefunguje
+//Predpripraveny image
+
+\subsection{Fortigate}
+
+//Python API = Script
+// => Salt module 
+
+\section{Tvorba Firewall as a Service}
+
+Další velmi častou síťovou funkcí, která je často využívána je firewall. 
+
+V tomto případě má tedy každý uživatel cloudu možnost si vytvořit vlastní servisní instanci.  
+
+Největší výhodou použití firewall VNF v OpenContrailu je možnost nasazení tohoto firewallu ve vysoké dostupnosti.
+
+Dalším častým příklad VNF, kterou uživatelé cloudu mohou potřebovat je firewall. Oproti LbaaS je zde situace o něco komplikovanější. Je zde totiž více možností a jak daný firewall využívat. U tohoto příkladu služby bude uvedeno několik scénářů, které 
+
+\subsection{Servisní instance v OpenContrailu}
+
+V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
+
+Servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. Pro vytvoření takového virtuálního stroje jsou nutné 3 základní elementy. 
+
+\begin{itemize}
+ 	\item Service Template
+  \item Service Instance
+  \item Service Policy
+\end{itemize}
+
+Servisní Template obsahuje obecný předpis pro danou VNF v OpenContrailu. Pro správné fungování je nutné zadat nastavit správné parametry patří:
+
+\begin{itemize}
+\item Název - Název je označení daného Servisního Templatu. Pomocí něho lze následně identifikovat daný template a spustit dle jeho parametrů Servisní instanci. 
+\item Image - Je image, který má být použit pro vytvoření dané servisní instance. V našem případě se bude jednat o image, který obsahuje požadované síťové funkce. Tento image musí před tím než může být použit  nahrán do OpenStacku Glance.
+\item Service Type - V OpenContrailu, prozatím existují dva typy. Jsou to Trafic Analyzer a Firewall.
+\item Service Mode - Zde se určuje v jakém modu daný template bude nastaven. Jsou zde 3 možnosti. , .
+
+	\begin{itemize}
+	\item Transparent - v tomto případě se jedná o neroutovaný firewall, neboli L2 firewall.
+	\item In-Network - poskytuje výchozí bránu a průchozí traffic je routovaný. Tento mode může být využit pro NAT, HTTP proxy, atd.
+	\item In-Network-NAT - zde je situace podobná jako u In-Network, ale navracející traffic nemusí být routovaný zpět do zdrojové sítě.
+	\end{itemize}
+
+\item Typy síťových portů - Zde se určuje kolik portů bude daná instance, vytvořená pomocí tohoto templatu mít a jaká bude jejich role. Jsou zde možnosti Left, Right a Management. 
+\end{itemize}
+
+Po úspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí.  Ty běží jako klasické instance v OpenStacku. Jak tedy vyplývá z výše uvedených informací, tak existují dva druhy servisních instancí v OpenContrailu. 
+
+První z nich je Analyzer. Ten slouží k analýze a zachytávání síťového trafficu. Image pro tento typ servisní instance obvykle obsahuje protokolový analyzér a paketový sniffer, jako je například oblíbený program Wireshark. Tato instance dostává traffic, který je posílán mezi dvěma sítěmi. Tento traffic vybírá OpenContrail podle nastaveného pravidla pro dané sítě. Podle těchto pravidel je vybrána jen část trafficu, která je následně dána k dispozici servisní instanci. Samotná servisní instance nijak nemanipuluje s trafficem a ani do něj žádný negeneruje. Jednoduše lze říci, že má nastavený síťový port v promiskuitním modu a pouze pozoruje traffic. Poté jen hlásí zachycené události uživateli čí jiným entitám v síti. Obrázek č. \ref{fig:service_instance_anal} znázorňuje tento typ servisní instance.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.63]{images/service_instance_anal}
+\par\end{centering}
+\caption{Schéma zapojení servisní instance Analyzer\label{fig:service_instance_anal}}
+\end{figure}
+
+Druhým typen servisní instance je firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem při vytváření servisní instance jako firewall je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat třetí síťový port, který slouží pro out-of-band management. Přestože některá řešení pro servisní instance sloužící jako firewall mohou mít již své požadované chování definované hned při jejich startu, tak tento port může být velice užitečný při konfiguraci dané servisní instance. A to ať už se jedná o konfiguraci manuální či pomocí nějaké vyšší management entity.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.63]{images/service_instance}
+\par\end{centering}
+\caption{Schéma zapojení servisní instance\label{fig:service_instance}}
+\end{figure}
+
+
+Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká systému, aby ho posílal skrze servisní instanci.
 
 
 
-
-
-\subsection{Testování FwaaS}\label{sub:interaction}
+\subsection{Testování FwaaS s PfSense}\label{sub:interaction}
 
 Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
 
@@ -473,7 +475,8 @@ After we start the heat with pfsense there is already functional service chainin
 \caption{Ukázka NAT session\label{fig:pfsense_nat}}
 \end{figure}
 
-There is also NAT session in pfsense. In shell run command:
+
+\subsection{Testování FwaaS s Fortigate}\label{sub:interaction}
 
 \begin{figure}[h]
 \begin{centering}
