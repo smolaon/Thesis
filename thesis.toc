@@ -1,18 +1,16 @@
 \select@language {czech}
 \contentsline {chapter}{\numberline {1}\IeC {\'U}vod}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Z\IeC {\'a}kladn\IeC {\'\i } problematika virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Z\IeC {\'a}kladn\IeC {\'\i } koncept virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Princip virtualizace}{4}{section.2.2}
-\contentsline {section}{\numberline {2.3}Cloud Computing}{6}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Typy nasazen\IeC {\'\i } cloudov\IeC {\'y}ch platforem}{6}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}Typy distribuce cloudov\IeC {\'y}ch slu\IeC {\v z}eb}{7}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}P\IeC {\v r}\IeC {\'\i }nos cloudu}{8}{subsection.2.3.3}
-\contentsline {section}{\numberline {2.4}Pot\IeC {\v r}eba virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{8}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}Tradi\IeC {\v c}n\IeC {\'\i } po\IeC {\v c}\IeC {\'\i }ta\IeC {\v c}ov\IeC {\'e} s\IeC {\'\i }t\IeC {\v e}}{8}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Softwarov\IeC {\v e} definovan\IeC {\'e} s\IeC {\'\i }t\IeC {\v e} - SDN}{8}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}Virtualizovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce - NFV}{10}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}Souvislost SDN a NFV}{10}{subsection.2.4.4}
-\contentsline {subsection}{\numberline {2.4.5}Service Chaining}{10}{subsection.2.4.5}
+\contentsline {section}{\numberline {2.1}Princip virtualizace}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Cloud Computing}{4}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Typy nasazen\IeC {\'\i } cloudov\IeC {\'y}ch platforem}{5}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Typy distribuce cloudov\IeC {\'y}ch slu\IeC {\v z}eb}{6}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Pot\IeC {\v r}eba virtualizace s\IeC {\'\i }\IeC {\v t}ov\IeC {\'y}ch funkc\IeC {\'\i }}{7}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Tradi\IeC {\v c}n\IeC {\'\i } po\IeC {\v c}\IeC {\'\i }ta\IeC {\v c}ov\IeC {\'e} s\IeC {\'\i }t\IeC {\v e}}{7}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Softwarov\IeC {\v e} definovan\IeC {\'e} s\IeC {\'\i }t\IeC {\v e} - SDN}{7}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Virtualizovan\IeC {\'e} s\IeC {\'\i }\IeC {\v t}ov\IeC {\'e} funkce - NFV}{8}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Souvislost SDN a NFV}{9}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}Service Chaining}{9}{subsection.2.3.5}
 \contentsline {chapter}{\numberline {3}Dostupn\IeC {\'e} technologie NFV a VNF}{12}{chapter.3}
 \contentsline {section}{\numberline {3.1}Architektura NFV a VNF}{12}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Infrastruktura NFV}{13}{subsection.3.1.1}

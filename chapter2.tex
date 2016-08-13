@@ -1,29 +1,6 @@
 \chapter{Základní problematika virtualizace síťových funkcí}
 
-Tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuální síťových funkcí. Nejprve uveden základní koncept virtualizace síťových funkcí. Následuje přehled a krátký popis virtualizace a cloud computingu spolu s jejich přínosem pro IT. Následně je vysvětlena potřeba virtualizace síťových funkcí. Zde jsou porovnány jednotlivé přístupy k řešení a návrhu počítačových sítí. Zárověň je zde vysvětlen i základní koncept virtualizace síťových funkcí.
-
-\section{Základní koncept virtualizace síťových funkcí}
-
-NFV bylo navrženo v publikacích  a skupinou několika telekomunikačních provozovatelů. Později vzniklo více projektů zabývající se touto oblastí jako například OPVNF \cite{OPNFV}  Hlavní cíle tohoto řešení jsou zlepšit následující aspekty provozu telekomunikačních sítí:
-
-\begin{itemize}
-\item Smíření investičních nákladů – snížení potřeby nákupu jednoúčelových hardwarových zařízení, možnost platby pouze za využité kapacity a snížení rizik přílišného předimenzování kapacit
-\item Snížení provozních nákladů – snížení prostoru, napájení a požadavky na chlazení, zjednodušení správy a řízení síťových služeb
-\item Urychlení Time-to-market – zkrácení doby pro nasazení nových síťových služeb, chopení se nových příležitosti na trhu, vyhovění potřebám zákazníka
-\item Doručit agilitu a flexibilitu – možnost rychle škálovat (rozšiřovat nebo zmenšovat služby) dle měnících se požadavků od zákazníka. Podpora služeb, které mají být dodány pomocí softwaru na libovolném standardním serverovém hardwaru
-\end{itemize}
-
-Jak je uvedeno v \cite{NFVState} a \cite{NFVChalanges}, tak celá myšlenka je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. To umožní se síťovými funkcemi zacházek jako s klasickými softwarovými aplikacemi, které mohou běžet na standardním komerčně dostupných serverech jenž organizace v současnosti používají. Tím bude zároveň umožněno flexibilní nasazování těchto síťových funkcí a jejich dynamický provisioning. Díky tomu, že jsou síťová funkce odděleny od hardwaru, tak je také možné jejich vhodnější umístění v topologii. To znamená dle požadavků na umístění mohou být nasazeny v datových centrech, síťových uzlech či přímo v uživatelově koncovém bodě. Hlavní koncept virtualizace síťových funkcí znázorňuje obrázek č. \ref{fig:vize_NFV}. 
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.5]{images/vize_NFV}
-\par\end{centering}
-\caption{Koncept virtualizace síťových funkcí (NFV)\label{fig:vize_NFV}}
-\end{figure}
-
-Za zmínění stojí poznámka v \cite{NFVState}, kde je řečeno, že obecný koncept oddělení síťové funkce od hardwaru ještě nutně neznamená potřebu využití virtualizace. Protože budou síťové funkce dostupně jako software, tak mohou být nainstalovány a provozovány přímo na fyzickém stroji. Ovšem rozdíl je, že tento stroj již nebude speciální hardware, ale klasický server. Tento scénář může být do jisté míry použit při nasazovaní síťových funkcí v malém měřítku např. v uživatelských koncových bodech. Avšak pro plné využití všech výše zmíněných výhod, které jsou třeba ve velkých datových centrech, je třeba s použitím virtualizace počítat. To vše umocňuje fakt, že většina datových center v současnosti již využívá cloud computing. 
-
+Tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuální síťových funkcí. Nejprve uveden přehled a krátký popis virtualizace a cloud computingu spolu s jejich přínosem pro IT. Následně je vysvětlena potřeba virtualizace síťových funkcí. Zde jsou porovnány jednotlivé přístupy k řešení a návrhu počítačových sítí. Zárověň je zde vysvětlen i základní koncept virtualizace síťových funkcí.
 
 \section{Princip virtualizace}
 
@@ -51,25 +28,23 @@ Virtualizace je základní technologie, na které je postavena virtualizace sí�
 
 \section{Cloud Computing}
 
-Cloud computing či jen zkráceně cloud, je zjednodušeně označení několika serverů zapojených v clusteru, na kterých běží hypervizor. Ten 
-
-Dle definice uvedené v \cite{Cloud_book} ho lze charakterizovat jako poskytování služeb, programů a výpočetních zdrojů servery dostupnými z internetu s tím, že uživatelé k nim mohou přistupovat vzdáleně.
-
-Na těchto serverech běží hypervisor, který vytvoří virtuální infrastrukturu. Pro vytváření cloudových služeb zde musí ještě existovat cloudová platforma, která dokáže celou tuto virtuální infrastrukturu spravovat. \cite{Cloud_book}
-
-Dle \cite{Cloud_book} existuje 5 základních atributů, kterými se cloud computing vyznačuje. Jsou to tyto:
+Existuje několik definic pro cloud computing. Nejčastější používaná definice pro cloud computing je \cite{nist_definition}, kde je uvedeno, že je to  model umožnující využívání společného poolu počítačových zdrojů vzdáleně přes počítačovou síť. Tyto zdroje mohou být flexibilně alokovány a uvolňovány dle potřeby. Základní charakteristiky cloudu jsou tedy:
 
 \begin{itemize}
 \item Služby dostupné na požádání
-\item Všudypřítomný síťový přístup
+\item Všudypřítomný přístup k síti
 \item Sdílení zdrojů
 \item Vysokou elasticitu
 \item Měření využitých zdrojů
 \end{itemize}
 
+Z technického hlediska je cloud resp. cloudoví infrastruktura několik společně propojených serverů v clusteru. Na těchto serverech běží hypervisor, který vytvoří virtuální infrastrukturu. Tímto způsobem je tvořen společný pool zdrojů. Pro vytváření cloudových služeb zde ještě musí existovat cloudová platforma, která dokáže celou tuto virtuální infrastrukturu centrálně spravovat.
+
+V \cite{cloud_book} jsou uvedeny základní typy cloudu a cloudových služeb, které jsou dále popsány.
+
 \subsection{Typy nasazení cloudových platforem}
 
-Existuje několik základních modelů nasazení cloud computingu resp. cloudových platforem, které uvádí \cite{CloudSurvey}. V \cite{NFV_use_cases} lze k nim opět najít určité příklady z oblasti virtualizace síťových funkcí.
+Existuje několik základních modelů nasazení cloud computingu resp. cloudových platforem. Toto rozdělení je určeno způsobem jakým je cloud používám a poskytován. Tyto modely nasazení jsou následují:
 
 \begin{itemize}
 \item Privátní cloud - Privátní cloud je  infrastruktura  provozována  výhradně  v  rámci  jedné  organizace. Může být spravován interně nebo prostřednictvím třetí strany a hostování může být opět interní nebo externí.  Aby  mohl  podnik  využít  privátní  cloud,  musí  nejprve  navrhnout a uzpůsobit k tomuto účelu svoji stávající infrastrukturu, která musí být virtualizována.  Vlastní  přechod  vyvolává  řadu  bezpečnostních  otázek,  které  je třeba řešit, aby se zabránilo vážným zranitelnostem celého řešení. 
@@ -80,7 +55,7 @@ Existuje několik základních modelů nasazení cloud computingu resp. cloudov�
 
 \subsection{Typy distribuce cloudových služeb}
 
-Dle \cite{CloudSurvey} lze cloudové služby lze rozdělit do 3 základních kategorii. 
+Cloudové služby, které poskytují všechny výše zmíněné cloudové platformy, lze dále rozdělit do 3 základních kategorii na základě poskytované funkčnosti. 
 
 \begin{itemize}
 \item Infrastracture as a Service (IaaS) - Nejzákladnější  model  poskytování  cloudových  služeb. IaaS cloudové platformy nabízejí například výpočetní výkon, virtuální disky, blokové a souborové úložiště či virtuální sítě.  Poskytovatelé  IaaS  cloudových  platforem  poskytují tyto zdroje na vyžádání ze svých datových center. Toto je možné díky skupiny hypervisorů v rámci cloudu, které mohou provozovat velké množství virtuálních strojů  a  mají  schopnost  škálovat  poskytované  služby v  závislosti  na  měnících  se požadavcích přicházejících od zákazníků. Tento model může tedy sloužit i pro poskytnutí všech potřebných zdrojů celé infrastruktury pro virtualizaci síťových prvků, neboli Network Function Virtualization Infrastrakture as a Service.
@@ -88,16 +63,11 @@ Dle \cite{CloudSurvey} lze cloudové služby lze rozdělit do 3 základních kat
 \item Software as a Servicec (SaaS) - V modelu SaaS provozují poskytovatelé cloudových služeb aplikační software v cloudu a uživatelé  k  tomuto  softwaru  přistupují  pomocí  klientského  software  (např.  webové prohlížeče). Uživatelé  cloudu tedy  nespravují infrastrukturu  ani platformu, kde aplikace běží.  Není  proto  třeba zde nic instalovat  a  spouštět  aplikace  na  vlastních  počítačích uživatele, což velmi zjednodušuje údržbu. Cloudové aplikace se liší od ostatních aplikací v možnostech  škálování, kterého  může  být  dosaženo  díky  distribuci  úkolů  na  více virtuálních strojů, a tím reagovat na měnící se poptávku. Tento proces je pro uživatele služby transparentní, uživatel vidí pouze jeden přístupový bod pro danou aplikaci. 
 \end{itemize}
 
-\subsection{Přínos cloudu}
-
 \section{Potřeba virtualizace síťových funkcí}
 
 \subsection{Tradiční počítačové sítě}
 
 Pohledem na tradiční počítačovou sít zjistíme, že nejvíce síťové funkčnosti je soustředěno ve fyzických proprietárních zařízeních jako jsou routery, firewally či load balancery. To znamená, že provozovatelé počítačových sítí se při spouštění nových síťových služeb musí na tyto zařízení spoléhat. Což může vést k zdlouhavému nasazování, zvýšené spotřebě energii a investici do školení pracovníků pro dané proprietární zařízení. Zároveň zde není možnost, aby síť mohla být dynamicky ovládána dle aktuálních požadavků uživatelů sítě. Například vývojář nemůže hned nasadit aplikaci do produkce. Musí nejprve čekat na síťový tým než patřičně nakonfigurují síťové prvky pro správné a bezpečné fungování celé infrastruktury.
-
-//TODO obrazek + popis jak je to nahovno
-//HW model 
 
 \subsection{Softwarově definované sítě - SDN}
 
@@ -122,7 +92,6 @@ mělo být poskytováno prostřednictvím nižší vrstvy, nazývané northbound
 
 \end{itemize}
 
-
 Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak se navzájem se doplňují. Fakt, že SDN umožňuje programaticky ovládat počítačovou síť, lze využít pro poskytnutí programovatelné konektivity mezi jednotlivými virtuálními síťovými funkcemi. Naopak SDN může využít NFV tím, že implementuje potřebné síťové funkce jako software. Může tak virtualizovat SDN Controller, který tak může běžet na co nejvhodnějším místě v datovém centru. Je vidět, že tyto dvě technologie se dobře doplňují, proto jsou často součástí jednoho řešení. \cite{SDN_book}
 
 
@@ -134,6 +103,26 @@ Přestože Softwarově definované sítě a virtualizace síťových funkcí jso
 //TODO Obrazek pro Home
 //TODO Obrazek pro Cloud
 //TODO Obrazek pro Telco
+
+Hlavní cíle tohoto řešení jsou zlepšit následující aspekty provozu telekomunikačních sítí:
+
+\begin{itemize}
+\item Smíření investičních nákladů – snížení potřeby nákupu jednoúčelových hardwarových zařízení, možnost platby pouze za využité kapacity a snížení rizik přílišného předimenzování kapacit
+\item Snížení provozních nákladů – snížení prostoru, napájení a požadavky na chlazení, zjednodušení správy a řízení síťových služeb
+\item Urychlení Time-to-market – zkrácení doby pro nasazení nových síťových služeb, chopení se nových příležitosti na trhu, vyhovění potřebám zákazníka
+\item Doručit agilitu a flexibilitu – možnost rychle škálovat (rozšiřovat nebo zmenšovat služby) dle měnících se požadavků od zákazníka. Podpora služeb, které mají být dodány pomocí softwaru na libovolném standardním serverovém hardwaru
+\end{itemize}
+
+Jak je uvedeno v \cite{NFVState} a \cite{NFVChalanges}, tak celá myšlenka je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. To umožní se síťovými funkcemi zacházek jako s klasickými softwarovými aplikacemi, které mohou běžet na standardním komerčně dostupných serverech jenž organizace v současnosti používají. Tím bude zároveň umožněno flexibilní nasazování těchto síťových funkcí a jejich dynamický provisioning. Díky tomu, že jsou síťová funkce odděleny od hardwaru, tak je také možné jejich vhodnější umístění v topologii. To znamená dle požadavků na umístění mohou být nasazeny v datových centrech, síťových uzlech či přímo v uživatelově koncovém bodě. Hlavní koncept virtualizace síťových funkcí znázorňuje obrázek č. \ref{fig:vize_NFV}. 
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.5]{images/vize_NFV}
+\par\end{centering}
+\caption{Koncept virtualizace síťových funkcí (NFV)\label{fig:vize_NFV}}
+\end{figure}
+
+Za zmínění stojí poznámka v \cite{NFVState}, kde je řečeno, že obecný koncept oddělení síťové funkce od hardwaru ještě nutně neznamená potřebu využití virtualizace. Protože budou síťové funkce dostupně jako software, tak mohou být nainstalovány a provozovány přímo na fyzickém stroji. Ovšem rozdíl je, že tento stroj již nebude speciální hardware, ale klasický server. Tento scénář může být do jisté míry použit při nasazovaní síťových funkcí v malém měřítku např. v uživatelských koncových bodech. Avšak pro plné využití všech výše zmíněných výhod, které jsou třeba ve velkých datových centrech, je třeba s použitím virtualizace počítat. To vše umocňuje fakt, že většina datových center v současnosti již využívá cloud computing. 
 
 \subsection{Souvislost SDN a NFV}
 
