@@ -202,26 +202,29 @@ Na trhu s virtuálními load balancery je situace podobná. Zde vendoři také z
 
 \section{Možnosti prostředky pro Management a Orchestraci VNF} \label{sec:MANO}
 
-Poslední částí refenční architektury NFV je management a orchestrace VNF. Přestože se jedná o nejkomplexnější část architektury, tak v této práci se situace o něco zjednodušila použitím cloudové platformy. Díky ní totiž není nutné řešit úlohu, kterou plní Virtualized infrastructure manager, neboť pokuď bude provedena správná volba této platformy, tak v ní bude již obsažena. Není tedy nutné se příliš starat o to, jakým způsobem a kde bude VNF vytvořena, přestože z hlediska výkonu to může hrát roli, jak je například popsáno v \cite{vnf_placement} .
+Poslední částí refenční architektury NFV je management a orchestrace VNF. Přestože se jedná o nejkomplexnější část architektury, tak v této práci se situace o něco zjednodušila použitím cloudové platformy. Díky ní totiž není nutné hledat řešení pro úlohu, kterou plní Virtualized infrastructure manager, neboť pokuď bude provedena správná volba této platformy, tak v ní bude již obsažena. Zároveň je třeba říci, že zde Není tedy nutné se příliš starat o to, kde budou jednotlivá VNF vytvořena, přestože z hlediska výkonu to může hrát roli, jak je například popsáno v \cite{vnf_placement} .
 
-Dále je nutné zmínit, že není nutné realizovat roli NFV orchestatoru, protože by to bylo nad rámec cílů této práce. Jediným problémem, pro který je tedy nutné navrhnout řešení je management jednotlivých síťových funkcí. Roli, kterou zastává VNF manager.
+Dále je nutné zmínit, že není nutné realizovat roli NFV orchestatoru, protože by to bylo nad rámec cílů této práce. Jediným problémem, pro který je tedy nutné navrhnout řešení je management jednotlivých síťových funkcí. Roli, kterou zastává VNF manager. Tou je tedy management jednotlivých VNF a softwaru, který na nich poběží.
 
-Přestože management počítačové sítě je sama osobě komplexní činnost
+Management počítačové sítě je sama osobě komplexní činnost skládající dle \cite{network_management} se ze:
 
-//***Citace mé bakalářky :-)
+\begin{itemize}
+\item Správa poruch a chyb (ang. Fault management)
+\item Správa konfigurace (ang. Configuration management)
+\item Účetní a evidenční správa (ang. Accounting management)
+\item Správa výkonu (ang. Performance management) 
+\item Správa bezpečnosti (ang. Security management)
+\end{itemize}
 
-//*Predkonfigurovaneho image či aplikace
+Přestože všechny tyto části jsou důležité, tak kromě správy konfigurace jsou to detekční a monitorovací úkony, které mohou být do určité míry i součástí implementace cloudové platformy. Avšak správa konfigurace je hlavní část, pro kterou je nutné nalést řešení v této práci, protože většina softwaru pro VNF uvedené v předchozí části bude mít jiné možnosti pro jejich správu konfigurace. Existuje zde tedy několik přístupů, jak k ní přistupovat.
 
-//*Pomoci scriptu / API
+\begin{itemize}
+\item Předdefinovaný image či aplikace
+\item Využití scriptování / API 
+\item Standardizované protokoly - NETCONF
+\item Konfigurační management - SaltStack, Puppet, Ansible
+\end{itemize}
 
-//*Konfigurovační management
-//***Co existuje
-//***SaltStack
-//***Ansible
-
-//*Standartní protokoly
-//***Netconf
-//***SNMP
 
 
 
