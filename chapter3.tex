@@ -84,9 +84,9 @@ Jak vyplývá z obrázku č. \ref{fig:MANO}, tak referenční návrh MANO dle \c
 
 \begin{itemize}
 
-\item Virtualized infrastructure manager (VIM) - Řídí a spravuje fyzické a virtuální zdroje v jedné doméně infrastuktury. Celková infrastruktura se může skládat z více domén a každá musí mít svůj VIM. Jeho typickými úlohami jsou vytvýření, udržování a uvolňování VM na dostupných zdrojích v doméně. Zároveň musí mít přehled o všech těchto a stavu hardwarových zdrojů.
+\item Virtualized infrastructure manager (VIM) - Řídí a spravuje fyzické a virtuální zdroje v jedné doméně infrastuktury. Celková infrastruktura se může skládat z více domén a každá musí mít svůj VIM. Jeho typickými úlohami jsou vytváření, udržování a uvolňování VM na dostupných zdrojích v doméně. Zároveň musí mít přehled o všech těchto a stavu hardwarových zdrojů.
 
-\item VNF manager - Dohlíží na lifecycle management jednotlivých VNF instancí. To znamená, že výtváří, udržuke a ukončuje VNF instance, které běží na jednotlivých VM (ty však spravuje VIM). Opět může existovat více VNF managerů, kteří mohou spravovat jednu či více VNF.
+\item VNF manager - Dohlíží na lifecycle management jednotlivých VNF instancí. To znamená, že výtváří, udržuje a ukončuje VNF instance, které běží na jednotlivých VM (ty však spravuje VIM). Opět může existovat více VNF managerů, kteří mohou spravovat jednu či více VNF.
 
 \item NFV orchestator - Zjednodušeně slouží jako řízení a správu všech VIM a všech VNF managerů. Pomocí komunikace s VIM dokáže spravovat dostupné zdroje a pomocí komunikace s VNF managery dokáže řídit síťové služby. Jeho další funkcí je i přehled všech dostupných VNF, neboli katalog VNF, a registrace nových VNF do tohoto katalogu. Ten je pak dostupný uživatelům.
 \end{itemize}
@@ -103,7 +103,20 @@ Pro tvorbu NFV infrastruktury bude v této práci využívána cloudová platfor
 
 OpenStack \cite{OpenStack_web} je open-source platformou umožňující postavit cloud, který může být nainstalován na běžném hardwaru. Toto řešení má za cíl vytvořit dostupnou cloudovou platformu, která bude splňovat všechny potřeby privátních a veřejných cloudů nezávisle na velikosti řešení.
 
-Celá stavba systému OpenStack se skládá z několika na sobě nezávislých projektů (modulů), které řeší různé oblasti cloudové platformy. Tyto projekty mezi sebou komunikují pomocí otevřených API a mohou být spravovány pomocí dashboardu. Celé administrace OpenStacku může být prováděna přes webově rozhraní, příkazovou řádku či přímo pomocí příkazů zaslaných do API. Celé toto řešení se vyznačuje jednoduchostí implementace, škálovatelností a rychlým vývojem nových vylepšení. Hlavními moduly OpenStacku jsou například Keystone (Autorizace a autentizace), Nova (Výpočetní služby), Horizon (Dashboard) a další. Další informace lze nalést například v \cite{OpenStack}. V této práci jsou vzhledem k NFV infrastruktuře nejzajímavějšími Neutron a Heat moduly.
+Celá stavba systému OpenStack se skládá z několika na sobě nezávislých projektů (modulů), které řeší různé oblasti cloudové platformy. Tyto projekty mezi sebou komunikují pomocí otevřených API a mohou být spravovány pomocí dashboardu. Celé administrace OpenStacku může být prováděna přes webově rozhraní, příkazovou řádku či přímo pomocí příkazů zaslaných do API. Celé toto řešení se vyznačuje jednoduchostí implementace, škálovatelností a rychlým vývojem nových vylepšení. Hlavními moduly OpenStacku jsou:
+
+\begin{itemize}
+\item Keystone - identifikační služba používaná OpenStackem pro autorizaci a autentizaci. Ověřování probíhá pomocí tokenů. Uživatel přihlášením odesílá žádost na Keystone, který tento modul zpracuje, zjistí pověření a vytvoří token. Vytvořený token je poté odesílán s žádostí do ostatních služeb. Zde dojde ke komparaci tokenu se současnou přístupovou politikou a dojde ke zjištění, zdali má uživatel dostatečná oprávnění pro provedení požadovaného úkonu.
+\item Glance - služba umožňující práci s virtuálními diskovými obrazy (imagy). Tyto obrazy mohou být uloženy na mnoha různých místech od lokálních systémových disků až po distribuované souborové systémy, jako je OpenStack Storage.
+\item Nova - tento modul poskytuje výpočetní služby. Umožňuje tedy běh několika instancí virtuálních strojů na několika hostitelských strojích, nan kterých je nainstalována služba OpenStack compute. OpenStack podporuje hypervizory KVM, QEMU, VMware ESX, Hyper-V, Xen. 
+\item Neutron - je služba pro správu všech síťových aspektů OpenStacku. Jedná se tedy o SDN komponentu. Neutron podporuje možnost rozšíření o tzv. pluginy, které umožňují využívat řešení třetích stran pro síťování.
+\item Cinder - poskytuje infrastrukturu pro mapování volumů v OpenStacku.
+\item Heat - umožňuje automatizovanou orchestraci virtuálních strojů na základě vytvořených templatů.
+\item Horizon - představuje dashboard, který umožňuje cloudovým administrátorům a uživatelům spravovat různé zdroje a služby OpenStacku. Dashboard umožňuje interakci s OpenStackovým kontrolerem prostředníctvím API. 
+\end{itemize}
+
+
+Další informace lze nalést například v \cite{OpenStack}. V této práci jsou vzhledem k NFV infrastruktuře nejzajímavějšími Neutron a Heat moduly.
 
 Heat je projekt, který je určen pro Orchestraci. Má za úkol automatické vytvoření požadovaných resourců (instancí, sítí, atd) podle předdefinovaných scénářů tzv. heat templatů. Obrázek č. \ref{fig:heat_engine} znázorňuje jeho funkci. \cite{HEAT}
 
@@ -128,26 +141,17 @@ OpenContrail je jeden z nejpoužívanějších komerčně dostupných řešení 
 
 OpenContrail není pouze SDN řešení, ale je to i řešení pro NFV. OpenContrail obsahuje funkci Service Chainingu. Tím pádem umožňuje dynamicky vytváření instancí, které mohou sloužit jako VNF. Zároveň také dokáže řídit datový tok z ostatních instancí resp. virtuálních sítí k nimž je VNF připojena tak, aby procházela právě danou VNF. V poslední verzi dále přínáší nové funkce jako BGPaaS a Physical Service Chaining. Je to tedy komplexní řešení vhodné pro produkční nasazování. 
 
-
 \subsection{VMware vCloud Suite}
 
-Společnost Vmware poskytuje pro privátní cloudové systémy své řešení, které označuje jako VMware vCloud. Toto řešení je poskládané z jednotlivých produktů této společnosti. Celá architektura má hierarchická model, který je vidět na obrázku č. \ref{fig:vmware}
+Společnost VMware \cite{vmware_web} se původně zabývala vývojem předního virtualizačního nástroje. Postupně nabrala do svého portfolia i další služby a rozšířila působnost obecně na virtualizaci a služby s ní úzce spojené. Mezi ně dnes patří i cloudová platforma. 
 
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.65]{images/vmware}
-\par\end{centering}
-\caption{Schéma VMware vCloud, převzato z \cite{vmware}\label{fig:vmware}}
-\end{figure}
-
-Dle \cite{vmware} se VMware vCloud skláda především z těchto komponent.
+VMware vCloud Suite je právě určený pro vytváření privátních cloudů. Je to řešení poskládané z jednotlivých prodůktů společnosti VMware. Jeho hlavními komponentami jsou:
 
 \begin{itemize}
 \item VMware vCloud Director - je  jedna  ze základních součástí potřebných pro vytvoření  privátního  cloudu ve stylu VMwaru.  Umožňuje vytvořit  a  doručovat  koncovým  zákazníkům infrastrukturu jako službu. Je propojen a přímo spolupracuje s VMware vSphere center.
 \item VMware vSphere - tento produkt slouží pro vytvoření virtualizované infrastruktury. Je to sdružení více komponent. Ty nejhlavnější jsou:
-
 \begin{itemize}
-\item VMware ESX (ESXi) - hypervisor, který byl popsán v kapitole \ref{sub:Hypervisor}.
+\item VMware ESX (ESXi) - je to bare-metal hypevizor.
 \item VMware vCenter Server - umožňuje efektivní a pokročilejčí správu virtualizovaného prostředí, bez ohledu na jeho velikost. Jedná se např.o snadné vytváření nových virtuálních počítačů, jejich  klonování  nebo  importování  z jiného  úložiště.  
 \item VMware vSphere Client - je určený pro dálkovou správu hostitelů ESXi. Připojit se můžeme prostřednictvím vCenter serveru nebo přímo přes ESXi server.
 \end{itemize} 
@@ -156,43 +160,68 @@ Dle \cite{vmware} se VMware vCloud skláda především z těchto komponent.
 \item VMware vCenter Chargeback - slouží pro monitorování virtuálních strojů, které následně může být účtováno.
 \end{itemize}
 
-\subsubsection{VMware NSX}
+VMware VCloud Suite má hierarchickou strukturu, kterou znázorňuje obrázek č. \ref{fig:vmware}. Více informací o tomto řešení čí jeho částech nabízí např. \cite{vmware} .
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.65]{images/vmware}
+\par\end{centering}
+\caption{Schéma VMware vCloud Suite, převzato z \cite{vmware_obrazek}\label{fig:vmware}}
+\end{figure}
+
+Celé vmware řešení je proprietární. To znamená, že kód pro jednotlivé komponenty je uzavřený a není do něj přístup. S tím zamozřejmě souvisí i licence. Pro používání jakéhokoli produktu od společnosti VMware v produkčním prostředí je potřeba zakoupení licence. Všechny produkty této společnosti se vyznačují tím, že je vše ovládané z grafického uživatelského prostředí bez nutonosti použití příkazové řádky. Je však toto řešení dostatečně standartní pro NFV Infrastrukturu?
+
+Pokud se podíváme na možnosti orchestrace, tak je zde oproti předchozímu řešení zvolený odlišný přístup. Přestože VMware poskytuje REST API, tak vše je orientované na ovládání zkrze dashboard. To znamená, že automatizace či předdefinování scénářu pro vytváření resourců zde spočívá v naklikání celého workflow v přehledném GUI.
+
+Pro networking v této cloudové platformě existuje tzv. VMware NSX. Je to SDN Controller, které je opět velmi často používané i s cloudovou plaformou OpenStack. Přestože opět obsahuje vše potřebné pro vytváření a správu virtuálních sítí, tak zde není přímá podpora NFV, která by usnadnila práci s jednotlivými VNF.
+
 
 \section{Dostupné možnosti pro VNF} \label{sec:VNF}
 
-Navrhnutá řešení v této práci předvádějí virtuální víťové funkce pro firewall a load balancing.
+Protože v této práci mají být ukázány příklady pro vytváření a management VNF. Je nutné najít software, který může být použit jako VNF. Protože exituje celá řada síťových funkcí a bylo by nad rámec této práce zmínit všechna jejich řešení, tak bylo nutné výběr zúžit výběr na dvě nejčastěji používané síťové funkce. Těmi jsou firewall a load balancer. Dále je tedy uveden software, který je možné použít pro Firewall as a Service (FwaaS) a Load balancer as a Service (LbaaS).
 
-\subsection{FWaaS}
+\subsection{Firewall as a Service}
 
-Pokud se podíváme na trh s VNF u některých vendorů, tak zjistíme, že mnozí poskytují virtuální instance, které se dají použít pro účely VNF v této práci. Tato práce je zaměřena především na funkce firewallu a proto zde jsou uvedeny příklady pouze pro ně. Uvedeny jsou hlavně produkty největších a nejpoužívanějších poskytovatelů síťových prvků a také open-source firewall.
+Pokud se podíváme na vendory ve zdroji \cite{firewalls} , jejichž firewally jsou nejvíce využívány, tak zjistíme, že mnozí již chápou důležitost NFV a své produkty začínají poskytovat jako virtuální instance, které se dají použít pro účely VNF v této práci. Jedná se například o tyto:
 
 \begin{itemize}
-\item Juniper vSRX - Jde o firewall od společnosti Juniper, který je obdobou jejich fyzického zařízení Juniper SRX. Jde virtuální instanci poskytující funkce pro firewall, routing a pokročilé bezpečností funkce pro poskytovale telekomunikačních služeb a větší společnosti. Toto VM je určené pro privátní, public i hybrid cloud. 
-\item Fortigate-VM - Fortigate Virtual Appliances je řešení pro cloudové prostředí od společnosti Fortinet. Nabízí stejně funkce pro firewall jako jsou obsaženy ve Fortigate fyzických zařízeních.
-\item Cisco ASAv - Společnost Cisco nabízí Adaptive Security Virtual Appliance (ASAv), která obsahuje stejný software jako fyzické ASA zařízení a vetšinu funkcí pro firewall, routing a VPN. 
-\item PFSense - PFSense je open-source projekt, který má za cíl poskytnout firewall postavený na operačním systému FreeBSD, který může běžet na klasické architektuře jednodeskových počítaču. Toto řešení poskytuje všechny důležité vlastnosti komerčních firewallů, má jednoduché ovládání a je to otevřené řešení.
+\item Fortigate-VM - Fortigate Virtual Appliances je řešení pro cloudové prostředí od společnosti Fortinet. Nabízí stejně funkce pro firewall jako jsou obsaženy ve Fortigate fyzických zařízeních. \cite{fortigate}
+\item Juniper vSRX - Jde o firewall od společnosti Juniper, který je obdobou jejich fyzického zařízení Juniper SRX. Jde virtuální instanci poskytující funkce pro firewall, routing a pokročilé bezpečností funkce pro poskytovale telekomunikačních služeb a větší společnosti. Toto VM je určené pro privátní, public i hybrid cloud. \cite{juniper}
+\item Cisco virtual ASA - Společnost Cisco nabízí Adaptive Security Virtual Appliance (ASAv), která obsahuje stejný software jako fyzické ASA zařízení a vetšinu funkcí pro firewall, routing a VPN. \cite{cisco}
+\item PFSense - PFSense je open-source projekt, který má za cíl poskytnout firewall postavený na operačním systému FreeBSD, který může běžet na klasické architektuře jednodeskových počítaču. Toto řešení poskytuje všechny důležité vlastnosti komerčních firewallů, má jednoduché ovládání a je to otevřené řešení. \cite{pfsense}
 \end{itemize} 
 
-\subsection{LbaaS}
+\subsection{Load balancer as a Service}
+
+Na trhu s virtuálními load balancery je situace podobná. Zde vendoři také začínají poskytovat virtuální instance či software. Pro správné fungování load balancu je však nejlepší, pokud existuje integrace či plugin pro danou cloudovou platformu či používané SDN. Výše zmíněný VMware i OpenStack podporují následující software sloužící jako LbaaS.
 
 \begin{itemize}
-\item AVI networks 
-\item HAproxy – je velmi rychlé a spolehlivé řešení nabízející vysokou dostupnost, load balancing a proxy pro aplikace založené na TCP a HTTP
+\item HAproxy – Je velmi rychlé a spolehlivé řešení nabízející vysokou dostupnost, load balancing a proxy pro aplikace založené na TCP a HTTP. Jedná se de-facto o standartní opensource load balancer, který občas býcá součástní některých linuxových distibucí. Velice oblíbené je jeho využítí práce cloudových platformách, kde je jako defaultní možnost pro load balancing. Více informací poskytuje \cite{HAproxy} .
+\item AVI networks - Je celkem nová společnost poskytující platformu, která poskytuje automatizované aplikační služby zahrnující load balancing, aplikační analýzu a prediktivní auto škálování. Platforma je postavena na softwarově definovaném pricipu a tím pádem může být nasazena klasickou x86 platformu serverů. Více informací obsahuje \cite{avi_networks} .
 \end{itemize}
 
 \section{Možnosti prostředky pro Management a Orchestraci VNF} \label{sec:MANO}
 
-Přestože
+Poslední částí refenční architektury NFV je management a orchestrace VNF. Přestože se jedná o nejkomplexnější část architektury, tak v této práci se situace o něco zjednodušila použitím cloudové platformy. Díky ní totiž není nutné řešit úlohu, kterou plní Virtualized infrastructure manager, neboť pokuď bude provedena správná volba této platformy, tak v ní bude již obsažena. Není tedy nutné se příliš starat o to, jakým způsobem a kde bude VNF vytvořena, přestože z hlediska výkonu to může hrát roli, jak je například popsáno v \cite{vnf_placement} .
 
-Vzhledem k tomu, že v této práci je uvažováno využití cloudové platformy, tak je možné celé MANO zjednodušit na management VNF. Je to z důvodu toho, že cloudová platforma dokáže sama řídit celý žitovní cyclus VNF
+Dále je nutné zmínit, že není nutné realizovat roli NFV orchestatoru, protože by to bylo nad rámec cílů této práce. Jediným problémem, pro který je tedy nutné navrhnout řešení je management jednotlivých síťových funkcí. Roli, kterou zastává VNF manager.
+
+Přestože management počítačové sítě je sama osobě komplexní činnost
+
+//***Citace mé bakalářky :-)
+
+//*Predkonfigurovaneho image či aplikace
+
+//*Pomoci scriptu / API
 
 //*Konfigurovační management
 //***Co existuje
 //***SaltStack
 //***Ansible
 
-//*Predkonfigurovaneho image či aplikace
-//*Pomoci Heat bash scriptu
+//*Standartní protokoly
+//***Netconf
+//***SNMP
 
 
 
