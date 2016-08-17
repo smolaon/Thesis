@@ -1,26 +1,115 @@
-\chapter{Požadavky a architektura prostředí pro NVF a VFN}
+\chapter{Požadavky a návrh prostředí pro NVF a VFN}
 
-V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí. Tato kapitola bude již věnována konkrétnímu příkladu využití virtuálních síťových funkcí v cloudovém prostředí. Nejprve zde popsána navržená architektura pro privátní cloudovou platformu využívající virtualizaci síťových funkcí, kterou mohou využívat všichni její uživatelé. Pro tuto cloudovou platformu a pro její uživatele byli navrženy dva příklady virtuálních síťových funkcí. U obou příkladů jsou uvedeny scénáře a způsob jakým jsou navrženy.
+V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí a popsána existující řešení vhodná pro jednotlivé části architektury.
 
-\section{Požadavky na NFV Infrastrukturu}
+Tato kapitola bude již věnována konkrétnímu návrhu platformy pro testování NFV a VNF. Nejprve jsou zde popsány jednotlivé požadavky související s návrhem platformy pro NFV a následně jsou popsány požadavky i na jednotlivé VNF. Na základě těchto požadavků je poté navrhuta a popsána výsledná architektura.
 
-//Open Source technologie 
+\section{Požadavky a výběr platformy pro NFV Infrastrukturu}
 
-//Možnost automatického vytváření ifrastruktury
+V předchozí kapitole bylo řečeno, že existuje několik možností, jakými může být NFV infrastruktura vytvořena. Z tohoto důvodu musí být definované specifické požadavky, které by měla splňovat NFV infrastruktura pro účely této práce. Podle nich následně může být zvolena specifická technologie. Na základě již uvedených informací o NFV a cílů této práce byli identifikovány následující požadavky:
 
-//Podporara různých řešení pro SDN
+\begin{itemize}
+\item Otevřenost řešení - Vzhledem k tomu, že NFV je založeno na myšlence přechodu z proprietárních hardwarových boxů k standarním sofwarově definovaným funkcím, tak je rozumné využít opensource technologie i pro NFV Infrastrukturu. 
+\item Možnost automatizace a vytváření templatů - Jedním z cílů práce je VNF řešení, které by mohlo sloužit jako blueprint pro ostatní uživatelé. Proto musí být zvolené technologie, které mají podporu vytváření templatů. Těmi může být následně automaticky vytvořino celé či alespoň část řešení pro VNF. Zárověň však jejich tvorba musí být dostatečně flexibilní a jednoduchá, aby ji zvládli i uživatelé.
+\item Podpora SDN - Dalším důležitým požadavkem je podpora softwarově definovaných sítí. Jak již bylo řečeno, tak přestože NFV a SDN jsou odlišené technologie, tak se velice dobře doplňují. Z tohoto důvodu by zvolená platforma pro NFV Infrastrukturu mělo podporovat i SDN. Díky tomu následně může být využíván service chainig pro jednotlivá VNF. 
+\end{itemize}
 
-//Vybral jsem si OpenStack protože ...
+Na základě těchto požadavků je v následující tabulce je uvedeno srovnání cloudových platforem z předchozí kapitoli.
 
-\section{Požadavky na VNF}
+\newcommand{\mc}[2]{\multicolumn{#1}{c}{#2}}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\newcolumntype{b}{>{\columncolor{white}}c}
+\begin{table} [h] \label{tab:vmware_openstack}
+\begin{center}
+\begin{tabular}{l | a | b | a | b}
+\hline
+\rowcolor{LightCyan}
+\mc{1}{}  & \mc{1}{VMware vCloud Suite} & \mc{1}{OpenStack} \\
+\hline
+Typ & opensource & proprietaci/licence  \\ 
+\hline
+Podpora SDN & ANO (VMware NSX) & ANO (OpenContrail)  \\ 
+\hline
+Service Chaning & ANO & ANO  \\ 
+\hline
+Tvorba templatů pro orchestraci & Tvorba v GUI &  Tvorba v YAML formátu  \\ 
+\hline
+\end{tabular}
+\caption[Srovnání VMware vCloud Suite a OpenStacku]{Srovnání VMware vCloud Suite a OpenStacku na požadovaných parameterech}
+\end{center}
+\end{table}
 
-Vybral jsem si PFSense a Fortigate ...
+Ná základě těchto informací bylo rozhodnuto, že pro NFV infrastrukturu bude využita cloudová platforma OpenStack.
 
-Vybral jsem si HAproxy a AVI networks ...
+
+\section{Požadavky a výběr řešení pro VNF}
+
+Dále je potřeba rozhodnout, který software bude použit pro implementaci jednotlivých VNF. Proto byly opět definované požadavky, které by potencionální software měl splňovat. Tyto požadavky jsou: 
+
+\begin{itemize}
+\item Dostupnost - Pro to, aby bylo vůbec možné uvažované řešení použít, tak je nutné, aby bylo dostupné pro testování. Dostupnost může být ve formě opensource či určité formy trial licence. 
+\item Kompatibilita s platformou x86 - Dalším požadavkem musí být kompatibilita s paltformou x86. Je tedy nutné, aby mohlo být využito klasických serverů pro řešení. 
+\item Úspěšné spuštění na virtualizační platformě - Pro účely této práce musí být ověřeno, že dané řešení je schopné běžet na daném hypervizoru, který bude použit s OpenStackem. Tedy s hypevizorem KVM.
+\item Integrace s OpenStackem - V případě LbaaS je požadované, aby vybraný software měl určitou formu integrace s prostředím OpenStacku. Je to z důvodu lepší automatizace VNF.
+\end{itemize}
+
+Následující tabulka nabízí přehled toho, zda daný software splňuje určené požadavky.
+
+
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\newcolumntype{b}{>{\columncolor{white}}c}
+\begin{table} [h] \label{tab:vmware_openstack}
+\begin{center}
+\begin{tabular}{l | a | b | a | b}
+\hline
+\rowcolor{LightCyan}
+\mc{1}{LbaaS}  & \mc{1}{HAproxy} & \mc{1}{AVI networks} \\
+\hline
+Dostupnost & ANO - opensource & ANO - Trial licence  \\ 
+\hline
+Integrace s OpenStackem & ANO (default) & ANO - plugin  \\ 
+\hline
+Úspěšné spuštění & ANO & ANO  \\ 
+\hline
+Kompatibilita x86 & ANO & ANO  \\ 
+\hline
+\end{tabular}
+\caption[Přehled softwaru pro LbaaS]{Přehled softwaru pro LbaaS}
+\end{center}
+\end{table} 
+
+
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\newcolumntype{a}{>{\columncolor{Gray}}c}
+\newcolumntype{b}{>{\columncolor{white}}c}
+\begin{table} [h] \label{tab:vmware_openstack}
+\begin{center}
+\begin{tabular}{l | a | b | a | b}
+\hline
+\rowcolor{LightCyan}
+\mc{1}{FwaaS}  & \mc{1}{Fortigate VM} & \mc{1}{Juniper vSRX} & \mc{1}{Cisco ASAv} & \mc{1}{PfSense} \\
+\hline
+Dostupnost & ANO - Trial & ANO - Trial & NE - Licence  & ANO - opensource    \\ 
+\hline
+Úspěšné spuštění & ANO & NE  & NE & ANO   \\ 
+\hline
+Kompatibilita x86 & ANO & ANO & ANO & ANO  \\ 
+\hline
+\end{tabular}
+\caption[Přehled softwaru pro FwaaS]{Přehled softwaru pro FwaaS}
+\end{center}
+\end{table} 
+
+Z výše uvedených informací vyplívá, že pro implementaci VNF sloužící jako LbaaS bude použita HAproxy a platforma, kterou poskytuje firma AVI networks. V případě softwaru pro FwaaS je zrejmé, že bude využit PfSense a Fortigate VM v 15 denní trial verzi. Cisco ASAv nebylo možné testovat kvůli licenčním poplatkům a Juniper vSRX se bohužel nepodařilo zprovoznit v KVM hypervizoru na testovací infrastruktuře.
 
 \section{Výsledná architektura použitého frameworku}
 
-Architektura navrženého řešení byla implementována pomocí cloudové platformy OpenStack a SDN řešení OpenContrail. Obrázku č. \ref{fig:VNF_overview} znázorňuje tyto technologie v souvislosti s referenční architekturou popsanou v kapitole \ref{sub:architektura}. Je nutné říci, že obě technologie nezapadají přímo do jedné z částí referenční architektury. Naopak v některých případech se překrývají nebo se v ní doplňují.
+
 
 \begin{figure}[h]
 \begin{centering}
@@ -29,20 +118,4 @@ Architektura navrženého řešení byla implementována pomocí cloudové platf
 \caption{Architektura NFV řešení\label{fig:VNF_overview}}
 \end{figure}
 
-OpenStack byl zvolen, protože se jedná o největší open-source cloudovou platformu na světě. OpenStack tvoří část správy infrastruktury. Hardwarová vrstva infrastruktury se může skládat z libovolných serverů, na kterých je nainstalován KVM hypervizor. Tento hypervizor tvoří virtuální vrsvu a byl vybrán, protože je nejčastěji používán společně s OpenStackem. Avšak v případě potřeby by zde mohl být použit i jiný hypervizor, pokud bude zachována kompatibilita vůči OpenStacku.
-
-OpenStack spravuje převážně zdroje týkající se výpočeního výkonu (Compute) a uložiště (Storage). Tyto zdroje následně přiděluje dle potřeby virtuálním instancím nebo v našem případě instancím, které slouží jako VNF. Bylo však nutné zvolit řešení, které se bude starat o síťování.
-
-Speciálně pro vyřešení síťování v této infrastruktuře je součástí řešení OpenContrail. Díky tomu je možné vytvářet overlay sítě pomocí VXLAN či MPLS over GRE, kterými jsou dynamicky propojovány jednotlivé VM a VNF. 
-
-Jednotlivá VNF mohou být v OpenContrailu vytvořena pomocí tzv. Servisních Instance a Servisní Templatů. Ty budou v této práci použity pro vytvoření VNF sloužící jako firewally a budou podrobně popsány v kapitole věnující se vytváření této služby.
-
 Další součástí, která musela být v architektuře navrhnuta, je způsob řízení a správy jednotlivých VNF. Zde se muselo jednat o řešení, jakým automaticky vytvořit a popřípadě i smazat všechny potřebné části potřebné pro VNF. Pro tuto část byl zvolen Heat. Heat je část OpenStacku, která slouží pro automatickou orchestraci. Ten bude v tomto návrhu zastávat roli VFN managera, pomocí kterého budou jednotlivé VNF spravovány. Avšak dalo by se říci, že do této role spadá i OpenContrail, protože právě on umožnuje také spravovat jednostlivá VNF za běhu.  
-
-Heat je hlavní projekt v OpenStacku pro orchestraci. Umožňuje uživatelům popsat nasazení komplexních cloudových aplikací v jednom textovém souboru, který se nazývá Heat template. Tyto soubory se dají předat heat enginu, který podle nich dokáže automaticky vytvořit požadované zdroje v OpenStacku i v OpenContrailu. 
-
-
-Z toho návrhu je patrné, že zde není implementovaný NFV orchestrator. Je to z důvodu toho, že pro účely řešení virtuálních síťových funkcí na cloudové platformě OpenStack s OpenContrailem, která je navržena v této práci, není tato část potřeba.
-
-
-
