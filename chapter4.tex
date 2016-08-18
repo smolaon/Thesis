@@ -105,17 +105,27 @@ Kompatibilita x86 & ANO & ANO & ANO & ANO  \\
 \end{center}
 \end{table} 
 
-Z výše uvedených informací vyplívá, že pro implementaci VNF sloužící jako LbaaS bude použita HAproxy a platforma, kterou poskytuje firma AVI networks. V případě softwaru pro FwaaS je zrejmé, že bude využit PfSense a Fortigate VM v 15 denní trial verzi. Cisco ASAv nebylo možné testovat kvůli licenčním poplatkům a Juniper vSRX se bohužel nepodařilo zprovoznit v KVM hypervizoru na testovací infrastruktuře.
+Z výše uvedených informací vyplívá, že pro implementaci LbaaS bude použita HAproxy a platforma, kterou poskytuje firma AVI networks. V případě softwaru pro FwaaS je zrejmé, že bude využit PfSense a Fortigate VM v 15 denní trial verzi. Cisco ASAv nebylo možné testovat kvůli licenčním poplatkům a Juniper vSRX se bohužel nepodařilo zprovoznit v KVM hypervizoru na testovací infrastruktuře.
 
 \section{Výsledná architektura použitého frameworku}
 
-
+V předchozích částech byly vybrány technologie, které jsou použity v návrhu pro NFV framework. Na obrázku č. \ref{fig:VNF_overview} je znázornění celého framework s vyobrazením všech použitých částí.
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.51]{images/VNF_overview}
+\includegraphics[scale=0.61]{images/VNF_overview}
 \par\end{centering}
 \caption{Architektura NFV řešení\label{fig:VNF_overview}}
 \end{figure}
 
-Další součástí, která musela být v architektuře navrhnuta, je způsob řízení a správy jednotlivých VNF. Zde se muselo jednat o řešení, jakým automaticky vytvořit a popřípadě i smazat všechny potřebné části potřebné pro VNF. Pro tuto část byl zvolen Heat. Heat je část OpenStacku, která slouží pro automatickou orchestraci. Ten bude v tomto návrhu zastávat roli VFN managera, pomocí kterého budou jednotlivé VNF spravovány. Avšak dalo by se říci, že do této role spadá i OpenContrail, protože právě on umožnuje také spravovat jednostlivá VNF za běhu.  
+Z obrázku je patrné, že celou NFV Infrastrukturu tvoří OpenStack s SDN řešením OpenContrail. Ty zasahují i managementu a orchestrace na nejnižší úrovni. Jako hypervizor byl použit KVM. Jako VNF služby budou poskytovány Load Balancer a Firewall. Poslední částí, kterou se bude zabývat zbytek práce je management jednotlivých VNF.
+
+Pro fyzické vytvoření frameworku bylo využito 4 serverů. Jeden slouží jako Control node, na kterém jsou řídící služby OpenStacku a OpenContrailu společně s jejich dashboardy. Zbylé 3 servery jsou použity jako Compute nody. Na nich nainstalovaný hypervisor společně s compute rolemi OpenStacku. Dále je na nich i OpenContrail vRouter. Pomocí něho je vytvořený tzv. Overlay network, který používají vytvořené instance.
+
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.61]{images/fyzicka_topologie}
+\par\end{centering}
+\caption{Architektura NFV řešení\label{fig:fyzicka_topologie}}
+\end{figure}

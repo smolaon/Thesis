@@ -1,8 +1,10 @@
 \chapter{Testovací scénáře a realizace pro VNF a NFV}
 
-V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a jeji architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem jsou realizovány požadavky na její životní cyclus, které byly uvedeny v předchozí kapitole.
+V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a její architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity pro vytvoření NFV frameworku, který bude následně byužit k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem je možné vytvořit automatizované řešení pro VNF nad navrženým NFV frameworkem.
 
 \section{Scenáře pro použití vybraných VNF}
+
+V této části budou uvedeny jednotlivé scénáře pro použití VNF uživatelem platformy. 
 
 \subsection{Scénář LbaaS}
 
@@ -12,7 +14,15 @@ Jedním z často využívaných síťových funkcí je load balancing. Pokud chc
 \item Webové servery - Virtuální instance, na kterých bude umístěna požadovaná webová aplikace.
 \item Privátní síť - Je síť, kde budou tyto servery umístěny.
 \item Load balancer - Tato část je zodpovědná za řízení příchozí a odchozí komunikace webových serverů s okolním světem (Internetem).
+\item Veřejnou IP
 \end{itemize}
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.6]{images/LoadBalancer}
+\par\end{centering}
+\caption{Firewall as a Service\label{fig:loadbalancer}}
+\end{figure}
 
 \subsection{Scénář FwaaS}
 
