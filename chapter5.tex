@@ -45,14 +45,16 @@ Zde již budou vysvětleny jednotlivé kroky související s realizací VNF pro 
 
 OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná. HAproxy je defaultní backend sloužící pro LbaaS pro OpenStack s využítím OpenContrailu jako SDN řešení. 
 
-Load balancer se v Neutron LbaaS skládá ze 4 objektů.
+Load balancer se v Neutron LbaaS skládá ze základních 4 objektů, které jsou vzájemně provázány. Tyto objekty jsou:
 
 \begin{itemize}
-\item Pool - Označuje síťový rozsah pro webové servery.
+\item Pool - Obsahuje základní parametry pro load balancer. Jako je např. síťový rozsah, ve kterém budou webové servery či metodu pro distribuci zátěže (Round Robin, Least connection, atd.)
 \item Virtuální IP (VIP) - ip adresa, na kterou přichází komunikace
-\item Member - Označuje konkrétní instanci, která je členem poolu.
-\item Monitor - Monitoruje stav jednotlivých serverů a aplikací.
+\item Member - Je konkrétní virtuální instance, která je členem poolu např. webový server. Označení membera je pomocí jeho ip adresy.
+\item Monitor - Periodicky kontroluje stav jednotlivých serverů a aplikací. Kontrola může být pomocí pingu či http a https dostupnosti.
 \end{itemize}
+
+Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty.
 
 \begin{figure}[h]
 \begin{centering}
@@ -61,115 +63,49 @@ Load balancer se v Neutron LbaaS skládá ze 4 objektů.
 \caption{Neutron LbaaS\label{fig:NeutronLbaaS}}
 \end{figure}
 
-Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmito objekty. Tato implementace má tyto hlavní funkce:
+Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku. 
+
+Z výše uvedených informací vyplívá, že je nutné správně nadefinovat jednotlivé komponenty v heat templatu tak, abychom dosáhli požadovaného chování. Tím bude zajištěné správné a automatické řešení pro VNF.
+
+\subsubsection{Heat template pro haproxy}
+
+Celý heat template pro LbaaS s HAproxy v sobě obsahuje několik prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Protože celý heat template je značně dlouhý, tak lze nebude ukazován celý jeho kód, ale pouze části týkájící se load balanceru. Vpřípadě zájmu lze celý template nalést v příloze. Template se tedy skládá z:
 
 \begin{itemize}
-\item Poskytuje Load balancing komunikace od klientů do poolu serverů. Load balancer zprostředkovává spojení prostřednictvím své VIP.
-\item Poskytuje load balancing pro HTTP, TCP a HTTPS komunikaci.
-\item Poskytuje možnosti pro monitorování aplikací. Prostřednictvím HTTP, TCP či PING. Zde celý proces tak, že se load balancer pokusí v určeném časové intervalu navázat s daným serverem v pool spojení dle vybraného protokolu.
-\item Umožňuje asociaci floating ip (veřejné adresy) k VIP, čímž umožňuje přístup k serverů z veřejné sítě.
-\end{itemize}
-
-Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku. Výběr serveru může probíhat pomocí jedné z následujících metod:
-
-\begin{itemize}
-\item Round robin - zde se komunikace distribuuje rovnoměrně, resp. dle vah zadaných u jednotlivých memberů v poolu.
-\item Least connection - zde je vybran member s nejméně spojeními.
-\item Source IP - u této metody je vybrán member na základě zdrojové ip adresy klienta.
-\end{itemize}
-
-V tomto případě si tedy není třeba starat o automatizaci konfigurace celého řešení. Je zde pouze nutné správně nadefinovat jednotlivé komponenty v heat templatu, abychom dosáhli požadovaného chování.
-
-Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizován pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Celý template v sobě obsahuje i webové instance, které slouží pro testování. V produkci by však byly v odděleném templatu. Template je parametrizovaný a konktétní hodnoty pro jednotlivě zdroje (ip adresy, ip) jsou v tzv. enviroment file, který se zadává při spouštění daného templatu. Dále jsou popsány pouze hlavní části heat templatu.
-
-\begin{itemize}
-\item privatni síť - k této síti jsou připojeny obě webové instance, load balancer a router. Součástí je definice toho zdroje jsou je i subnet, který má dále paramentry týkající se DHCP ip adres.
-
-\begin{lstlisting}[caption=Privátní síť a subnet]
-private_net:
-    type: OS::Neutron::Net
-    properties:
-      admin_state_up: True
-      name: { get_param: private_net_name }
-      shared: False
-  private_subnet:
-    type: OS::Neutron::Subnet
-    properties:
-      allocation_pools:
-      - start: { get_param: private_net_pool_start }
-        end: { get_param: private_net_pool_end }
-      cidr: { get_param: private_net_cidr }
-      enable_dhcp: True
-      ip_version: 4
-      name: { get_param: private_net_name }
-      network_id: { get_resource: private_net }
-\end{lstlisting}
-
+\item Privátni síť - K této síti jsou připojeny obě webové instance, load balancer a router. Součástí je definice toho zdroje jsou je i subnet, který má dále paramentry týkající se DHCP ip adres.
 \item 2 x web instance - jedná se o virtuální instance s operačním systémem Ubuntu 14.04. Po spuštění heat templatu se na tyto instance nainstaluje Apache server a vytvoří se index.html. Díky tomu je možné následně otestovat zda load balancer distubuje komunikaci mezi těmito dvěma servery.
-
-\begin{lstlisting}[caption=Web server 1]
-  instance_01:
-    type: OS::Nova::Server
-    properties:
-      image: { get_param: instance_image }
-      flavor: { get_param: instance_flavor }
-      key_name: { get_param: key_name }
-      name: test-web01
-      networks:
-      - network: { get_resource: private_net }
-      security_groups:
-      - default
-      - { get_resource: http_security_group }
-      user_data_format: RAW
-      user_data: |
-        #!/bin/bash -v
-        apt-get install apache2 -yy
-        echo "Instance 01" > /var/www/html/index.html
-\end{lstlisting}
-
-
 \item router - toto je Neutron router implementují SNAT. V tomto příkladě je využívaný webovými servery pro konektivitu k Internetu. Toto je nutné pro nainstalování programu Apache na webové servery.
+\item public síť - toto je veřejná síť, ze které je získána VIP pro load balancer. Na tuto VIP bude dále asociována floating ip. 
+\item members - po vytvoření instancí je nutné jejich přidání do poolu jako membery. Pokud webová aplikace na serverch využívá jiný port než port 80, je možné ho zde změnit.
 
-\begin{lstlisting}[caption=Web server 1]
-  router:
-    type: OS::Neutron::Router
+\begin{lstlisting}[caption=Healt monitor]
+lb_pool_member_instance_01:
+    type: OS::Neutron::PoolMember
     properties:
-      name: { get_param: router_name }
-      external_gateway_info:
-        network: { get_param: public_net_id }
+      address: { get_attr: [ instance_01 , first_address ] }
+      admin_state_up: True
+      pool_id: { get_resource: lb_pool }
+      protocol_port: 80
+      weight: 1
 \end{lstlisting}
 
-\item public síť - toto je veřejná síť, ze které je získána VIP pro load balancer. Na tuto VIP bude dále asociována floating ip. 
+\item health monitoring - zdroj pro monitoring. Dle zvolených parametrů je vidět, že každých 5 sekund bude poslán ping na servery a bude se čekat 5 sekund na odpověď. Pokud nepříjde, tak load balancer usoudí, že je daný server není v pořádku a přestane na něj přeposílat komunikaci.
 
-\begin{lstlisting}[caption=Public síť a subnet]
-  public_net:
-    type: OS::Neutron::Net
+\begin{lstlisting}[caption=Healt monitor]
+lb_ping_healt_monitor:
+    type: OS::Neutron::HealthMonitor
     properties:
       admin_state_up: True
-      name: { get_param: public_net_name }
-      shared: False
-  public_subnet:
-    type: OS::Neutron::Subnet
-    properties:
-      allocation_pools:
-      - start: { get_param: public_net_pool_start }
-        end: { get_param: public_net_pool_end }
-      cidr: { get_param: public_net_cidr }
-      enable_dhcp: True
-      ip_version: 4
-      name: { get_param: public_net_name }
-      network_id: { get_resource: public_net }
-  lb_floating:
-    type: OS::Neutron::FloatingIP
-    properties:
-      floating_network_id: {get_param: public_net_id}
-      port_id: {get_attr: [lb_pool, vip, port_id]}
+      delay: 5
+      max_retries: 1
+      timeout: 5
+      type: PING
 \end{lstlisting}
 
 \item pool - jedná se o definování poolu pro load balancer. Na ukázce je vidět, že byla zvolena metoda Round Robin. Tato metoda byla zvolena kvůli co nejjednoduššímu testování tohoto templatu.
 
-\begin{lstlisting}[caption=Load balancer pool]
-  lb_pool:
+\begin{lstlisting}[caption=Healt monitor]
+lb_pool:
     type: OS::Neutron::Pool
     properties:
       admin_state_up: True
@@ -181,48 +117,22 @@ private_net:
       subnet_id: { get_resource: private_subnet }
       vip:
         protocol_port: 80
-        address: { get_param: public_net_ip }
         admin_state_up: True
         subnet: { get_resource: public_subnet }
 \end{lstlisting}
-
-\item members - po vytvoření instancí je nutné jejich přidání do poolu jako membery. Pokud webová aplikace na serverch využívá jiný port než port 80, je možné ho zde změnit.
-
-\begin{lstlisting}[caption=Members]
-  lb_pool_member_instance_01:
-    type: OS::Neutron::PoolMember
-    properties:
-      address: { get_attr: [ instance_01 , first_address ] }
-      admin_state_up: True
-      pool_id: { get_resource: lb_pool }
-      protocol_port: 80
-\end{lstlisting}
-
-\item health monitoring - zdroj pro monitoring. Dle zvolených parametrů je vidět, že každých 5 sekund bude poslán ping na servery a bude se čekat 5 sekund na odpověď. Pokud nepříjde, tak load balancer usoudí, že je daný server není v pořádku a přestane na něj přeposílat komunikaci.
-
-\begin{lstlisting}[caption=Monitor]
-  lb_ping_healt_monitor:
-    type: OS::Neutron::HealthMonitor
-    properties:
-      admin_state_up: True
-      delay: 5
-      max_retries: 1
-      timeout: 5
-      type: PING
-\end{lstlisting}
 \end{itemize}
 
-V celém heat templatu je ještě více zdrojů, které se vytváří. Ty zde však nebudou popsány. V případě zájmu lze nálest komletní heat template v příloze. 
+Takto byl vytvořen heat template, který vytvoří LbaaS pomocí HAproxy. Nyní je nutné tento template otestovat, zda funguje správně.
 
-V reálné případě by si uživatel heat tempalte vybral z katalogu. Avšak v případě této práce bude heat template spouštěn pomocí příkazu v terminálu:
+\subsubsection{Testování heat templatu pro haproxy}
+
+V reálném případě by si uživatel heat template vybral z katalogu. Avšak v rámci testovaní bude heat template spouštěn pomocí příkazu v terminálu:
 
 \begin{lstlisting}
 heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas
 \end{lstlisting}
 
-Tento příkaz vytvoří všechny již uvedené prostředky pro load balancing. Konkrétní load balancer má nakonfigurovanou virtual ip adresu (VIP) a k ní přiřazenou floating adresu, která je přístupná z externích sítí. Zároveň má tento load balancer přiřazený pool, ke kterému je přiřazena přiřazena privátní síť 10.10.10.0/24. Další zdrojem, který byl vytvořen je health monitor. Díky němu má load balancer přehled o aktuálním stavu webových instancí. Pokud by náhodou některá z nich přestala odpovídat, v tomto případě na ping, tak by load balancer na tuto instanci přestal zasílat traffic.
-
-Na obrázku č. \ref{fig:lbaas_topologie} je zobrazek screenshot vytvořené topologie v OpenStack dashboardu. Jsou zde vidět vytvořené servery a sítě. Není zde zobrazen load balancer, protože tato vizualizace tento prvek nezobrazuje. Lze ho nalézt v jiné části dashboardu, ale pro názornost bude rovnou otestováno jeho správné chování.
+Tento příkaz vytvoří všechny prostředky uvedené v templatu pro load balancing. Na obrázku č. \ref{fig:lbaas_topologie} je zobrazek screenshot vytvořené topologie z OpenStack dashboardu. Jsou zde vidět vytvořené servery a sítě. Není zde zobrazen load balancer, protože tato vizualizace tento prvek nezobrazuje. Lze ho nalézt v jiné části dashboardu, ale pro názornost bude rovnou otestováno jeho správné chování.
 
 \begin{figure}[h]
 \begin{centering}
@@ -231,9 +141,9 @@ Na obrázku č. \ref{fig:lbaas_topologie} je zobrazek screenshot vytvořené top
 \caption{Vytvořená síťová topologie\label{fig:lbaas_topologie}}
 \end{figure}
 
-Otestování správného chování virtuálního load balanceru, lze provést opakovaným dotazem na právě vytvořené webové servery. Tím je bude zároveň otestována jejich správná konfigurace. Pokud by totiž nevrátili správnou odpoveď je možné, že chyba může být i zde. 
+Otestování správného chování virtuálního load balanceru, lze provést opakovaným dotazem na právě vytvořené webové servery. Tím bude zároveň otestována jejich správná konfigurace. Pokud by totiž nevrátili správnou odpoveď je možné, že chyba může být i zde. 
 
-Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dána jako parametr public adresa load balanceru. Celý výstup toho testování znázorňuje obrázek č. \ref{fig:lbaas_testing}. Po několika takovýchto dotazech na webové servery je vidět, že odpověď příchází střídavě od obou webových serverů. Probíhá mezi nimi tedy load balancing metodou round robin tak, jak bylo požadováno.
+Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dána jako parametr public adresa load balanceru. Celý výstup toho testování znázorňuje obrázek č. \ref{fig:lbaas_testing}. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -242,6 +152,7 @@ Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dán
 \caption{Test konektivity a load balancingu\label{fig:lbaas_testing}}
 \end{figure}
 
+Po několika takovýchto dotazech na webové servery je vidět, že odpověď příchází střídavě od obou webových serverů. Probíhá mezi nimi tedy load balancing metodou round robin tak, jak bylo požadováno.
 
 \subsection{AVI networks}
 
