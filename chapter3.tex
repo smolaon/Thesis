@@ -219,10 +219,10 @@ Management počítačové sítě je sama osobě komplexní činnost skládajíc�
 Přestože všechny tyto části jsou důležité, tak kromě správy konfigurace jsou to detekční a monitorovací úkony, které mohou být do určité míry i součástí implementace cloudové platformy. Avšak správa konfigurace je hlavní část, pro kterou je nutné nalést řešení v této práci, protože většina softwaru pro VNF uvedené v předchozí části bude mít jiné možnosti pro jejich správu konfigurace. Existuje zde tedy několik přístupů, jak k ní přistupovat.
 
 \begin{itemize}
-\item Předdefinovaný image či aplikace
-\item Využití scriptování / API 
-\item Standardizované protokoly - NETCONF
-\item Konfigurační management - SaltStack, Puppet, Ansible
+\item Předdefinovaný image či aplikace - V tomto případě je veškerá potřebná konfigurace součástí dodávaného image. Pokud je požadována jednoduchá síťová funkce, jejíž konfigurace se v čase nebude měnit, pak je toto nejlepší způsob.
+\item Využití scriptování / API - Pokud daná VNF poskytuje API či podporuje skriptovací rozhraní, pak je možné ho využít a dopravit, tak požadovanou konfiguraci.
+\item Standardizované protokoly - Dnes již také existují relativně standardizované protokoli určené právě pro správu konfigurace. Jedním je například protokol NETCONF, jak je uvedeno v \cite{network_management}
+\item Konfigurační management - Další možností je využití konfiguračního managementu, který se dnes velmi často využívá při správě velkého množství serverů. Zde je však nutné, aby daná VNF podporovala danou metodu správy, kterou využívají jednotlivé konfigurační managementy. Může být například vyžadováno, aby daná VNF obsahovala agenta, který bude pro konfiguraci využíván. Dnes existuje několik řešení pro konfigurační management jako je např. SaltStack, Puppet či Ansible.
 \end{itemize}
 
 

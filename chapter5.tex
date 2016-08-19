@@ -1,6 +1,6 @@
 \chapter{Testovací scénáře a realizace pro VNF a NFV}
 
-V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a její architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity pro vytvoření NFV frameworku, který bude následně byužit k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem je možné vytvořit automatizované řešení pro VNF nad navrženým NFV frameworkem.
+V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a její architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity pro vytvoření NFV frameworku, který bude následně využít k realizaci ukázkových VNF. Jak již bylo řečeno, tak  Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem je možné vytvořit automatizované řešení pro VNF nad navrženým NFV frameworkem.
 
 \section{Scénáře pro použití vybraných VNF}
 
@@ -10,7 +10,7 @@ Před somotnou implementací je nutné vysvětli, jakým způsobem budou VNF vyu
 
 Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery by následně použil fyzický load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz.
 
-Uvažujme tedy jednoduchý příklad, ve které bude uživatel chtít dva servery, na kterých poběží webová služba v HA. Pro tuto službu bude chtít využít cloudovou platformu s podporou LbaaS. Uživatel samozřejmě požaduje, aby se celá infrastruktura a nastavení webové aplikace provedlo automaticky s co možná nejméně manuálními zásahy. Celý proces by se tedy v praxi měl skládat z výběru (tvorby) vhodného templatu, zadáním požadovaných vstupních parametrů (IP adresy, názvy instancí, atd.) a následné spuštění templatu, který vytvoří vše požadované. Obrázek č. \ref{fig:loadbalancer} zobrazuje požadovaný výstup tohoto procesu.
+Uvažujme tedy jednoduchý příklad, ve které bude uživatel chtít dva servery, na kterých poběží webová služba v HA. Pro tuto službu bude chtít využít cloudovou platformu s podporou LbaaS. Uživatel samozřejmě požaduje, aby se celá infrastruktura a nastavení webové aplikace proběhlo automaticky s co možná nejméně manuálními zásahy. Celý proces by se tedy v praxi měl skládat z výběru vhodného templatu, zadáním požadovaných vstupních parametrů (IP adresy, názvy instancí, atd.) a následné spuštění templatu, který vytvoří vše požadované. Obrázek č. \ref{fig:loadbalancer} zobrazuje požadovaný výstup tohoto procesu.
 
 \begin{figure}[h]
 \begin{centering}
@@ -19,9 +19,15 @@ Uvažujme tedy jednoduchý příklad, ve které bude uživatel chtít dva server
 \caption{Firewall as a Service\label{fig:loadbalancer}}
 \end{figure}
 
-
+Je tedy vidět, že VNF pro load balancing by měla být již integrovanou součástí návrhu cloudové aplikace, resp. návrhu cloudového templatu pro orchestraci. V případě HAproxy by toto neměl být problém, protože je to standartní součást OpenStacku a OpenContrailu. Mělo by tedy jít využít standarního heat templatu, ve kterém bude nadefinované vše potřebné pro Load Balancer. Otázkou je, zda bude možné využít stejný postup i případě AVI networks řešení.
 
 \subsection{Scénář FwaaS}
+
+Další z často využívaných síťových funkcí je firewall, resp. síťové funkce, které dokáží řídit a zabezpečovat síťový provoz mezi různými sítěmi. Zjednodušeně se dá říct, že slouží jako kontrolní bod, který definuje pravidla pro komunikaci mezi sítěmi, které od sebe odděluje.
+
+Příkladů užití FwaaS v cloudovém prostředí existuje značné množství, protože uživatelé mohou mít různé požadavky na řízení datového provozu. Uvažujme však nejjednodušší příklad, kterým je překlad adres tzv. NAT. V tomto případě uživatel chce vytvořit virtuální instanci, která by měla mít konektivitu k externí síti, ale zároveň nechce, aby daná instance byla dostupná z této externí sítě. 
+
+Otázkou zde je, jakým způsobem by měl být daný firewall nakonfigurován? Jak bylo popsáno kapitole \ref{sec:MANO}, tak existuje více možností. Konfigurace by mohla být doručena jako součást orchestračního templatu, např. v podobě scriptu, který by se provedl po spuštění firewall instance. Tento přístup však nemusí existovat podpora ze strany PfSense a Fortigatu. V tom případě bude muset být využita jiná metoda, pro kterou však ve většině případů musí být vyhrazený dedikovaný interface, určený právě management. Tento interface múže být využit i pro manuální zásahy do konfigurace. Obrázek č. \ref{fig:firewall} zobrazuje schématické zapojení pro FwaaS.
 
 \begin{figure}[h]
 \begin{centering}
@@ -30,13 +36,14 @@ Uvažujme tedy jednoduchý příklad, ve které bude uživatel chtít dva server
 \caption{Firewall as a Service\label{fig:firewall}}
 \end{figure}
 
-\section{Realizace VNF pro LbaaS}
+
+\section{Realizace VNF pro LbaaS} \label{sec:realizace_lbaas}
+
+Zde již budou vysvětleny jednotlivé kroky související s realizací VNF pro LbaaS. Nejprve je ukázáno řešení s využitím HAproxy. Popsaný je zde obecný popis funkce haproxy, resp. LbaaS Neutronu a popis toho, jak byl využit pro tvorbu VNF. Po této ukázce následuje popis a vysvětlení realizace VNF související s platformou od AVI networks.
 
 \subsection{HAproxy - Neutron HAproxy agent}
 
-OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
-
-V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Tento příklad je však univerzální a může být použit s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. 
+OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná. HAproxy je defaultní backend sloužící pro LbaaS pro OpenStack s využítím OpenContrailu jako SDN řešení. 
 
 Load balancer se v Neutron LbaaS skládá ze 4 objektů.
 
@@ -72,8 +79,6 @@ Celý proces probíhá tak, že každý virtuální server, který je asociovan�
 \end{itemize}
 
 V tomto případě si tedy není třeba starat o automatizaci konfigurace celého řešení. Je zde pouze nutné správně nadefinovat jednotlivé komponenty v heat templatu, abychom dosáhli požadovaného chování.
-
-\subsubsection{LbaaS heat template}
 
 Aby nemusel uživatel ručně vytvářet load balancer ručně, tak byl celý proces vytváření load balanceru zautomatizován pomocí heat templatu. Navržený heat template pro LbaaS v sobě obsahuje několik  prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Celý template v sobě obsahuje i webové instance, které slouží pro testování. V produkci by však byly v odděleném templatu. Template je parametrizovaný a konktétní hodnoty pro jednotlivě zdroje (ip adresy, ip) jsou v tzv. enviroment file, který se zadává při spouštění daného templatu. Dále jsou popsány pouze hlavní části heat templatu.
 
@@ -209,8 +214,6 @@ private_net:
 
 V celém heat templatu je ještě více zdrojů, které se vytváří. Ty zde však nebudou popsány. V případě zájmu lze nálest komletní heat template v příloze. 
 
-\subsubsection{Testování LbaaS}\label{sub:interaction}
-
 V reálné případě by si uživatel heat tempalte vybral z katalogu. Avšak v případě této práce bude heat template spouštěn pomocí příkazu v terminálu:
 
 \begin{lstlisting}
@@ -241,9 +244,6 @@ Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dán
 
 
 \subsection{AVI networks}
-
-
-
 
 \section{Realizace VNF pro FwaaS}
 

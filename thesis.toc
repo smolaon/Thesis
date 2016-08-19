@@ -8,36 +8,34 @@
 \contentsline {chapter}{\numberline {3}Dostupn\IeC {\'e} technologie NFV a VNF}{11}{chapter.3}
 \contentsline {section}{\numberline {3.1}Architektura NFV a VNF}{11}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Infrastruktura NFV}{12}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Virtu\IeC {\'a}ln\IeC {\'\i } s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} funkce}{13}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.2}Virtu\IeC {\'a}ln\IeC {\'\i } s\IeC {\'\i }\IeC {\v t}ov\IeC {\'a} funkce}{14}{subsection.3.1.2}
 \contentsline {subsection}{\numberline {3.1.3}Management a orchestrace NFV}{15}{subsection.3.1.3}
-\contentsline {section}{\numberline {3.2}Dostupn\IeC {\'e} prost\IeC {\v r}edky pro NFV Infrastrukturu}{16}{section.3.2}
+\contentsline {section}{\numberline {3.2}Dostupn\IeC {\'e} prost\IeC {\v r}edky pro NFV Infrastrukturu}{17}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}OpenStack}{17}{subsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.1.1}Vanilla Neutron}{19}{subsubsection.3.2.1.1}
 \contentsline {subsubsection}{\numberline {3.2.1.2}OpenContrail}{19}{subsubsection.3.2.1.2}
-\contentsline {subsection}{\numberline {3.2.2}VMware vCloud Suite}{19}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Dostupn\IeC {\'e} mo\IeC {\v z}nosti pro VNF}{21}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Firewall as a Service}{21}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Load balancer as a Service}{22}{subsection.3.3.2}
-\contentsline {section}{\numberline {3.4}Mo\IeC {\v z}nosti prost\IeC {\v r}edky pro Management a Orchestraci VNF}{23}{section.3.4}
-\contentsline {chapter}{\numberline {4}Po\IeC {\v z}adavky a n\IeC {\'a}vrh prost\IeC {\v r}ed\IeC {\'\i } pro NVF a VFN}{25}{chapter.4}
-\contentsline {section}{\numberline {4.1}Po\IeC {\v z}adavky a v\IeC {\'y}b\IeC {\v e}r platformy pro NFV Infrastrukturu}{25}{section.4.1}
-\contentsline {section}{\numberline {4.2}Po\IeC {\v z}adavky a v\IeC {\'y}b\IeC {\v e}r \IeC {\v r}e\IeC {\v s}en\IeC {\'\i } pro VNF}{26}{section.4.2}
-\contentsline {section}{\numberline {4.3}V\IeC {\'y}sledn\IeC {\'a} architektura pou\IeC {\v z}it\IeC {\'e}ho frameworku}{27}{section.4.3}
-\contentsline {chapter}{\numberline {5}Testovac\IeC {\'\i } sc\IeC {\'e}n\IeC {\'a}\IeC {\v r}e a realizace pro VNF a NFV}{29}{chapter.5}
-\contentsline {section}{\numberline {5.1}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r}e pro pou\IeC {\v z}it\IeC {\'\i } vybran\IeC {\'y}ch VNF}{29}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} LbaaS}{29}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} FwaaS}{30}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Realizace VNF pro LbaaS}{31}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}HAproxy - Neutron HAproxy agent}{31}{subsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.1.1}LbaaS heat template}{32}{subsubsection.5.2.1.1}
-\contentsline {subsubsection}{\numberline {5.2.1.2}Testov\IeC {\'a}n\IeC {\'\i } LbaaS}{37}{subsubsection.5.2.1.2}
-\contentsline {subsection}{\numberline {5.2.2}AVI networks}{38}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Realizace VNF pro FwaaS}{38}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Servisn\IeC {\'\i } instance v OpenContrailu}{38}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Heat template pro FwaaS}{40}{subsection.5.3.2}
-\contentsline {subsection}{\numberline {5.3.3}PfSense}{44}{subsection.5.3.3}
-\contentsline {subsection}{\numberline {5.3.4}Fortigate}{46}{subsection.5.3.4}
-\contentsline {section}{\numberline {5.4}Shrnut\IeC {\'\i } z\IeC {\'\i }skan\IeC {\'y}ch poznatk\IeC {\r u}}{48}{section.5.4}
-\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{49}{chapter.6}
-\contentsline {part}{Literatura}{50}{chapter.6}
+\contentsline {subsection}{\numberline {3.2.2}VMware vCloud Suite}{20}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Dostupn\IeC {\'e} mo\IeC {\v z}nosti pro VNF}{22}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Firewall as a Service}{22}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Load balancer as a Service}{23}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Mo\IeC {\v z}nosti prost\IeC {\v r}edky pro Management a Orchestraci VNF}{24}{section.3.4}
+\contentsline {chapter}{\numberline {4}Po\IeC {\v z}adavky a n\IeC {\'a}vrh prost\IeC {\v r}ed\IeC {\'\i } pro NVF a VFN}{26}{chapter.4}
+\contentsline {section}{\numberline {4.1}Po\IeC {\v z}adavky a v\IeC {\'y}b\IeC {\v e}r platformy pro NFV Infrastrukturu}{26}{section.4.1}
+\contentsline {section}{\numberline {4.2}Po\IeC {\v z}adavky a v\IeC {\'y}b\IeC {\v e}r \IeC {\v r}e\IeC {\v s}en\IeC {\'\i } pro VNF}{27}{section.4.2}
+\contentsline {section}{\numberline {4.3}V\IeC {\'y}sledn\IeC {\'a} architektura pou\IeC {\v z}it\IeC {\'e}ho frameworku}{29}{section.4.3}
+\contentsline {chapter}{\numberline {5}Testovac\IeC {\'\i } sc\IeC {\'e}n\IeC {\'a}\IeC {\v r}e a realizace pro VNF a NFV}{31}{chapter.5}
+\contentsline {section}{\numberline {5.1}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r}e pro pou\IeC {\v z}it\IeC {\'\i } vybran\IeC {\'y}ch VNF}{31}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} LbaaS}{31}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Sc\IeC {\'e}n\IeC {\'a}\IeC {\v r} FwaaS}{32}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Realizace VNF pro LbaaS}{33}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}HAproxy - Neutron HAproxy agent}{34}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}AVI networks}{42}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Realizace VNF pro FwaaS}{42}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Servisn\IeC {\'\i } instance v OpenContrailu}{42}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Heat template pro FwaaS}{44}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}PfSense}{48}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Fortigate}{50}{subsection.5.3.4}
+\contentsline {section}{\numberline {5.4}Shrnut\IeC {\'\i } z\IeC {\'\i }skan\IeC {\'y}ch poznatk\IeC {\r u}}{52}{section.5.4}
+\contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{53}{chapter.6}
+\contentsline {part}{Literatura}{54}{chapter.6}
 \contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.36}

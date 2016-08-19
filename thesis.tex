@@ -1,5 +1,5 @@
 
-\documentclass[a4paper,czech,czech,openright,cleardoubleempty,BCOR10mm,DIV11]{scrreprt}
+\documentclass[12pt,a4paper,czech,czech,openright,cleardoubleempty,BCOR10mm,DIV11]{scrreprt}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{array}
@@ -15,6 +15,11 @@
 %\usepackage{listing}
 \usepackage{pdfpages}
 \usepackage{xcolor,colortbl}
+    \usepackage[
+    top    = 3.00cm,
+    bottom = 3.00cm,
+    left   = 3.00cm,
+    right  = 3.00cm]{geometry}
 
 \makeatletter
 
@@ -36,7 +41,7 @@
   \fi
 }
 
-\renewcommand{\baselinestretch}{1.4} %radkovani s
+\renewcommand{\baselinestretch}{1.5} %radkovani s
 
 \expandafter\def\csname SF@gobble@opt \endcsname{\@ifnextchar[%]
   \SF@gobble@twobracket
