@@ -2,20 +2,15 @@
 
 V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a její architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity pro vytvoření NFV frameworku, který bude následně byužit k realizaci ukázkových VNF. Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem je možné vytvořit automatizované řešení pro VNF nad navrženým NFV frameworkem.
 
-\section{Scenáře pro použití vybraných VNF}
+\section{Scénáře pro použití vybraných VNF}
 
-V této části budou uvedeny jednotlivé scénáře pro použití VNF uživatelem platformy. 
+Před somotnou implementací je nutné vysvětli, jakým způsobem budou VNF využívat uživatelé. Toto by mělo sloužit pro lepší pochopení daných příkladů a usnadnit realizaci jednotlivých VNF. Dále v této sekci budou postupně uvedeny jednotlivé scénáře pro všechna uvedené VNF v této práci. 
 
 \subsection{Scénář LbaaS}
 
-Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery by následně použil fyzický load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz. Nevýhodou toho přístupu je právě nutnost pořízení fyzického load balanceru. Tím se však uživatel značně omezí ve flexibilitě. Pokud například bude chtít další webové služby, které by měli být oddělené od těch stavajících, tak si bude muset opět pořizovat další hardwarový prvek. Alternativou k tomuto přístupu je využití cloudu a VNF, která bude mít load balancing funkcionalitu.
+Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery by následně použil fyzický load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několika serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz.
 
-\begin{itemize}
-\item Webové servery - Virtuální instance, na kterých bude umístěna požadovaná webová aplikace.
-\item Privátní síť - Je síť, kde budou tyto servery umístěny.
-\item Load balancer - Tato část je zodpovědná za řízení příchozí a odchozí komunikace webových serverů s okolním světem (Internetem).
-\item Veřejnou IP
-\end{itemize}
+Uvažujme tedy jednoduchý příklad, ve které bude uživatel chtít dva servery, na kterých poběží webová služba v HA. Pro tuto službu bude chtít využít cloudovou platformu s podporou LbaaS. Uživatel samozřejmě požaduje, aby se celá infrastruktura a nastavení webové aplikace provedlo automaticky s co možná nejméně manuálními zásahy. Celý proces by se tedy v praxi měl skládat z výběru (tvorby) vhodného templatu, zadáním požadovaných vstupních parametrů (IP adresy, názvy instancí, atd.) a následné spuštění templatu, který vytvoří vše požadované. Obrázek č. \ref{fig:loadbalancer} zobrazuje požadovaný výstup tohoto procesu.
 
 \begin{figure}[h]
 \begin{centering}
@@ -23,6 +18,8 @@ Jedním z často využívaných síťových funkcí je load balancing. Pokud chc
 \par\end{centering}
 \caption{Firewall as a Service\label{fig:loadbalancer}}
 \end{figure}
+
+
 
 \subsection{Scénář FwaaS}
 
@@ -39,7 +36,7 @@ Jedním z často využívaných síťových funkcí je load balancing. Pokud chc
 
 OpenStack Neutron ve své implementaci obsahuje službu LBaaS. Je to jedna z jeho pokročilou služeb, která umožňuje použít jeden soubor API k ovládání load balanceru od poskytovatelů třetích stran. Jedinou podmínkou je, aby toto API implementovali. Toto velice zjednodušuje uživatelům OpenStacku ovládání load balancerů a odpadá díky tomu nutnost seznamování se s implementací a konfigurací těchto různých řešení, která mohou být velmi specifická a odlišná.
 
-V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Tento příklad je však univerzální a může být použit s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. Dle dokumentace \cite{contrail_loadbalancer} je v OpenContrailu implementace load balanceru řešena pomocí HAProxy. HAProxy je zdarma dostupný open source software pro unix operační systémy \cite{HAProxy}. 
+V této práci je ukázán příklad využítí implementace load balanceru v OpenContralu, který může být přes toto api ovládán. Tento příklad je však univerzální a může být použit s jakoukoli implementací load balanceru, at už virtuláního (sofwarového) či fyzického, pokud dokáže komunikovat s OpenStack Neutron LbaaS rozhraním. 
 
 Load balancer se v Neutron LbaaS skládá ze 4 objektů.
 
