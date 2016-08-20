@@ -1,6 +1,6 @@
 \chapter{Testovací scénáře a realizace pro VNF a NFV}
 
-V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a její architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity pro vytvoření NFV frameworku, který bude následně využít k realizaci ukázkových VNF. Jak již bylo řečeno, tak  Pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem je možné vytvořit automatizované řešení pro VNF nad navrženým NFV frameworkem.
+V předchozí kapitole byla popsána oblast virtualizace síťových funkcí a její architektura. Také byly popsány jednotlivé technologie, které budou v této kapitole použity pro vytvoření NFV frameworku, který bude následně využít k realizaci ukázkových VNF. Jak již bylo řečeno, tak pro každou VNF zde bude uveden příklad jejího použítí a jakým způsobem je možné vytvořit automatizované řešení pro VNF nad navrženým NFV frameworkem.
 
 \section{Scénáře pro použití vybraných VNF}
 
@@ -69,7 +69,7 @@ Z výše uvedených informací vyplívá, že je nutné správně nadefinovat je
 
 \subsubsection{Heat template pro haproxy}
 
-Celý heat template pro LbaaS s HAproxy v sobě obsahuje několik prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Protože celý heat template je značně dlouhý, tak lze nebude ukazován celý jeho kód, ale pouze části týkájící se load balanceru. Vpřípadě zájmu lze celý template nalést v příloze. Template se tedy skládá z:
+Celý heat template pro LbaaS s HAproxy v sobě obsahuje několik prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Tvorba heat templatu vycházela z informací uvedených v dokumentaci \cite{HEAT}. Protože celý heat template je značně dlouhý, tak zde nebude ukazován celý jeho kód, ale pouze části týkájící se load balanceru. V případě zájmu lze celý template nalést v příloze. Template se tedy skládá z:
 
 \begin{itemize}
 \item Privátni síť - K této síti jsou připojeny obě webové instance, load balancer a router. Součástí je definice toho zdroje jsou je i subnet, který má dále paramentry týkající se DHCP ip adres.
@@ -147,7 +147,7 @@ Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dán
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.3]{images/lbaas_testing}
+\includegraphics[scale=0.45]{images/lbaas_testing}
 \par\end{centering}
 \caption{Test konektivity a load balancingu\label{fig:lbaas_testing}}
 \end{figure}
@@ -156,11 +156,99 @@ Po několika takovýchto dotazech na webové servery je vidět, že odpověď p�
 
 \subsection{AVI networks}
 
-//Popsat jak to dělá AVI networks
+Druhým řešením pro LbaaS, které bude popsané a otestované v této práci, bude platforma od AVI networks. Narozdíl od HAproxy není tato platforma standarní součástí OpenStacku. Z tohoto důvodu musela být nejprve do testovacího prostředí nainstalována. 
+
+Instalace spočívá ve vytvoření tenantu, ve kterém je nasledně vytvořena virtuální instance z image pro AVI Controller. Této instanci je následně nutné přidat IP adresu, aby k ní bylo možné přistoupit zkrze webový prohlížeč. Poté již následuje jednoduchá konfigurace, kde nutné správně nastavit připojení na keystone server. Tím je zajištěna integrace s OpenStackem. 
+
+Po úspěšné instalaci vznikla v OpenStacku další služba, která umožňuje vytváření load balancerů ve všech tenantech. Vše funguje tak, že uživatel většinou přes AVI Controller dashboard, kde se přihlásí pomocí uživatele v keystonu, zvolí vytvoření virtální služby, kde vybere servery a nastaví požadované parametry. Na základě těchto udajů controller vytvoří tzv. Service Engine, který prování load balancing. Tento Service Engine vžak vznikne stále v tenantu určeném pro AVI networks, nikoliv v uživatelově tenantu. Obrázek č. \ref{fig:avi} znázorňuje toto řešení.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.5]{images/avi}
+\par\end{centering}
+\caption{Znázornění funkce AVI networks LbaaS, převzato z \cite{avi_networks} \label{fig:avi}}
+\end{figure}
+
+Přestože vytváření a ovládání LbaaS zkrze dashboard bylo otestováno a funguje, tak je zde příliš manuálních kroků. Avšak při analýze tohoto produktu bylo zjištěno, že AVI networks nově také poskytuje podporu pro vytváření potřebných zdrojů i pomocí heatu. 
+
+\subsubsection{Heat template pro AVI networks}
+
+Pro tvorbu heat templatu pro AVI networks byl stejný template jako pro HAproxy. S tím rozdílem, že byly nahrazeny části týkající se load balanceru. Pro lepší čitelnost zde tedy nebudou uvedeny části, které jsou v obou templatech a budou zde popsány pouze části, které se liší. Jsou to tyto dvě části:
+
+\begin{itemize}
+\item AVI network pool - Obsahuje základní parametry pro load balancer. Je především definice serverů resp. jejich ip adresu, mezi keterými bude následně probíhat load balancing. Také je zde možná volba metody pro load balancing. Zde byla zvolena metoda round robin jako v předchozím příkladě. 
+
+\begin{lstlisting}[caption=AVI networks pool]
+pool:
+  type: Avi::LBaaS::Pool
+  properties:
+    name: "testpool"
+    default_server_port: 80
+    health_monitor_uuids:
+      - {get_resource: hm}
+    lb_algorithm: LB_ALGORITHM_ROUND_ROBIN
+    servers:
+      - ip:
+          addr: { get_attr: [myinstance1, first_address] }
+          type: V4
+        port: 80
+      - ip:
+          addr: { get_attr: [myinstance2, first_address] }
+          type: V4
+        port: 80
+\end{lstlisting}
+
+\item AVI virtual service - Zde je definovaná především veřejná ip adresa a port. Přes tyto údaje se následně bude přistupovat k serverů, resp. webové aplikaci.
+
+\begin{lstlisting}[caption=AVI networks healt monitor]
+  vs:
+    type: Avi::LBaaS::VirtualService
+    properties:
+      name: "testvs"
+      pool_uuid: {get_resource: pool}
+      ip_address:
+        addr: 10.10.32.100
+        type: V4
+      services:
+        - port: 80
+      application_profile_uuid: get_avi_uuid_by_name:System-Secure-HTTP
+\end{lstlisting}
+
+
+\item AVI network healt monitor - Poslední částí je healt monitor pro sledování stavu jednotlivých serverů. V ukázce je vidět nastavení jednotlivých časovačů a také protokolu http. Monitor sleduje http odpoveď od serveru a pokud dostane odpoveď začínající 2xx či 3xx, tak označí server/aplikaci jako v pořádku a bude na ni zasílat data.
+
+\begin{lstlisting}[caption=AVI networks virtual service]
+hm:
+  type: Avi::LBaaS::HealthMonitor
+  properties:
+    name: "mytesthm"
+    receive_timeout: 2
+    failed_checks: 2
+    successful_checks: 6
+    send_interval: 2
+    type: HEALTH_MONITOR_HTTP
+    http_monitor:
+      http_response_code:
+        - HTTP_2XX
+        - HTTP_3XX
+      http_request: "GET / HTTP/1.0"
+\end{lstlisting}
+
+\end{itemize}
+
+Takto by tedy měla být vytvořena automatizovaná VNF využívající platformu od firmy AVI networks. Nyní ji zbývá otestovat.
+
+\subsubsection{Testování heat templatu pro AVI networks}
+
+Při testování heat templatu pro AVI networks bylo očekáváno, že zde bude dosaženo stejného stavu jako při použití dashboardu. Bohužel po spuštění daného templatu nedošlo k vytvoření požadovaných resourců a jeho běh skončil errorem. Při dalším zkoumání bylo zjištěno, že v době psaní této práce je podpora heat ze strany AVI networks přiliš nová (přibližně měsíc) a není zde vše naprosto funkční. Z tohoto důvodu nemohl být tento heat template otestován. 
+
+\subsection{Srovnání vytvořených řešení pro LbaaS}
+
+
 
 \section{Realizace VNF pro FwaaS}
 
-V této sekci jsou vysvětleny jednotlivé kroky související s realizací VNF pro FwaaS. Jako první je popsána realizace pomocí PfSense a po ní následuje Fortigate VM.
+V této sekci jsou vysvětleny jednotlivé kroky související s realizací VNF pro FwaaS. 
 
 \subsection{Servisní instance v OpenContrailu}
 
@@ -211,9 +299,7 @@ Druhým typen servisní instance je firewall. V tomto případě již servisní 
 \caption{Schéma zapojení servisní instance\label{fig:service_instance}}
 \end{figure}
 
-
 Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká systému, aby ho posílal skrze servisní instanci.
-
 
 \subsection{Heat template pro FwaaS}
 
@@ -223,29 +309,10 @@ Pro FwaaS je narhnut heat template, který obsahuje:
 
 \item privátní síť
 
-
-\begin{lstlisting}[caption=Privátní síť]
-  private_net_1:
-    type: OS::Neutron::Net
-    properties:
-      name: { get_param: private_net_1_name } 
-
-  private_subnet_1:
-    type: OS::Neutron::Subnet
-    depends_on: private_net_1
-    properties:
-      network_id: { get_resource: private_net_1 }
-      cidr: { get_param: private_net_1_cidr }
-      gateway_ip: { get_param: private_net_1_gateway }
-      allocation_pools:
-        - start: { get_param: private_net_1_pool_start }
-          end: { get_param: private_net_1_pool_end }
-\end{lstlisting}
-
+\item virtuální instance pro testován
 
 \item firewall template
-
-\begin{lstlisting}[caption=Firewall servisní instance]
+\begin{lstlisting}[caption=Servisní template]
 service_template:
     type: OS::Contrail::ServiceTemplate
     properties:
@@ -260,11 +327,10 @@ service_template:
       service_interface_type_list: { "Fn::Split" : [ ",", Ref: service_interface_type_list ] }
       shared_ip_list: { "Fn::Split" : [ ",", Ref: shared_ip_list ] }
       static_routes_list: { "Fn::Split" : [ ",", Ref: static_routes_list ] }
-
 \end{lstlisting}
 
 \item firewall instance
-\begin{lstlisting}[caption=Privátní síť]
+\begin{lstlisting}[caption=Servisní instance]
  service_instance:
     type: OS::Contrail::ServiceInstance
     depends_on: [private_subnet_1]
@@ -287,31 +353,7 @@ service_template:
       ]
 \end{lstlisting}
 
-
-\item virtuální instance
-\begin{lstlisting}[caption=Virtuální instance pro testování]
-
- test_instance_01:
-    type: OS::Nova::Server
-    properties:
-      image: { get_param: instance_image }
-      flavor: { get_param: instance_flavor }
-      key_name: { get_param: key_name }
-      name: test-web01
-      networks:
-      - network: { get_resource: private_net_1 }
-      security_groups:
-      - default
-      user_data_format: RAW
-      user_data: |
-        #!/bin/bash -v
-        apt-get install apache2 -yy
-        echo "Instance 01" > /var/www/html/index.html
-
-\end{lstlisting}
-
 \item contrail policy
-
 \begin{lstlisting}[caption=Contrail network policy]
 
   private_policy:
@@ -370,7 +412,7 @@ After we start the heat with pfsense there is already functional service chainin
 \includegraphics[scale=0.45]{images/pfsense_nat}
 \par\end{centering}
 \caption{Ukázka NAT session\label{fig:pfsense_nat}}
-
+\end{figure}
 //Bash script nefunguje
 //Salt minion neprosel
 //Predpripraveny image
@@ -379,7 +421,7 @@ After we start the heat with pfsense there is already functional service chainin
 
 //Python API = Script
 // => Salt module 
-\end{figure}
+
 
 \begin{figure}[h]
 \begin{centering}
@@ -401,3 +443,7 @@ After we start the heat with pfsense there is already functional service chainin
 \par\end{centering}
 \caption{Test konektivity\label{fig:fortigate_ping}}
 \end{figure}
+
+\subsection{Srovnání vytvořených řešení pro LbaaS}
+
+\section{Shrnutí získaných poznatků}
