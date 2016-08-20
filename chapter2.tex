@@ -32,22 +32,35 @@ Existuje několik definic pro cloud computing. Nejčastější používaná defi
 \item Služby dostupné na požádání
 \item Všudypřítomný přístup k síti
 \item Sdílení zdrojů
-\item Vysokou elasticitu
+\item Vysokou elasticitu a flexibilitu
 \item Měření využitých zdrojů
 \end{itemize}
 
-Z technického hlediska je cloud resp. cloudoví infrastruktura několik společně propojených serverů v clusteru. Na těchto serverech běží hypervisor, který vytvoří virtuální infrastrukturu. Tímto způsobem je tvořen společný pool zdrojů. Pro vytváření cloudových služeb zde ještě musí existovat cloudová platforma, která dokáže celou tuto virtuální infrastrukturu centrálně spravovat.
+Z technického hlediska je cloud resp. cloudoví infrastruktura několik společně propojených serverů v clusteru. Na těchto serverech běží hypervisor, který vytvoří virtuální infrastrukturu. Tímto způsobem je tvořen společný pool zdrojů. Pro vytváření cloudových služeb zde ještě musí existovat cloudová platforma, která dokáže celou tuto virtuální infrastrukturu centrálně spravovat. Výhodou tohoto přístupu je efeknivní využívání dostupných výpočetních zdrojů a velká flexibilita v poskytování a využívání služeb. Více informací lze najít například v \cite{cloud_book}.
 
 \section{Potřeba virtualizace síťových funkcí}
 
-//TODO Obrazek + popis jak je to dobry
-//SW model
+Tradiční počítačové sítě jsou složené ze značného množství propojených hardwarových zařízením, jako jsou např. routery, switche a firewally. Tyto zařízení jsou speciálně určená pro daný účel a jejich řízení může být zkrze distribuované protokoly. Tím se počitačové sítě stali stabilními a vysoce výkonými, avšak omezilo je to ve flexibilitě. Tradiční schéma sítě je zobrazeno na obrázku č. \ref{fig:network}.
 
-//TODO Obrazek pro Home
-//TODO Obrazek pro Cloud
-//TODO Obrazek pro Telco
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.30]{images/network}
+\par\end{centering}
+\caption{Tradiční schéma počítačové sítě} \label{fig:network}
+\end{figure}
 
-Hlavní cíle tohoto řešení jsou zlepšit následující aspekty provozu telekomunikačních sítí:
+Z obrázku je patrné, že takovéto sítě se mohou skládat z desítek či i stovek hardwarových boxů. Management je tedy velice náročný a velice často může docházet chybám v důsledku lidské chyby. Bylo tedy nalést lepší řešení. V \cite{Middleboxes} je například navrhnuto přesunout vetšinu funkcionality do veřejného cloudu a tím správu sítě přenechat třetí straně. To však pro telekomunikační poskytovatele a většinu velkých firem není vhodné řešení. 
+
+Z tohoto důvodu bylo navrhnut koncept NFV. Celá myšlenka NFV je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. Jak znázorňuje obrázek č. \ref{fig:vize_NFV}. 
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.5]{images/vize_NFV}
+\par\end{centering}
+\caption{Koncept virtualizace síťových funkcí, převzato z \cite{NFVChalanges}\label{fig:vize_NFV}}
+\end{figure}
+
+To umožní se síťovými funkcemi zacházek jako s klasickými softwarovými aplikacemi, které mohou běžet na standardním komerčně dostupných serverech jenž organizace v současnosti používají. Díky tomu může být také využito cloudu (privátních) a virtualizace. To umožní zlepšit následující aspekty provozu telekomunikačních sítí.
 
 \begin{itemize}
 \item Smíření investičních nákladů – snížení potřeby nákupu jednoúčelových hardwarových zařízení, možnost platby pouze za využité kapacity a snížení rizik přílišného předimenzování kapacit
@@ -56,20 +69,11 @@ Hlavní cíle tohoto řešení jsou zlepšit následující aspekty provozu tele
 \item Doručit agilitu a flexibilitu – možnost rychle škálovat (rozšiřovat nebo zmenšovat služby) dle měnících se požadavků od zákazníka. Podpora služeb, které mají být dodány pomocí softwaru na libovolném standardním serverovém hardwaru
 \end{itemize}
 
-Jak je uvedeno v \cite{NFVState} a \cite{NFVChalanges}, tak celá myšlenka je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. To umožní se síťovými funkcemi zacházek jako s klasickými softwarovými aplikacemi, které mohou běžet na standardním komerčně dostupných serverech jenž organizace v současnosti používají. Tím bude zároveň umožněno flexibilní nasazování těchto síťových funkcí a jejich dynamický provisioning. Díky tomu, že jsou síťová funkce odděleny od hardwaru, tak je také možné jejich vhodnější umístění v topologii. To znamená dle požadavků na umístění mohou být nasazeny v datových centrech, síťových uzlech či přímo v uživatelově koncovém bodě. Hlavní koncept virtualizace síťových funkcí znázorňuje obrázek č. \ref{fig:vize_NFV}. 
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.5]{images/vize_NFV}
-\par\end{centering}
-\caption{Koncept virtualizace síťových funkcí (NFV)\label{fig:vize_NFV}}
-\end{figure}
-
-Za zmínění stojí poznámka v \cite{NFVState}, kde je řečeno, že obecný koncept oddělení síťové funkce od hardwaru ještě nutně neznamená potřebu využití virtualizace. Protože budou síťové funkce dostupně jako software, tak mohou být nainstalovány a provozovány přímo na fyzickém stroji. Ovšem rozdíl je, že tento stroj již nebude speciální hardware, ale klasický server. Tento scénář může být do jisté míry použit při nasazovaní síťových funkcí v malém měřítku např. v uživatelských koncových bodech. Avšak pro plné využití všech výše zmíněných výhod, které jsou třeba ve velkých datových centrech, je třeba s použitím virtualizace počítat. To vše umocňuje fakt, že většina datových center v 
+Za zmínění stojí poznámka v \cite{NFVState}, kde je řečeno, že obecný koncept oddělení síťové funkce od hardwaru ještě nutně neznamená potřebu využití virtualizace. Protože budou síťové funkce dostupně jako software, tak mohou být nainstalovány a provozovány přímo na fyzickém stroji. Ovšem rozdíl je, že tento stroj již nebude speciální hardware, ale klasický server. Tento scénář může být do jisté míry použit při nasazovaní síťových funkcí v malém měřítku např. v uživatelských koncových bodech. Avšak pro plné využití všech výše zmíněných výhod, které jsou třeba ve velkých datových centrech, je třeba s použitím virtualizace počítat.
 
 \section{NFV a softwarově definované sítě (SDN)}
 
-Softwarově definované sítě (SDN) je jednou z dalších nových technologii, která se snaží vylepšit a automatizovat správu stávajících počítačových sítí. Dle \cite{SDN_clanek} jde o koncept, ve které je oddělena řídící logika (control plane) z jednotlivých routerů a switchů, které přeposílají traffic (data plane). Tím, že dojde k oddělení datové a řídící vrstvy, se routery a switche stanou pouze přeposílající data a veškerá řídí logika může být implementována v jednom logicky centrálním místě (SDN Controller). Z tohoto centrálního místa lze do jednotlivých routerů a switchů předávat instrukce pomocí aplikačních programovacích rozhraní (API). Samotný SDN Controller také obsahuje API, které mohou využívat aplikace a tím řídit, resp. programovat celou počítačovou síť.
+Kromě NFV existuje i další technologie, která se snaží zlepšit řízení a správu počítačových sítí. Jde o softwarově definované sítě (SDN). Dle \cite{SDN_clanek} jde o koncept, ve které je oddělena řídící logika (control plane) z jednotlivých routerů a switchů, které přeposílají traffic (data plane). Tím, že dojde k oddělení datové a řídící vrstvy, se routery a switche stanou pouze přeposílající data a veškerá řídí logika může být implementována v jednom logicky centrálním místě (SDN Controller). Z tohoto centrálního místa lze do jednotlivých routerů a switchů předávat instrukce pomocí aplikačních programovacích rozhraní (API). Samotný SDN Controller také obsahuje API, které mohou využívat aplikace a tím řídit, resp. programovat celou počítačovou síť.
 
 \begin{figure}[h]
 \begin{centering}
@@ -78,36 +82,31 @@ Softwarově definované sítě (SDN) je jednou z dalších nových technologii, 
 \caption{Schéma SDN, převzato z \cite{SDN_clanek}\label{fig:SDN}}
 \end{figure}
 
-Obrázek č. \ref{fig:SDN} ukazuje jednoduché schéma softwarově definovaných sítí. Celou architekturu lze tedy rozdělit do 3 logických vrstev, které spolu komunikují pomocí API. 
+Obrázek č. \ref{fig:SDN} ukazuje jednoduché schéma softwarově definovaných sítí. Jak je z obrázku patrné, tak celou architekturu lze tedy rozdělit do 3 logických vrstev, které spolu komunikují pomocí API. 
 
 \begin{itemize}
 \item Aplikační vrstva - Na této úrovni se nachází samotné síťové aplikace jako jsou například DHCP, ACL, NAT, DNS a další. Jejich vytváření by
 mělo být poskytováno prostřednictvím nižší vrstvy, nazývané northbound API.
-\item Northbound APIs - Toto API využívají aplikace pro komunikaci s SDN controllerem. 
 \item Control vrstva - V této vrstvě je centralizována veškerá logika, které dříve byla v síťových prvcích.
-\item Southbound APIs - Jedná se o skupinu API protokolů, které pracují mezi vrstvou infrastruktury a control vrstvou. Jejím hlavním úkolem je komunikace, která povoluje SDN controleru instalovat na samotné síťové prvky rozhodnutí definované v aplikační vrstvě.
 \item Vrstva infrastruktura - Nejnižší vrstvou je samotný hardware pro předávání datagramů na fyzické úrovni. Pro funkčnost celé architektury je nutné, aby zde byla nasazena zařízení, která umí přijímat pokyny od control plane skrze southbound API.
-
 \end{itemize}
 
-Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak se navzájem se doplňují. Fakt, že SDN umožňuje programaticky ovládat počítačovou síť, lze využít pro poskytnutí programovatelné konektivity mezi jednotlivými virtuálními síťovými funkcemi. Naopak SDN může využít NFV tím, že implementuje potřebné síťové funkce jako software. Může tak virtualizovat SDN Controller, který tak může běžet na co nejvhodnějším místě v datovém centru. Je vidět, že tyto dvě technologie se dobře doplňují, proto jsou často součástí jednoho řešení. \cite{SDN_book}
+Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak dle \cite{Toward_NFV} využití obou těchto technologii je nejlepší cestou pro telekomuniční poskytovatelé a velké firmy. Je to z důvodu toho, že se každá orientuje na jinou část datového provozu. To znázorněno na obrázku č. \ref{fig:sdn_nfv}.
 
 \begin{figure}[h]
 \begin{centering}
 \includegraphics[scale=0.5]{images/sdn_nfv}
 \par\end{centering}
-\caption{ (NFV)\label{fig:vize_NFV}}
+\caption{ Srovnání SDN a NFV \label{fig:sdn_nfv}}
 \end{figure}
 
-//Tabulka rozdílů porovnani
-
-\cite{Toward_NFV}
+Fakt je, že SDN umožňuje programaticky ovládat počítačovou síť. To lze využít u NFV pro poskytnutí programovatelné konektivity mezi jednotlivými virtuálními síťovými funkcemi. Tento proces nazývá Service Chaining.
 
 \subsection{Service Chaining} \label{sub:SDN}
 
-Jednou z výhod NFV je možnost využít Service Chaining. Service chaining je ve skutečnosti součást SDN. Jde o princip jakým lze dynamicky pospojovat jednotlivé VNF a ovladat tak toky v síti. \cite{SDN_book}
+Jednou z výhod NFV a SDN je možnost využít Service Chaining. Service chaining je ve skutečnosti součást SDN. Jde o princip jakým lze dynamicky pospojovat jednotlivé VNF a ovládat tak toky v síti. \cite{NFV_simplified}
 
-Service chaining není ve skutečnosti nic nového. V klasických počítačových sítích je používán také, ale pomocí fyzických síťových prvků. Jedná se zjednodušeně o způsob zapojení mezi jednotlivými síťovými prvky (či VNF) a způsob, jakým na sebe navazují. Příklad takového zapojení je vidět na obrázku č. \ref{fig:service_chaining}. Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Potřeba jednotlivých síťových služeb se samozřejmě může v čase měnit. Příklad takové sítě lze nalézt ve většině datových center. 
+Service chaining není ve skutečnosti nic nového. V klasických počítačových sítích je používán také, ale pomocí fyzických síťových prvků. Jedná se zjednodušeně o způsob zapojení mezi jednotlivými síťovými prvky (či VNF) a způsob, jakým na sebe navazují. Příklad takového zapojení je vidět na obrázku č. \ref{fig:service_chaining}. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -115,6 +114,8 @@ Service chaining není ve skutečnosti nic nového. V klasických počítačový
 \par\end{centering}
 \caption{Ukázka klasického service chainigu pomocí fyzických síťových prvků\label{fig:service_chaining}}
 \end{figure}
+
+Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Také je možné, že se potřeby pro jednotlivé síťové služeby mohou měnit v čase. Příklad takové sítě lze nalézt ve většině datových center. 
 
 Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existují jako virtuální stroje, tak mohou být dynamicky nasazovány dle aktuálním požadavků jednotlivých klientů a pomocí SDN mohou být tyto VM dynamicky pospojovány. Obrázek č. \ref{fig:service_chaining_new} ukazuje schéma zapojení, kde každý klient může mít jinou požadovanou cestu do internetu. Je možná i varianta, kde každý klient má své vlastní VNF s jinou konfigurací.
 
@@ -124,3 +125,5 @@ Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existuj�
 \par\end{centering}
 \caption{Ukázka VNF service chainigu\label{fig:service_chaining_new}}
 \end{figure}
+
+Je tedy vidět, že NFV a SDN jdou velice dobře dohromady a lze pomocí nich získat mnoho výhod. Vzhledem k tomu, že tato práce se zabývá managementem a orchestrací VNF, tak zde tedy nutné počítat s využitím SDN při návrhnu NFV frameworku, na kterém budou následně testovány jednostlivé VNF.

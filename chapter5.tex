@@ -156,7 +156,11 @@ Po několika takovýchto dotazech na webové servery je vidět, že odpověď p�
 
 \subsection{AVI networks}
 
+//Popsat jak to dělá AVI networks
+
 \section{Realizace VNF pro FwaaS}
+
+V této sekci jsou vysvětleny jednotlivé kroky související s realizací VNF pro FwaaS. Jako první je popsána realizace pomocí PfSense a po ní následuje Fortigate VM.
 
 \subsection{Servisní instance v OpenContrailu}
 
@@ -331,7 +335,7 @@ service_template:
 \end{lstlisting}
 \end{itemize}
 
-\subsection{PfSense}\label{sub:interaction}
+\subsection{Management PfSense}\label{sub:interaction}
 
 Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
 
@@ -368,9 +372,10 @@ After we start the heat with pfsense there is already functional service chainin
 \caption{Ukázka NAT session\label{fig:pfsense_nat}}
 
 //Bash script nefunguje
+//Salt minion neprosel
 //Predpripraveny image
 
-\subsection{Fortigate}
+\subsection{Management Fortigate VM}
 
 //Python API = Script
 // => Salt module 

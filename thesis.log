@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.7)  19 AUG 2016 23:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.7)  20 AUG 2016 18:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -906,11 +906,7 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 ) (./thesis.aux
-(./chapter1.aux) (./chapter2.aux
-
-LaTeX Warning: Label `fig:vize_NFV' multiply defined.
-
-) (./chapter3.aux) (./chapter4.aux
+(./chapter1.aux) (./chapter2.aux) (./chapter3.aux) (./chapter4.aux
 
 LaTeX Warning: Label `tab:vmware_openstack' multiply defined.
 
@@ -1212,8 +1208,38 @@ Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 41.
 
+<images/network.png, id=321, 1105.12875pt x 654.445pt>
+File: images/network.png Graphic file (type png)
 
-Overfull \hbox (3.61108pt too wide) in paragraph at lines 53--54
+<use images/network.png>
+Package pdftex.def Info: images/network.png used on input line 47.
+(pdftex.def)             Requested size: 331.54118pt x 196.335pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 55.
+
+[5] <images/vize_NFV.png, id=332, 840.13875pt x 387.4475pt>
+File: images/vize_NFV.png Graphic file (type png)
+
+<use images/vize_NFV.png>
+Package pdftex.def Info: images/vize_NFV.png used on input line 58.
+(pdftex.def)             Requested size: 420.06834pt x 193.72327pt.
+
+Overfull \hbox (3.61108pt too wide) in paragraph at lines 66--67
 []\T1/qpl/m/n/12 Smí°ení in-ves-ti£-ních ná-klad· ^^U sní-ºení po-t°eby ná-kupu
  jed-no-ú£e-lo-vých hard-
  []
@@ -1230,14 +1256,18 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 57.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 67.
 
-[5] <images/vize_NFV.png, id=326, 790.955pt x 501.875pt>
-File: images/vize_NFV.png Graphic file (type png)
+[6 <./images/network.png> <./images/vize_NFV.png>]
 
-<use images/vize_NFV.png>
-Package pdftex.def Info: images/vize_NFV.png used on input line 63.
-(pdftex.def)             Requested size: 395.47653pt x 250.93687pt.
+Package hyperref Warning: Composite letter `\textasciicaron+e'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 74.
+
+
+Package hyperref Warning: Composite letter `\textasciicaron+e'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textasciicaron' on input line 74.
 
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
@@ -1251,64 +1281,29 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 69.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 77.
 
-[6 <./images/vize_NFV.png (PNG copy)>]
-
-Package hyperref Warning: Composite letter `\textasciicaron+e'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 70.
-
-
-Package hyperref Warning: Composite letter `\textasciicaron+e'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 70.
-
-<images/SDN.png, id=336, 428.60126pt x 323.2075pt>
+[7] <images/SDN.png, id=351, 428.60126pt x 323.2075pt>
 File: images/SDN.png Graphic file (type png)
  <use images/SDN.png>
-Package pdftex.def Info: images/SDN.png used on input line 76.
+Package pdftex.def Info: images/SDN.png used on input line 80.
 (pdftex.def)             Requested size: 257.16273pt x 193.926pt.
 
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 82.
-
-[7 <./images/SDN.png (PNG copy)>]
-
-Package natbib Warning: Citation `SDN_book' on page 8 undefined on input line 9
-3.
-
-
-Overfull \hbox (4.04419pt too wide) in paragraph at lines 93--94
+Overfull \hbox (4.04419pt too wide) in paragraph at lines 94--95
 []\T1/qpl/m/n/12 P°estoºe Soft-wa-rov¥ de-fi-no-vané sít¥ a vir-tu-a-li-zace sí
 -´o-vých funkcí jsou dv¥ r·zné
  []
 
-<images/sdn_nfv.png, id=347, 772.8875pt x 291.0875pt>
+<images/sdn_nfv.png, id=357, 772.8875pt x 291.0875pt>
 File: images/sdn_nfv.png Graphic file (type png)
  <use images/sdn_nfv.png>
-Package pdftex.def Info: images/sdn_nfv.png used on input line 97.
+Package pdftex.def Info: images/sdn_nfv.png used on input line 98.
 (pdftex.def)             Requested size: 386.4428pt x 145.54338pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Package natbib Warning: Citation `SDN_book' on page 8 undefined on input line 1
-08.
-
-
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
 (scrreprt)              been defined for compatiblitiy to Script 2.0 only.
@@ -1320,13 +1315,14 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 109.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 104.
 
-[8] <images/service_chaining.png, id=355, 537.00626pt x 192.72pt>
+[8 <./images/SDN.png (PNG copy)>]
+<images/service_chaining.png, id=367, 537.00626pt x 192.72pt>
 File: images/service_chaining.png Graphic file (type png)
 
 <use images/service_chaining.png>
-Package pdftex.def Info: images/service_chaining.png used on input line 114.
+Package pdftex.def Info: images/service_chaining.png used on input line 113.
 (pdftex.def)             Requested size: 295.35435pt x 105.9963pt.
 
 
@@ -1341,14 +1337,14 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 120.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 119.
 
 [9 <./images/sdn_nfv.png (PNG copy)> <./images/service_chaining.png (PNG copy)>
-] <images/service_chaining_new.png, id=362, 532.99126pt x 299.1175pt>
+] <images/service_chaining_new.png, id=375, 532.99126pt x 299.1175pt>
 File: images/service_chaining_new.png Graphic file (type png)
 
 <use images/service_chaining_new.png>
-Package pdftex.def Info: images/service_chaining_new.png used on input line 123
+Package pdftex.def Info: images/service_chaining_new.png used on input line 124
 .
 (pdftex.def)             Requested size: 293.1461pt x 164.51512pt.
 )
@@ -1371,7 +1367,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 
  (./chapter3.tex
 chapter 3.
-<images/NFV_architektura.png, id=370, 873.2625pt x 643.40375pt>
+<images/NFV_architektura.png, id=383, 873.2625pt x 643.40375pt>
 File: images/NFV_architektura.png Graphic file (type png)
 
 <use images/NFV_architektura.png>
@@ -1412,7 +1408,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              by `\normalfont \rmfamily ' on input line 31.
 
 [12 <./images/NFV_architektura.png (PNG copy)>]
-<images/infrastruktura.png, id=392, 722.7pt x 332.24126pt>
+<images/infrastruktura.png, id=405, 722.7pt x 332.24126pt>
 File: images/infrastruktura.png Graphic file (type png)
 
 <use images/infrastruktura.png>
@@ -1443,7 +1439,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              by `\normalfont \rmfamily ' on input line 52.
 
 [13 <./images/infrastruktura.png (PNG copy)>]
-<images/VNF.png, id=406, 635.37375pt x 397.485pt>
+<images/VNF.png, id=419, 635.37375pt x 397.485pt>
 File: images/VNF.png Graphic file (type png)
  <use images/VNF.png>
 Package pdftex.def Info: images/VNF.png used on input line 57.
@@ -1464,7 +1460,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              by `\normalfont \rmfamily ' on input line 65.
 
 [14 <./images/VNF.png (PNG copy)>]
-<images/MANO.png, id=414, 681.54625pt x 541.02126pt>
+<images/MANO.png, id=427, 681.54625pt x 541.02126pt>
 File: images/MANO.png Graphic file (type png)
  <use images/MANO.png>
 Package pdftex.def Info: images/MANO.png used on input line 78.
@@ -1543,7 +1539,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 110.
 
-[17] <images/heat_engine.png, id=440, 496.85625pt x 479.7925pt>
+[17] <images/heat_engine.png, id=453, 496.85625pt x 479.7925pt>
 File: images/heat_engine.png Graphic file (type png)
 
 <use images/heat_engine.png>
@@ -1608,7 +1604,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 157.
 
-[20] <images/vmware.jpg, id=468, 602.25pt x 341.275pt>
+[20] <images/vmware.jpg, id=481, 602.25pt x 341.275pt>
 File: images/vmware.jpg Graphic file (type jpg)
  <use images/vmware.jpg>
 Package pdftex.def Info: images/vmware.jpg used on input line 167.
@@ -1788,7 +1784,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 113.
 
-[28] <images/VNF_overview.png, id=531, 529.98pt x 393.47pt>
+[28] <images/VNF_overview.png, id=544, 529.98pt x 393.47pt>
 File: images/VNF_overview.png Graphic file (type png)
 
 <use images/VNF_overview.png>
@@ -1810,7 +1806,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              by `\normalfont \rmfamily ' on input line 124.
 
 [29 <./images/VNF_overview.png (PNG copy)>]
-<images/fyzicka_topologie.png, id=538, 570.13pt x 184.69pt>
+<images/fyzicka_topologie.png, id=551, 570.13pt x 184.69pt>
 File: images/fyzicka_topologie.png Graphic file (type png)
 
 <use images/fyzicka_topologie.png>
@@ -1862,7 +1858,7 @@ ticky s co moºná nejmén¥
 
 
 
-] <images/LoadBalancer.png, id=550, 602.25pt x 383.4325pt>
+] <images/LoadBalancer.png, id=563, 602.25pt x 383.4325pt>
 File: images/LoadBalancer.png Graphic file (type png)
 
 <use images/LoadBalancer.png>
@@ -1889,7 +1885,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              by `\normalfont \rmfamily ' on input line 27.
 
 [32 <./images/LoadBalancer.png (PNG copy)>]
-<images/firewall.png, id=558, 583.17876pt x 282.05376pt>
+<images/firewall.png, id=571, 583.17876pt x 282.05376pt>
 File: images/firewall.png Graphic file (type png)
 
 <use images/firewall.png>
@@ -1916,7 +1912,7 @@ Overfull \hbox (0.311pt too wide) in paragraph at lines 53--54
  poolu nap°. webový
  []
 
-<images/NeutronLbaaS.png, id=565, 424.58624pt x 343.2825pt>
+<images/NeutronLbaaS.png, id=578, 424.58624pt x 343.2825pt>
 File: images/NeutronLbaaS.png Graphic file (type png)
 
 <use images/NeutronLbaaS.png>
@@ -2008,14 +2004,14 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 136.
 
-[37] <images/lbaas_topologie.png, id=622, 885.3075pt x 571.13374pt>
+[37] <images/lbaas_topologie.png, id=635, 885.3075pt x 571.13374pt>
 File: images/lbaas_topologie.png Graphic file (type png)
 
 <use images/lbaas_topologie.png>
 Package pdftex.def Info: images/lbaas_topologie.png used on input line 139.
 (pdftex.def)             Requested size: 398.38469pt x 257.00781pt.
 
-<images/lbaas_testing.png, id=624, 374.39874pt x 537.00626pt>
+<images/lbaas_testing.png, id=637, 374.39874pt x 537.00626pt>
 File: images/lbaas_testing.png Graphic file (type png)
 
 <use images/lbaas_testing.png>
@@ -2037,7 +2033,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 164.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 161.
 
 [38 <./images/lbaas_topologie.png>]
 
@@ -2052,7 +2048,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 177.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 174.
 
 [39 <./images/lbaas_testing.png>]
 
@@ -2067,29 +2063,26 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 193.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 197.
 
-[40] <images/service_instance_anal.png, id=642, 507.8975pt x 171.64125pt>
+[40] <images/service_instance_anal.png, id=655, 507.8975pt x 171.64125pt>
 File: images/service_instance_anal.png Graphic file (type png)
 
 <use images/service_instance_anal.png>
-Package pdftex.def Info: images/service_instance_anal.png used on input line 19
-6.
+Package pdftex.def Info: images/service_instance_anal.png used on input line 20
+0.
 (pdftex.def)             Requested size: 319.97713pt x 108.13454pt.
 
-<images/service_instance.png, id=643, 507.8975pt x 238.8925pt>
+<images/service_instance.png, id=656, 507.8975pt x 238.8925pt>
 File: images/service_instance.png Graphic file (type png)
 
 <use images/service_instance.png>
-Package pdftex.def Info: images/service_instance.png used on input line 205.
+Package pdftex.def Info: images/service_instance.png used on input line 209.
 (pdftex.def)             Requested size: 319.97713pt x 150.50307pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2102,9 +2095,12 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 226.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 224.
 
 [41 <./images/service_instance_anal.png (PNG copy)>]
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
@@ -2143,9 +2139,6 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 [43] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-)
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2158,30 +2151,16 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 316.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 315.
 
-[44]
-Overfull \hbox (24.40846pt too wide) in paragraph at lines 338--339
-[][]\T1/qcr/m/n/12 heat stack-create -f he-at/-tem-pla-te-s/-fwaas_mnmg_templat
-e.hot -
- []
-
-
+[44] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+)
 Overfull \hbox (24.40846pt too wide) in paragraph at lines 342--343
 [][]\T1/qcr/m/n/12 heat stack-create -f he-at/-tem-pla-te-s/-fwaas_mnmg_templat
 e.hot -
  []
 
-<images/fwaas_topologie.png, id=738, 842.14626pt x 572.1375pt>
-File: images/fwaas_topologie.png Graphic file (type png)
-
-<use images/fwaas_topologie.png>
-Package pdftex.def Info: images/fwaas_topologie.png used on input line 347.
-(pdftex.def)             Requested size: 378.96231pt x 257.45949pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2194,50 +2173,66 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 354.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 344.
 
-[45] <images/pfsense_ping.png, id=758, 943.525pt x 284.06125pt>
+[45]
+Overfull \hbox (24.40846pt too wide) in paragraph at lines 346--347
+[][]\T1/qcr/m/n/12 heat stack-create -f he-at/-tem-pla-te-s/-fwaas_mnmg_templat
+e.hot -
+ []
+
+<images/fwaas_topologie.png, id=770, 842.14626pt x 572.1375pt>
+File: images/fwaas_topologie.png Graphic file (type png)
+
+<use images/fwaas_topologie.png>
+Package pdftex.def Info: images/fwaas_topologie.png used on input line 351.
+(pdftex.def)             Requested size: 378.96231pt x 257.45949pt.
+
+<images/pfsense_ping.png, id=771, 943.525pt x 284.06125pt>
 File: images/pfsense_ping.png Graphic file (type png)
 
 <use images/pfsense_ping.png>
-Package pdftex.def Info: images/pfsense_ping.png used on input line 359.
+Package pdftex.def Info: images/pfsense_ping.png used on input line 363.
 (pdftex.def)             Requested size: 424.58232pt x 127.82637pt.
 
-<images/pfsense_nat.png, id=759, 943.525pt x 252.945pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<images/pfsense_nat.png, id=772, 943.525pt x 252.945pt>
 File: images/pfsense_nat.png Graphic file (type png)
 
 <use images/pfsense_nat.png>
-Package pdftex.def Info: images/pfsense_nat.png used on input line 366.
+Package pdftex.def Info: images/pfsense_nat.png used on input line 370.
 (pdftex.def)             Requested size: 424.58232pt x 113.82419pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/fortigate_int.png, id=760, 671.50874pt x 565.11125pt>
+<images/fortigate_int.png, id=773, 671.50874pt x 565.11125pt>
 File: images/fortigate_int.png Graphic file (type png)
 
 <use images/fortigate_int.png>
-Package pdftex.def Info: images/fortigate_int.png used on input line 381.
+Package pdftex.def Info: images/fortigate_int.png used on input line 386.
 (pdftex.def)             Requested size: 302.17615pt x 254.2977pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/fortigate_nat.png, id=761, 817.0525pt x 541.02126pt>
+<images/fortigate_nat.png, id=774, 817.0525pt x 541.02126pt>
 File: images/fortigate_nat.png Graphic file (type png)
 
 <use images/fortigate_nat.png>
-Package pdftex.def Info: images/fortigate_nat.png used on input line 388.
+Package pdftex.def Info: images/fortigate_nat.png used on input line 393.
 (pdftex.def)             Requested size: 367.67023pt x 243.4573pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/fortigate_ping.png, id=762, 943.525pt x 250.9375pt>
+<images/fortigate_ping.png, id=775, 943.525pt x 250.9375pt>
 File: images/fortigate_ping.png Graphic file (type png)
 
 <use images/fortigate_ping.png>
-Package pdftex.def Info: images/fortigate_ping.png used on input line 395.
+Package pdftex.def Info: images/fortigate_ping.png used on input line 400.
 (pdftex.def)             Requested size: 424.58232pt x 112.92082pt.
 
 
@@ -2258,7 +2253,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 286.
 
-[46 <./images/fwaas_topologie.png> <./images/pfsense_ping.png>]
+[46 <./images/fwaas_topologie.png>]
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2273,7 +2268,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 286.
 
-[47 <./images/pfsense_nat.png> <./images/fortigate_int.png>]
+[47 <./images/pfsense_ping.png> <./images/pfsense_nat.png>]
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2288,7 +2283,22 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 286.
 
-[48 <./images/fortigate_nat.png> <./images/fortigate_ping.png>]
+[48 <./images/fortigate_int.png> <./images/fortigate_nat.png>]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 286.
+
+[49 <./images/fortigate_ping.png>]
 \openout2 = `chapter6.aux'.
 
  (./chapter6.tex
@@ -2311,7 +2321,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 4.
 
-[49
+[50
 
 
 ]
@@ -2321,7 +2331,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 4.
 
-) [50
+) [51
 
 
 ]
@@ -2446,210 +2456,13 @@ pdocs / epic03 / wrapper .
  []
 
 
-Underfull \hbox (badness 7291) in paragraph at lines 32--33
-[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, ^^PETSI GS NF
-V 002
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-\T1/qpl/m/n/12 V1.2.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); Ar-chi-tec
-tu-ral Fra-
- []
-
-
-Underfull \hbox (badness 2326) in paragraph at lines 32--33
-\T1/qpl/m/n/12 mework,^^Q De-cem-ber 2014. [on-line]. [cit. 2016-04-07]. Do-stu
-pné také z:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-[]$\T1/qcr/m/n/12 http : / / www . etsi . org / deliver / etsigs / NFV / 001099
- / 002 / 01 .
- []
-
-
-Underfull \hbox (badness 7291) in paragraph at lines 34--35
-[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, ^^PETSI GS NF
-V 003
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-\T1/qpl/m/n/12 V1.2.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); Ter-mi-no-
-logy for
- []
-
-
-Underfull \hbox (badness 6944) in paragraph at lines 34--35
-\T1/qpl/m/n/12 Main Con-cepts in NFV,^^Q De-cem-ber 2014. [on-line]. [cit. 2016
--04-07].
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--35
-[]$\T1/qcr/m/n/12 ttp : / / www . etsi . org / deliver / etsigs / NFV / 001099 
-/ 003 / 01 .
- []
-
-
-Underfull \hbox (badness 2564) in paragraph at lines 36--37
-[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
-12 ETSI GS NFV-INF 001
- []
-
-
-Underfull \hbox (badness 2103) in paragraph at lines 36--37
-\T1/qpl/m/n/12 [on-line]. [cit. 2016-04-07].[]$\T1/qcr/m/n/12 http : / / www . 
-etsi . org / deliver / etsi _ gs /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--37
-\T1/qcr/m/n/12 NFV-[]INF / 001 _ 099 / 001 / 01 . 01 . 01 _ 60 / gs _ nfv-[]inf
-001v010101p .
- []
-
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 37.
-
-[2]
-Underfull \hbox (badness 2103) in paragraph at lines 38--40
-\T1/qpl/m/n/12 [on-line].[cit. 2016-04-07]. []$\T1/qcr/m/n/12 http : / / www . 
-etsi . org / deliver / etsi _ gs /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 38--40
-\T1/qcr/m/n/12 NFV-[]INF / 001 _ 099 / 003 / 01 . 01 . 01 _ 60 / gs _ NFV-[]INF
-003v010101p .
- []
-
-
-Underfull \hbox (badness 2564) in paragraph at lines 41--42
-[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
-12 ETSI GS NFV-INF 004
- []
-
-
-Underfull \hbox (badness 7925) in paragraph at lines 41--42
-\T1/qpl/m/it/12 V1.1.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); In-frastr
-ucture; Hy-per-vi-
- []
-
-
-Underfull \hbox (badness 2990) in paragraph at lines 41--42
-\T1/qpl/m/it/12 sor Do-main\T1/qpl/m/n/12 , 2015. [on-line]. [cit. 2016-01-07].
- []$\T1/qcr/m/n/12 http : / / www . etsi . org /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
-\T1/qcr/m/n/12 deliver / etsi _ gs / NFV-[]INF / 001 _ 099 / 004 / 01 . 01 . 01
- _ 60 / gs _
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--44
-\T1/qcr/m/n/12 NFV-[]INF / 001 _ 099 / 005 / 01 . 01 . 01 _ 60 / gs _ NFV-[]INF
-005v010101p .
- []
-
-
-Underfull \hbox (badness 1616) in paragraph at lines 45--46
-[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
-12 ETSI GS NFV-SWA 001
- []
-
-
-Underfull \hbox (badness 1430) in paragraph at lines 45--46
-\T1/qpl/m/it/12 V1.1.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); Vir-tual 
-Ne-twork Functi-ons
- []
-
-
-Underfull \hbox (badness 2401) in paragraph at lines 45--46
-\T1/qpl/m/it/12 Ar-chi-tecture \T1/qpl/m/n/12 , 2014. [on-line]. [cit. 2016-02-
-09. []$\T1/qcr/m/n/12 http : / / www . etsi . org /
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 45--46
-\T1/qcr/m/n/12 deliver / etsi _ gs / NFV-[]SWA / 001 _ 099 / 001 / 01 . 01 . 01
- _ 60 / gs _
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 47--49
-\T1/qcr/m/n/12 NFV-[]MAN / 001 _ 099 / 001 / 01 . 01 . 01 _ 60 / gs _ nfv-[]man
-001v010101p .
- []
-
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 50.
-
-[3]
-Underfull \hbox (badness 1292) in paragraph at lines 50--51
-\T1/qpl/m/n/12 2016, 54(1), 98-105. DOI: 10.1109/M-COM.2016.7378433. ISSN 0163-
-6804.
- []
-
-
-Underfull \hbox (badness 2799) in paragraph at lines 50--51
-\T1/qpl/m/n/12 Do-stupné také z: []$\T1/qcr/m/n/12 http : / / ieeexplore . ieee
- . org / lpdocs / epic03 /
- []
-
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 70.
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 70--71
-[][]$\T1/qcr/m/n/12 http : / / www . itproportal . com / 2015 / 08 / 21 /
- []
-
-
-Underfull \hbox (badness 5548) in paragraph at lines 104--105
+Underfull \hbox (badness 5548) in paragraph at lines 30--31
 []\T1/qpl/m/n/12 SHERRY, Jus-tine, Shaddi HA-SAN, Co-lin SCOTT, Ar-vind KRISHNA
 -
  []
 
 
-Underfull \hbox (badness 1199) in paragraph at lines 104--105
+Underfull \hbox (badness 1199) in paragraph at lines 30--31
 \T1/qpl/m/n/12 MURTHY, Syl-via RAT-NA-SAMY a Vyas SE-KAR. \T1/qpl/m/it/12 Ma-ki
 ng mi-d-dle-bo-xes so-
  []
@@ -2666,38 +2479,212 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 105.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 33.
 
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
-[]\T1/qpl/m/n/12 NANDUGUDI, Anan-da-tirtha, Mas-simo GALLO, Diego PE-RINO
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
-\T1/qpl/m/n/12 a Fa-bio PI-A-NESE. Ne-twork function vir-tu-a-li-zation: throug
-h the
- []
-
-
-Underfull \hbox (badness 5787) in paragraph at lines 108--109
-\T1/qpl/m/n/12 looking-glass. An-nals of Te-le-com-mu-ni-cati-ons [on-line]. , 
-- [cit. 2016-
- []
-
-
-Underfull \hbox (badness 6063) in paragraph at lines 108--109
-\T1/qpl/m/n/12 08-13]. DOI: 10.1007/s12243-016-0540-9. ISSN 0003-4347. Do-stupn
-é z:
- []
-
-
-Underfull \hbox (badness 1603) in paragraph at lines 114--115
+[2]
+Underfull \hbox (badness 1603) in paragraph at lines 34--35
 \T1/qpl/m/n/12 the IEEE [on-line]. 2015, 103(1), 14-76 [cit. 2016-04-09]. DOI: 
 10.1109/J-
  []
 
-)
+
+Underfull \hbox (badness 7291) in paragraph at lines 40--41
+[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, ^^PETSI GS NF
+V 002
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+\T1/qpl/m/n/12 V1.2.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); Ar-chi-tec
+tu-ral Fra-
+ []
+
+
+Underfull \hbox (badness 2326) in paragraph at lines 40--41
+\T1/qpl/m/n/12 mework,^^Q De-cem-ber 2014. [on-line]. [cit. 2016-04-07]. Do-stu
+pné také z:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+[]$\T1/qcr/m/n/12 http : / / www . etsi . org / deliver / etsigs / NFV / 001099
+ / 002 / 01 .
+ []
+
+
+Underfull \hbox (badness 7291) in paragraph at lines 42--43
+[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, ^^PETSI GS NF
+V 003
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+\T1/qpl/m/n/12 V1.2.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); Ter-mi-no-
+logy for
+ []
+
+
+Underfull \hbox (badness 6944) in paragraph at lines 42--43
+\T1/qpl/m/n/12 Main Con-cepts in NFV,^^Q De-cem-ber 2014. [on-line]. [cit. 2016
+-04-07].
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
+[]$\T1/qcr/m/n/12 ttp : / / www . etsi . org / deliver / etsigs / NFV / 001099 
+/ 003 / 01 .
+ []
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 44--45
+[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
+12 ETSI GS NFV-INF 001
+ []
+
+
+Underfull \hbox (badness 2103) in paragraph at lines 44--45
+\T1/qpl/m/n/12 [on-line]. [cit. 2016-04-07].[]$\T1/qcr/m/n/12 http : / / www . 
+etsi . org / deliver / etsi _ gs /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
+\T1/qcr/m/n/12 NFV-[]INF / 001 _ 099 / 001 / 01 . 01 . 01 _ 60 / gs _ nfv-[]inf
+001v010101p .
+ []
+
+
+Underfull \hbox (badness 2103) in paragraph at lines 46--48
+\T1/qpl/m/n/12 [on-line].[cit. 2016-04-07]. []$\T1/qcr/m/n/12 http : / / www . 
+etsi . org / deliver / etsi _ gs /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
+\T1/qcr/m/n/12 NFV-[]INF / 001 _ 099 / 003 / 01 . 01 . 01 _ 60 / gs _ NFV-[]INF
+003v010101p .
+ []
+
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 48.
+
+[3]
+Underfull \hbox (badness 2564) in paragraph at lines 49--50
+[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
+12 ETSI GS NFV-INF 004
+ []
+
+
+Underfull \hbox (badness 7925) in paragraph at lines 49--50
+\T1/qpl/m/it/12 V1.1.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); In-frastr
+ucture; Hy-per-vi-
+ []
+
+
+Underfull \hbox (badness 2990) in paragraph at lines 49--50
+\T1/qpl/m/it/12 sor Do-main\T1/qpl/m/n/12 , 2015. [on-line]. [cit. 2016-01-07].
+ []$\T1/qcr/m/n/12 http : / / www . etsi . org /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
+\T1/qcr/m/n/12 deliver / etsi _ gs / NFV-[]INF / 001 _ 099 / 004 / 01 . 01 . 01
+ _ 60 / gs _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
+\T1/qcr/m/n/12 NFV-[]INF / 001 _ 099 / 005 / 01 . 01 . 01 _ 60 / gs _ NFV-[]INF
+005v010101p .
+ []
+
+
+Underfull \hbox (badness 1616) in paragraph at lines 53--54
+[]\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
+12 ETSI GS NFV-SWA 001
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 53--54
+\T1/qpl/m/it/12 V1.1.1: Ne-twork Functi-ons Vir-tu-a-li-sation (NFV); Vir-tual 
+Ne-twork Functi-ons
+ []
+
+
+Underfull \hbox (badness 2401) in paragraph at lines 53--54
+\T1/qpl/m/it/12 Ar-chi-tecture \T1/qpl/m/n/12 , 2014. [on-line]. [cit. 2016-02-
+09. []$\T1/qcr/m/n/12 http : / / www . etsi . org /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+\T1/qcr/m/n/12 deliver / etsi _ gs / NFV-[]SWA / 001 _ 099 / 001 / 01 . 01 . 01
+ _ 60 / gs _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--57
+\T1/qcr/m/n/12 NFV-[]MAN / 001 _ 099 / 001 / 01 . 01 . 01 _ 60 / gs _ nfv-[]man
+001v010101p .
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 58--59
+\T1/qpl/m/n/12 2016, 54(1), 98-105. DOI: 10.1109/M-COM.2016.7378433. ISSN 0163-
+6804.
+ []
+
+
+Underfull \hbox (badness 2799) in paragraph at lines 58--59
+\T1/qpl/m/n/12 Do-stupné také z: []$\T1/qcr/m/n/12 http : / / ieeexplore . ieee
+ . org / lpdocs / epic03 /
+ []
+
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 59.
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
+[][]$\T1/qcr/m/n/12 http : / / www . itproportal . com / 2015 / 08 / 21 /
+ []
+
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 86.
+
+[5])
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2886,7 +2873,7 @@ chapter B.
 ) [19
 
 
-] <zadani.pdf, id=1189, 597.23125pt x 845.1575pt>
+] <zadani.pdf, id=1199, 597.23125pt x 845.1575pt>
 File: zadani.pdf Graphic file (type pdf)
  <use zadani.pdf>
 Package pdftex.def Info: zadani.pdf used on input line 313.
@@ -2896,7 +2883,7 @@ File: zadani.pdf Graphic file (type pdf)
 <use zadani.pdf>
 Package pdftex.def Info: zadani.pdf used on input line 313.
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
- <zadani.pdf, id=1192, page=1, 597.23125pt x 845.1575pt>
+ <zadani.pdf, id=1202, page=1, 597.23125pt x 845.1575pt>
 File: zadani.pdf Graphic file (type pdf)
 
 <use zadani.pdf, page 1>
@@ -2922,18 +2909,16 @@ Package pdftex.def Info: zadani.pdf, page1 used on input line 313.
  [20
 
  <./zadani.pdf>]
-
-Package natbib Warning: There were undefined citations.
-
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 315.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 315.
+
 (./thesis.aux (./chapter1.aux) (./chapter2.aux) (./chapter3.aux)
 (./chapter4.aux) (./chapter5.aux) (./chapter6.aux) (./bibliography.aux)
 (./prilohy.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 315.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 315.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5CBB72ED816BC5FFF0B853A1C4BC5699;3588.
+(rerunfilecheck)             Checksum: 75694CE1D95344D96BC3E8AB5F545B68;3613.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -2945,12 +2930,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 315.
  ) 
 Here is how much of TeX's memory you used:
  15173 strings out of 494878
- 228158 string characters out of 6178666
- 427963 words of memory out of 5000000
- 17520 multiletter control sequences out of 15000+600000
+ 228110 string characters out of 6178666
+ 426963 words of memory out of 5000000
+ 17519 multiletter control sequences out of 15000+600000
  87098 words of font info for 72 fonts, out of 8000000 for 9000
  46 hyphenation exceptions out of 8191
- 43i,18n,66p,1038b,2351s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,18n,66p,1163b,2351s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ec-sc.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qcrr.pfb>
@@ -2958,10 +2943,10 @@ nc/dvips/tex-gyre/q-ec-sc.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
 type1/public/tex-gyre/qhvr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qp
 lb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qplr.pfb></usr/share/texmf
 /fonts/type1/public/tex-gyre/qplri.pfb>
-Output written on thesis.pdf (76 pages, 1123802 bytes).
+Output written on thesis.pdf (77 pages, 947440 bytes).
 PDF statistics:
- 1349 PDF objects out of 1440 (max. 8388607)
- 1202 compressed objects within 13 object streams
+ 1359 PDF objects out of 1440 (max. 8388607)
+ 1207 compressed objects within 13 object streams
  532 named destinations out of 1000 (max. 500000)
- 552 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 557 words of extra memory for PDF output out of 10000 (max. 10000000)
 
