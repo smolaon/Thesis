@@ -1,0 +1,52 @@
+config system interface
+edit port1
+set type physical
+set vdom root
+set mode dhcp
+set defaultgw disable
+set allowaccess ssh ping http https
+end
+
+edit port2
+set type physical
+set vdom root
+set mode dhcp
+set defaultgw enable
+end
+
+edit port3
+set type physical
+set vdom root
+set mode dhcp
+set defaultgw disable
+end
+
+edit port4
+set type physical
+set vdom root
+set mode static
+end
+
+edit port5
+set type physical
+set vdom root
+set mode static
+end
+
+edit port6
+set type physical
+set vdom root
+set mode static
+end
+
+edit port7
+set type physical
+set vdom root
+set mode static
+end
+
+edit ssl.root
+set type tunnel
+set vdom root
+set mode static
+end
