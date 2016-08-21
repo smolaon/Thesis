@@ -411,8 +411,9 @@ Toto řešení muselo být samozřejmě řádně otestováno. Test proběhl pomo
 
 \subsection{Management Fortigate VM}
 
-Management Fortigate VM probíhal obdobně jako u PfSense. Nejprve proběhlo hledání možností konfigurace zkrze skript v heat templatu. Zde však chybí jakákoli podpora doinstalace sofwaru třetích stran, takže opět nemohl být použit cloud-init. Další hledání však objevilo, že Fortigate VM poskytuje API, které může být využito pro jeho management. K tomu bylo využito python knihovny pro toto API a dokumentace \cite{pyfg}.
+Management Fortigate VM probíhal obdobně jako u PfSense. Nejprve proběhlo hledání možností konfigurace zkrze skript v heat templatu. Zde však chybí jakákoli podpora doinstalace sofwaru třetích stran, takže opět nemohl být použit cloud-init. Další hledání však objevilo, že Fortigate VM poskytuje API, které může být využito pro jeho management. K tomuto účelu bylo využito python knihovny a dokumentace \cite{pyfg}.
 
+Celé toto řešení funguje tak, že je nejprve vytvořena potřebaná konfigurace jako textový soubor a ta se následně pomocí python skriptu nahraje do Fortigate VM instance. V následující ukázce je příklad konfigurace pro síťový interface1. Takto lze ovládat všechny porty, kterými zařízení disponuje. Nejdůležitější se opět ukázalo povolení dhcp na používaných interfacech. 
 
 \begin{lstlisting}[caption=Fortigate konfigurace pro interface]
 config system interface
@@ -424,6 +425,25 @@ set defaultgw disable
 set allowaccess ssh ping http https
 end
 \end{lstlisting}
+
+Dále bylo nutné definovat konfiguraci pro NAT. V té bylo nastaven překlad adres z interfacu 3 na interface 2. 
+
+\begin{lstlisting}[caption=Fortigate konfigurace pro NAT]
+config firewall policy
+edit 1
+set srcintf port3
+set dstintf port2
+set srcaddr all
+set dstaddr all
+set action accept
+set schedule always
+set service ALL
+set logtraffic all
+set nat enable
+end
+\end{lstlisting}
+
+Obě tyto konfigurace následně mohli být nahrány do Fortigate VM pomocí následujícího python skriptu. Ten se přihlásí do zařízení pomocí poskytnutých příhlašovacích údajů a stahne si aktuální konfiguraci. V tomto případě konfiguraci pro všechny interfaci. Tu následně poroná s námi poskytnutou konfigurací a v případné změny odešle zpět do zařízení. Python skript pro nahrání konfigurace pro NAT je témeř stejný. Pouze otevírá jiný soubor a porovnává ho s konfigurací s sekci "firewall policy".
 
 \begin{lstlisting}[caption=Skript pro nahrání konfigurace interfaců]
 from pyFG import FortiOS
@@ -441,24 +461,13 @@ if __name__ == '__main__':
     d.close()
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Fortigate konfigurace pro NAT]
-config firewall policy
-edit 1
-set srcintf port3
-set dstintf port2
-set srcaddr all
-set dstaddr all
-set action accept
-set schedule always
-set service ALL
-set logtraffic all
-set nat enable
-end
-\end{lstlisting}
+Stejně jako v předchozím případě byl nutný test konektivity po spuštění obou skriptů. Obrázek č. \ref{fig:test_fortios} ukazuje, že konektivita opět funguje. Je tedy zřejmé, že konfigurace VNF vytvořené pomocí Fortigate VM byla úspěšně nakonfigurována.
 
-
-//Python API = skript
-// => Salt module 
-
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[scale=0.5]{images/test_fortios}
+\par\end{centering}
+\caption{Test konectivity zkrze Fortigate VM\label{fig:test_fortios}}
+\end{figure}
 
 \section{Shrnutí získaných poznatků}
