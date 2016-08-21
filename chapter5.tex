@@ -27,7 +27,7 @@ Další z často využívaných síťových funkcí je firewall, resp. síťové
 
 Příkladů užití FwaaS v cloudovém prostředí existuje značné množství, protože uživatelé mohou mít různé požadavky na řízení datového provozu. Uvažujme však nejjednodušší příklad, kterým je překlad adres tzv. NAT. V tomto případě uživatel chce vytvořit virtuální instanci, která by měla mít konektivitu k externí síti, ale zároveň nechce, aby daná instance byla dostupná z této externí sítě. 
 
-Otázkou zde je, jakým způsobem by měl být daný firewall nakonfigurován? Jak bylo popsáno kapitole \ref{sec:MANO}, tak existuje více možností. Konfigurace by mohla být doručena jako součást orchestračního templatu, např. v podobě scriptu, který by se provedl po spuštění firewall instance. Tento přístup však nemusí existovat podpora ze strany PfSense a Fortigatu. V tom případě bude muset být využita jiná metoda, pro kterou však ve většině případů musí být vyhrazený dedikovaný interface, určený právě management. Tento interface múže být využit i pro manuální zásahy do konfigurace. Obrázek č. \ref{fig:firewall} zobrazuje schématické zapojení pro FwaaS.
+Otázkou zde je, jakým způsobem by měl být daný firewall nakonfigurován? Jak bylo popsáno kapitole \ref{sec:MANO}, tak existuje více možností. Konfigurace by mohla být doručena jako součást orchestračního templatu, např. v podobě skriptu, který by se provedl po spuštění firewall instance. Tento přístup však nemusí existovat podpora ze strany PfSense a Fortigatu. V tom případě bude muset být využita jiná metoda, pro kterou však ve většině případů musí být vyhrazený dedikovaný interface, určený právě management. Tento interface múže být využit i pro manuální zásahy do konfigurace. Obrázek č. \ref{fig:firewall} zobrazuje schématické zapojení pro FwaaS.
 
 \begin{figure}[h]
 \begin{centering}
@@ -242,27 +242,17 @@ Takto by tedy měla být vytvořena automatizovaná VNF využívající platform
 
 Při testování heat templatu pro AVI networks bylo očekáváno, že zde bude dosaženo stejného stavu jako při použití dashboardu. Bohužel po spuštění daného templatu nedošlo k vytvoření požadovaných resourců a jeho běh skončil errorem. Při dalším zkoumání bylo zjištěno, že v době psaní této práce je podpora heat ze strany AVI networks přiliš nová (přibližně měsíc) a není zde vše naprosto funkční. Z tohoto důvodu nemohl být tento heat template otestován. 
 
-\subsection{Srovnání vytvořených řešení pro LbaaS}
-
-
-
 \section{Realizace VNF pro FwaaS}
 
-V této sekci jsou vysvětleny jednotlivé kroky související s realizací VNF pro FwaaS. 
+V této sekci jsou vysvětleny jednotlivé kroky související s realizací VNF pro FwaaS. Oproti předchozímu příkladu zde není přímá integrace s OpenStackem. Z tohoto důvodu bylo navrhnuto tvochu odlišné řešení. Nejprve bude vytvořena virtuální infrastruktura pomocí heat templatu a tzv. Servisních instancí v OpenContrailu. Toto se nebude příliš od předchozího případu. Avšak poté bude samostatně řešen management resp. dodání potřebné konfigurace do vytvořené instance pro firewall. Tato konfigurace musí mít všechno potřebné, aby firewall vykonával funkci NAT, která byla zvolena jako ukázková VNF v této práci.
 
 \subsection{Servisní instance v OpenContrailu}
 
 V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
 
-Servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. Pro vytvoření takového virtuálního stroje jsou nutné 3 základní elementy. 
+Dle informací uvedených v \cite{opencontrail_web}, tak servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Zároveň je však možné využívat Service Chainingu, který byl popsán v kapitole č. 2. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. 
 
-\begin{itemize}
-  \item Service Template
-  \item Service Instance
-  \item Service Policy
-\end{itemize}
-
-Servisní Template obsahuje obecný předpis pro danou VNF v OpenContrailu. Pro správné fungování je nutné zadat nastavit správné parametry patří:
+Pro vytvoření servisní instance je nejprve určit Servisní template, ze kterého má být tato instance vytvořena. Ten obsahuje její obecný předpis, který má tyto parametry:
 
 \begin{itemize}
 \item Název - Název je označení daného Servisního Templatu. Pomocí něho lze následně identifikovat daný template a spustit dle jeho parametrů Servisní instanci. 
@@ -279,7 +269,7 @@ Servisní Template obsahuje obecný předpis pro danou VNF v OpenContrailu. Pro 
 \item Typy síťových portů - Zde se určuje kolik portů bude daná instance, vytvořená pomocí tohoto templatu mít a jaká bude jejich role. Jsou zde možnosti Left, Right a Management. 
 \end{itemize}
 
-Po úspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí.  Ty běží jako klasické instance v OpenStacku. Jak tedy vyplývá z výše uvedených informací, tak existují dva druhy servisních instancí v OpenContrailu. 
+Po úspěšném vytvoření Servisního templatu je možné z něj vytvořit libovolný počet Servis Instancí. Ty běží jako klasické instance v OpenStacku. Jak tedy vyplývá z výše uvedených informací, tak existují dva druhy servisních instancí v OpenContrailu. 
 
 První z nich je Analyzer. Ten slouží k analýze a zachytávání síťového trafficu. Image pro tento typ servisní instance obvykle obsahuje protokolový analyzér a paketový sniffer, jako je například oblíbený program Wireshark. Tato instance dostává traffic, který je posílán mezi dvěma sítěmi. Tento traffic vybírá OpenContrail podle nastaveného pravidla pro dané sítě. Podle těchto pravidel je vybrána jen část trafficu, která je následně dána k dispozici servisní instanci. Samotná servisní instance nijak nemanipuluje s trafficem a ani do něj žádný negeneruje. Jednoduše lze říci, že má nastavený síťový port v promiskuitním modu a pouze pozoruje traffic. Poté jen hlásí zachycené události uživateli čí jiným entitám v síti. Obrázek č. \ref{fig:service_instance_anal} znázorňuje tento typ servisní instance.
 
@@ -290,7 +280,7 @@ První z nich je Analyzer. Ten slouží k analýze a zachytávání síťového 
 \caption{Schéma zapojení servisní instance Analyzer\label{fig:service_instance_anal}}
 \end{figure}
 
-Druhým typen servisní instance je firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem při vytváření servisní instance jako firewall je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat třetí síťový port, který slouží pro out-of-band management. Přestože některá řešení pro servisní instance sloužící jako firewall mohou mít již své požadované chování definované hned při jejich startu, tak tento port může být velice užitečný při konfiguraci dané servisní instance. A to ať už se jedná o konfiguraci manuální či pomocí nějaké vyšší management entity.
+Je zde zřejmé, že pro účely této práce není Analyzer potřebný. Z tohoto důvodu bude dále uvažován pouze druhý typ servisní instance, kterým je Firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem, při vytváření servisní instance jako firewall, je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat i třetí síťový port, který slouží pro out-of-band management. Tento interface je vhodý předevím pro manuální management či pro management pomocí nějaké další entity.
 
 \begin{figure}[h]
 \begin{centering}
@@ -299,29 +289,32 @@ Druhým typen servisní instance je firewall. V tomto případě již servisní 
 \caption{Schéma zapojení servisní instance\label{fig:service_instance}}
 \end{figure}
 
-Service policy dovoluje síťový traffic mezi virtuálními sítěmi a říká systému, aby ho posílal skrze servisní instanci.
+Pro procházení síťové komunikace mezi sítěmi je nutné jí explicitně povolit v OpenContrailu pomocí tzv. Servisní policy. V tomto případě jich bude využito k vynucení toho, aby byla data posílána skrze servisní instanci.
+
+Shrneme-li co vše je potřebné vytvořit pro FwaaS, tak je to servisní template, servisní instance z toho templatu a servisní policy. Toto vše lze naštěstí opět definovat v heat template, takže je možné toto všechno vytvořit automaticky jako v předchozím případě.
 
 \subsection{Heat template pro FwaaS}
 
-Pro FwaaS je narhnut heat template, který obsahuje:
+Heat template pro FwaaS byl navrhnut obdobně jako v případě LbaaS. Vzhledem k tomu, že template opět značně dlouhý, tak jeho kompletní verzi lze nalést v příloze. Tam lze také nalést enviroment file pro tento template. Zde bude uvedeno pouze to podstatné. Jeho součásti tedy jsou: 
 
 \begin{itemize}
 
-\item privátní síť
+\item virtuální instance pro testování - Tato instance budou sloužit pro otestování správné funkčnosti VNF. Její hlavní činností bude generování dat v síti.
 
-\item virtuální instance pro testován
+\item privátní síť - V této síti bude vytvořena instance pro testování. K této síti bude také připojen jeden z interfaců virtuální instance.
 
-\item firewall template
+\item firewall template - Zde je ukázka pro vytvoření servisního tempaltu, který je použit v této práci. Většina parametrů by měla být dle názvu. Jediné co může být nejasné je paramenter "service interface type list". Do tohoto paramentru jsou v enviroment file vloženy názvy a pořadí jednotlivých interfaců. V našem případě používáme "management,right,left".
+
 \begin{lstlisting}[caption=Servisní template]
 service_template:
     type: OS::Contrail::ServiceTemplate
     properties:
-      name: { get_param: template_name }
-      service_mode: { get_param: template_mode }
-      service_type: { get_param: template_type }
+      name: test-fw-template
+      service_mode: in-network-nat
+      service_type: firewall
       image_name: { get_param: template_image }
-      service_scaling: { get_param: scaling }
-      availability_zone_enable: { get_param: availability_zone }
+      service_scaling: True
+      availability_zone_enable: True
       ordered_interfaces: { get_param: ordered_interfaces }
       flavor: { get_param: template_flavor }
       service_interface_type_list: { "Fn::Split" : [ ",", Ref: service_interface_type_list ] }
@@ -329,64 +322,55 @@ service_template:
       static_routes_list: { "Fn::Split" : [ ",", Ref: static_routes_list ] }
 \end{lstlisting}
 
-\item firewall instance
+\item firewall instance - Tady je ukázán předpis pro tvorbu servisní instance. Je zde vidět, že instance bude vytvořena z již popsaného servisního templatu. Dále uveden seznam síťových interfaců společně s tím, kam se mají napojit. První se připojí do defaultní management sítě, kterou automaticky vytvoří OpenContrail, druhý do veřejné sítě a třetí do privátní.
+
 \begin{lstlisting}[caption=Servisní instance]
- service_instance:
-    type: OS::Contrail::ServiceInstance
-    depends_on: [private_subnet_1]
-    properties:
-      name: { get_param: private_instance_name }
-      service_template: { get_resource:  service_template}
-      availability_zone: { get_param: private_availability_zone}
-      scale_out: 
-          max_instances: { get_param: max_instances }
-      interface_list: [
-          {
-              virtual_network: "auto"
-          },
-          {
-              virtual_network: {get_param: public_net}
-          },
-          {
-              virtual_network: {get_resource: private_net_1}
-          }
-      ]
+service_instance:
+  type: OS::Contrail::ServiceInstance
+  depends_on: [private_subnet_1]
+  properties:
+    name: { get_param: private_instance_name }
+    service_template: { get_resource:  service_template}
+    availability_zone: { get_param: private_availability_zone}
+    scale_out: 
+        max_instances: 1
+    interface_list: [
+        {
+            virtual_network: "auto"
+        },
+        {
+            virtual_network: {get_param: public_net}
+        },
+        {
+            virtual_network: {get_resource: private_net_1}
+        }
+    ]
 \end{lstlisting}
 
-\item contrail policy
+\item contrail policy - Poslední co bylo nutné definovat pro FwaaS je servisní policy. Zde bylo pro jednoduchost povoleno vše z obou směrů pro servisnáí instanci. Tím bude jasné, že výsledný datový tok ovlivňuje pouze sdaná VNF.
+
 \begin{lstlisting}[caption=Contrail network policy]
-
-  private_policy:
-    type: OS::Contrail::NetworkPolicy
-    depends_on: [ private_net_1, service_instance ]
-    properties:
-      name: { get_param: policy_name }
-      entries:
-        policy_rule: [
-              { 
-                "direction": { get_param: direction }, 
-                "protocol": "any", 
-                "src_ports": [{"start_port": {get_param: start_src_ports}, "end_port": {get_param: end_src_ports}}],
-                "dst_ports": [{"start_port": {get_param: start_dst_ports}, "end_port": {get_param: end_dst_ports}}],
-                "dst_addresses": [{ "virtual_network": {get_param: public_net}}], 
-                "action_list": {"apply_service": [{get_resource: service_instance}]}, 
-                "src_addresses": [{ "virtual_network": {get_resource: private_net_1}}] 
-              }, 
-        ]
-
+private_policy:
+  type: OS::Contrail::NetworkPolicy
+  depends_on: [ private_net_1, service_instance ]
+  properties:
+    name: { get_param: policy_name }
+    entries:
+      policy_rule: [
+            { 
+              "direction": "<>", 
+              "protocol": "any", 
+              "src_ports": [{"start_port": -1, "end_port": -1}],
+              "dst_ports": [{"start_port": -1, "end_port": -1}],
+              "dst_addresses": [{ "virtual_network": {get_param: public_net}}], 
+              "action_list": {"apply_service": [{get_resource: service_instance}]}, 
+              "src_addresses": [{ "virtual_network": {get_resource: private_net_1}}] 
+            }, 
+      ]
 \end{lstlisting}
 \end{itemize}
 
-\subsection{Management PfSense}\label{sub:interaction}
-
-Pro vytvoření heat stacku s PFSense z templatu lze použít příkaz:
-
-\verb!heat stack-create -f heat/templates/fwaas_mnmg_template.hot -e heat/env/fwaas_pfsense_env.env pfsense!
-
-a pro vytvoření heat stacku s Fortigate VM jde vytvořit pomocí příkazu:
-
-\verb!heat stack-create -f heat/templates/fwaas_mnmg_template.hot -e heat/env/fwaas_fortios_contrail.env fortios!
-
+Tento template lze použít pro oba testované firewally. Jediné v čem se budou lišit jsou vstupní parametry, pro které budou dva oddělené enviroment soubory. Po spuštění daného templatu se vytvoří topologie, kterou znázorňuje obrázek č. \ref{fig:fwaas_topologie}. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -395,55 +379,42 @@ a pro vytvoření heat stacku s Fortigate VM jde vytvořit pomocí příkazu:
 \caption{Síťová topologie\label{fig:fwaas_topologie}}
 \end{figure}
 
+Přestože výsledná síťová topologie je stejná pro PfSense i pro Fortigate VM, tak je dále nutné zajistit jejich správnou konfiguraci. Ta však dle bližším prozkoumání možností obou řešení bude značně odlišná. Proto již budou tyto informace uvedeny odděleně pro každý z obou firewallů. Je nutné ještě zmínit, že instance, ze které bude probíhat management, není součástí výše zmíněného templatu. Tato instance byla vytvořena samostatně. Je to z důvodu toho, že management nástoje by byly neústále smazávány při testování templatu a bylo by nutné nalést mechanismus, jak je vždy dostat zpět. 
 
-By default, pfsense firewall is configured to NAT after the heat stack is started. As a result, there is no need to make any configuration for this function. Pfsense image was preconfigured with DHCP services on every interface and there is outbound policy for NAT.
+\subsection{Management PfSense}\label{sub:interaction}
 
-After we start the heat with pfsense there is already functional service chaining. Testing instance has default gateway to contrail and contrail redirects it to pfsense.
+Pro management PfSense bylo oddzkoušeno několik možností. Je tomu tak, protože se ukázalo, že není úplně snadné proces konfigurace s PfSense elegantně vyřešit. 
+
+Vzhledem k tomu, že PfSense je postavený na operačním systému FreeBSD, tak úplně prvním uvažovaným řešením měl být skript, který by byl součástí heat templatu. K tomu by však bylo nutné, aby jeho součástí byl tzv. cloud-init, který by tento skript z heat templatu převzal a provedl. Jeho nainstalování do PfSense bohužel bylo neúspěšné. 
+
+Druhým přístupem bylo využítí konfiguračního managementu SaltStack. Informace o tomto nástroji, lze nalést zde \cite{salt}. Pro použití SaltStacku je nutné využít dvou jeho částí. První je tzv. Salt master. Ten obsahuje definici veškeré konfigurace pro infrastuktura, kterou spravuje. Ten je v námi uvažovaném případě nainstalovaný na management instanci a obsahuje potřebné informace pro správnou konfiguraci VNF. Druhou částí je tzv. Salt minion, který má za úkol přijímat příkazy od salt mastera a ty následně na cílové instanci definovaným způsobem vynutit. Avšak zde nastává problém, protože se opět nepodařilo správně nainstalovat salt miniona do PfSense instance.
+
+Po předchozích neúspěších byl tedy zvolen nejjednodušší možný způsob. Tím je přednastavení požadované konfigurace do image s PfSense. Toto se ukázalo jako optimální řešení. Je tomu tak, protože tento image musel být stejně předem ručně vytvořen ze staženého instalačního souboru a následně nahrán do prostředí OpenStack, kde mohl být poté využíván. Předkonfigurování proběhlo přes PfSense dashboard, jehož ukázku ilustruje obrázek č. \ref{fig:nat}
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.45]{images/pfsense_ping}
+\includegraphics[scale=0.38]{images/nat}
 \par\end{centering}
-\caption{Test konektivity PFSense\label{fig:pfsense_ping}}
+\caption{Konfigurace NAT v PfSense dashboardu\label{fig:nat}}
 \end{figure}
+
+Vše muselo být uspůsobeno tak, aby image byl co nejvíce generický. To znamená, že na všech interfacech bylo nastaveno dhcp, protože uživatel může zvolit naprosto jiné ip rozsahy než jsou používány v této práci. To samé platí pro pravidla, které PfSense využívá pro NAT. Ty museli počítat s tím, že na interfacech budou různé ip adresy, takže se v nich nesměla konkrétní ip adresa vyskytovat. Toho bylo dosaženo tak, že v pravidle pro NAT byla ip adresa resp. LAN subnet, který by je jinak specificky definovaný, byl nahrazen čtyřmi nulami (0.0.0.0). Tak bylo dosaženo dosaženo správného překladu adres, bez ohledu na přidělené ip adresy z OpenContrailu.
+
+Toto řešení muselo být samozřejmě řádně otestováno. Test proběhl pomocí příkazu ping z testovací instance. Jak je vidět na obrázku č. \ref{fig:test_pfsense}, tak konektivita do externí sítě funguje.
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[scale=0.45]{images/pfsense_nat}
+\includegraphics[scale=0.5]{images/test_pfsense}
 \par\end{centering}
-\caption{Ukázka NAT session\label{fig:pfsense_nat}}
+\caption{Test konectivity zkrze PfSense\label{fig:test_pfsense}}
 \end{figure}
-//Bash script nefunguje
-//Salt minion neprosel
-//Predpripraveny image
 
 \subsection{Management Fortigate VM}
 
-//Python API = Script
+Management Fortigate VM probíhal obdobně jako u PfSense. Nejprve proběhlo hledání možností konfigurace zkrze skript v heat templatu. Zde však chybí jakákoli podpora doinstalace sofwaru třetích stran, takže opět nemohl být použit cloud-init. Další hledání však objevilo, že Fortigate VM poskytuje API, které může být využito pro jeho management. K tomu bylo využito python knihovny pro toto API a dokumentace \cite{pyfg}.
+
+//Python API = skript
 // => Salt module 
 
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fortigate_int}
-\par\end{centering}
-\caption{Fortigate VM intergace konfigurace\label{fig:fortigate_int}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fortigate_nat}
-\par\end{centering}
-\caption{Fortigate VM NAT konfigurace\label{fig:fortigate_nat}}
-\end{figure}
-
-\begin{figure}[h]
-\begin{centering}
-\includegraphics[scale=0.45]{images/fortigate_ping}
-\par\end{centering}
-\caption{Test konektivity\label{fig:fortigate_ping}}
-\end{figure}
-
-\subsection{Srovnání vytvořených řešení pro LbaaS}
 
 \section{Shrnutí získaných poznatků}
