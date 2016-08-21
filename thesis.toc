@@ -44,6 +44,6 @@
 \contentsline {section}{\numberline {5.4}Shrnut\IeC {\'\i } z\IeC {\'\i }skan\IeC {\'y}ch poznatk\IeC {\r u}}{49}{section.5.4}
 \contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{52}{chapter.6}
 \contentsline {part}{Literatura}{I}{chapter.6}
-\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{XI}{chapter*.41}
-\contentsline {chapter}{\numberline {A}Heat template Lbaas - HAproxy}{XII}{appendix.A}
-\contentsline {chapter}{\numberline {B}Heat template FwaaS}{XIX}{appendix.B}
+\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{XII}{chapter*.41}
+\contentsline {chapter}{\numberline {A}Heat template Lbaas - HAproxy}{XIII}{appendix.A}
+\contentsline {chapter}{\numberline {B}Heat template FwaaS}{XX}{appendix.B}
