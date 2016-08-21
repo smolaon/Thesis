@@ -413,6 +413,50 @@ Toto řešení muselo být samozřejmě řádně otestováno. Test proběhl pomo
 
 Management Fortigate VM probíhal obdobně jako u PfSense. Nejprve proběhlo hledání možností konfigurace zkrze skript v heat templatu. Zde však chybí jakákoli podpora doinstalace sofwaru třetích stran, takže opět nemohl být použit cloud-init. Další hledání však objevilo, že Fortigate VM poskytuje API, které může být využito pro jeho management. K tomu bylo využito python knihovny pro toto API a dokumentace \cite{pyfg}.
 
+
+\begin{lstlisting}[caption=Fortigate konfigurace pro interface]
+config system interface
+edit port1
+set type physical
+set vdom root
+set mode dhcp
+set defaultgw disable
+set allowaccess ssh ping http https
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Skript pro nahrání konfigurace interfaců]
+from pyFG import FortiOS
+import sys
+if __name__ == '__main__':
+    f = open('fortios_intf.txt', 'r')
+    candidate = f.read()
+    f.close()
+    d = FortiOS('fortigate', username="admin", password="fortigate")#, vdom='test_vdom')
+    d.open()
+    d.load_config('system interface', empty_candidate=True)
+    d.load_config(config_text=candidate, in_candidate=True)
+    config_changes = d.compare_config()
+    d.commit(config_changes)
+    d.close()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Fortigate konfigurace pro NAT]
+config firewall policy
+edit 1
+set srcintf port3
+set dstintf port2
+set srcaddr all
+set dstaddr all
+set action accept
+set schedule always
+set service ALL
+set logtraffic all
+set nat enable
+end
+\end{lstlisting}
+
+
 //Python API = skript
 // => Salt module 
 

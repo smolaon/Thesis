@@ -208,5 +208,299 @@ resources:
       port_id: {get_attr: [lb_pool, vip, port_id]}
 \end{lstlisting}
 
+\chapter{Enviroment file pro LbaaS - HAproxy}
+
+\begin{lstlisting}
+
+parameters:
+  instance_flavor: m1.small
+  instance_image: ubuntu-14-04-x64
+  key_name: rav_key
+  public_net_id: 22d00df7-b1ca-41a1-a615-89c3bdde6c10
+
+\end{lstlisting}
+
 \chapter{Heat template FwaaS}
+\begin{lstlisting}
+heat_template_version: 2013-05-23
+
+description: >
+  HOT template to creates two virtual network with one subnet each. 
+  Create a service instance
+  Creates a network policy for applying service between two VNs created before.
+  Attach the network policy to two virtual networks
+parameters:
+  policy_name:
+    type: string
+    description: Policy Name
+  direction:
+    type: string
+    description: Direction of Policy
+  start_src_ports:
+    type: number
+    description: Start of src port
+  end_src_ports:
+    type: number
+    description: End of src port
+  start_dst_ports:
+    type: number
+    description: Start of dst port
+  end_dst_ports:
+    type: number
+    description: End of dst port
+  private_net_1_name:
+    type: string
+    description: Name of private network to be created
+  private_net_1_cidr:
+    type: string
+    description: Private network address (CIDR notation)
+  private_net_1_gateway:
+    type: string
+    description: Private network gateway address
+  private_net_1_pool_start:
+    type: string
+    description: Start of private network IP address allocation pool
+  private_net_1_pool_end:
+    type: string
+    description: End of private network IP address allocation pool
+  public_net:
+    type: string
+    description: Name of private network to be created
+  private_instance_name:
+    type: string
+    default: TestService1
+    description: service instance name
+  private_availability_zone:
+    type: string
+    default: ""
+    description: availability zone in form of Zone:Host
+  max_instances:
+    type: number
+    description: maximum number of instances to be spawned
+
+  template_name:
+    type: string
+    description: Name of service template
+  template_mode:
+    type: string
+    description: service mode
+  template_type:
+    type: string
+    description: service type
+  template_image:
+    type: string
+    description: Name of the image
+  template_flavor:
+    type: string
+    description: Flavor
+  service_interface_type_list:
+    type: string
+    description: List of interface types
+  shared_ip_list:
+    type: string
+    description: List of shared ip enabled-disabled
+  static_routes_list:
+    type: string
+    description: List of static routes enabled-disabled
+  scaling:
+    type: string
+    description: Indicates whether service scaling is enabled
+  availability_zone:
+    type: string
+    description: Indicates availability zone is enabled
+  ordered_interfaces:
+    type: string
+    description: Indicates service interfaces are ordered
+
+  key_name:
+    type: string
+  instance_flavor:
+    type: string
+    description: Instance type for servers
+    default: m1.small
+    constraints:
+      - allowed_values: [m1.tiny, m1.small, m1.medium, m1.large]
+        description: instance_type must be a valid instance type
+  instance_image:
+    type: string
+    description: Image name to use for the servers.
+    default: ubuntu-14-04-x64
+
+resources:
+  private_net_1:
+    type: OS::Neutron::Net
+    properties:
+      name: { get_param: private_net_1_name } 
+
+  private_subnet_1:
+    type: OS::Neutron::Subnet
+    depends_on: private_net_1
+    properties:
+      network_id: { get_resource: private_net_1 }
+      cidr: { get_param: private_net_1_cidr }
+      gateway_ip: { get_param: private_net_1_gateway }
+      allocation_pools:
+        - start: { get_param: private_net_1_pool_start }
+          end: { get_param: private_net_1_pool_end }
+
+  service_instance:
+    type: OS::Contrail::ServiceInstance
+    depends_on: [private_subnet_1]
+    properties:
+      name: { get_param: private_instance_name }
+      service_template: { get_resource:  service_template}
+      availability_zone: { get_param: private_availability_zone}
+      scale_out: 
+          max_instances: { get_param: max_instances }
+      interface_list: [
+          {
+              virtual_network: "auto"
+          },
+          {
+              virtual_network: {get_param: public_net}
+          },
+          {
+              virtual_network: {get_resource: private_net_1}
+          }
+      ]
+
+   private_policy:
+    type: OS::Contrail::NetworkPolicy
+    depends_on: [ private_net_1, service_instance ]
+    properties:
+      name: { get_param: policy_name }
+      entries:
+        policy_rule: [
+              { 
+                "direction": { get_param: direction }, 
+                "protocol": "any", 
+                "src_ports": [{"start_port": {get_param: start_src_ports}, "end_port": {get_param: end_src_ports}}],
+                "dst_ports": [{"start_port": {get_param: start_dst_ports}, "end_port": {get_param: end_dst_ports}}],
+                "dst_addresses": [{ "virtual_network": {get_param: public_net}}], 
+                "action_list": {"apply_service": [{get_resource: service_instance}]}, 
+                "src_addresses": [{ "virtual_network": {get_resource: private_net_1}}] 
+              }, 
+        ]
+
+  service_template:
+    type: OS::Contrail::ServiceTemplate
+    properties:
+      name: { get_param: template_name }
+      service_mode: { get_param: template_mode }
+      service_type: { get_param: template_type }
+      image_name: { get_param: template_image }
+      service_scaling: { get_param: scaling }
+      availability_zone_enable: { get_param: availability_zone }
+      ordered_interfaces: { get_param: ordered_interfaces }
+      flavor: { get_param: template_flavor }
+      service_interface_type_list: { "Fn::Split" : [ ",", Ref: service_interface_type_list ] }
+      shared_ip_list: { "Fn::Split" : [ ",", Ref: shared_ip_list ] }
+      static_routes_list: { "Fn::Split" : [ ",", Ref: static_routes_list ] }
+
+  private_policy_attach_net1:
+    type: OS::Contrail::AttachPolicy
+    depends_on: [ private_net_1, private_policy ]
+    properties:
+      network: { get_resource: private_net_1 }
+      policy: { get_attr: [private_policy, fq_name] }
+
+  private_policy_attach_net2:
+    type: OS::Contrail::AttachPolicy
+    depends_on: [private_policy ]
+    properties:
+      network: { get_param: public_net }
+      policy: { get_attr: [private_policy, fq_name] }
+
+  test_instance_01:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: instance_image }
+      flavor: { get_param: instance_flavor }
+      key_name: { get_param: key_name }
+      name: test-web01
+      networks:
+      - network: { get_resource: private_net_1 }
+      security_groups:
+      - default
+      user_data_format: RAW
+      user_data: |
+        #!/bin/bash -v
+        apt-get install apache2 -yy
+        echo "Instance 01" > /var/www/html/index.html
+\end{lstlisting}
+
+\chapter{Enviroment file pro LbaaS - Pfsense}
+\begin{lstlisting}
+parameters:
+  private_instance_name: test-firewall
+  max_instances: 1
+  policy_name: contrail_policy1
+  direction: "<>"
+  start_src_ports: -1
+  end_src_ports: -1
+  start_dst_ports: -1
+  end_dst_ports: -1
+
+  private_availability_zone: ""
+  private_net_1_name: contrail_net1
+  private_net_1_cidr: 1.1.1.0/24
+  private_net_1_pool_end: 1.1.1.254
+  private_net_1_gateway: .1.1.1
+  private_net_1_pool_start: 1.1.1.1
+
+  public_net: 22d00df7-b1ca-41a1-a615-89c3bdde6c10
+
+  template_name: test-fw-template2
+  template_mode: in-network
+  template_type: firewall
+  template_image: Pfsense
+  template_flavor: m1.medium
+  service_interface_type_list: management,right,left
+  shared_ip_list: False,False,False
+  static_routes_list: False,False,False
+  scaling: "True"
+  availability_zone: "True"
+  ordered_interfaces: "True"
+
+  key_name: rav_key
+\end{lstlisting}
+
+\chapter{Enviroment file pro LbaaS - Fortigate VM}
+\begin{lstlisting}
+parameters:
+  private_instance_name: test-firewall2
+  max_instances: 1
+  policy_name: contrail_policy2
+  direction: "<>"
+  start_src_ports: -1
+  end_src_ports: -1
+  start_dst_ports: -1
+  end_dst_ports: -1
+
+  private_availability_zone: ""
+  private_net_1_name: contrail_net2
+  private_net_1_cidr: 2.2.2.0/24
+  private_net_1_pool_end: 2.2.2.254
+  private_net_1_gateway: 2.2.2.1
+  private_net_1_pool_start: 2.2.2.1
+
+  public_net: 22d00df7-b1ca-41a1-a615-89c3bdde6c10
+
+  template_name: test-fw-template2
+  template_mode: in-network
+  template_type: firewall
+  template_image: vsrx-15.1
+  template_flavor: m1.medium
+  service_interface_type_list: management,right,left
+  shared_ip_list: False,False,False
+  static_routes_list: False,False,False
+  scaling: "True"
+  availability_zone: "True"
+  ordered_interfaces: "True"
+
+  key_name: rav_key
+\end{lstlisting}
+
+
+
 
