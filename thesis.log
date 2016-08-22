@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.7)  21 AUG 2016 22:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.7)  22 AUG 2016 09:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **thesis.tex
 (./thesis.tex
 LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 7 language(s) loaded.
+Babel <3.9q> and hyphenation patterns for 16 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrreprt.cls
 Document Class: scrreprt 2015/10/03 v3.19a KOMA-Script document class (report)
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -2397,6 +2397,21 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              by `\normalfont \rmfamily ' on input line 286.
 
 [56 <./images/test_fortios.png>]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 286.
+
+[57]
 \openout2 = `chapter6.aux'.
 
  (./chapter6.tex
@@ -2406,7 +2421,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 1.
 
-) [57
+) [58
 
 
 
@@ -3177,7 +3192,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 310.
 
-[32] <zadani.pdf, id=1653, 597.23125pt x 845.1575pt>
+[32] <zadani.pdf, id=1657, 597.23125pt x 845.1575pt>
 File: zadani.pdf Graphic file (type pdf)
  <use zadani.pdf>
 Package pdftex.def Info: zadani.pdf used on input line 313.
@@ -3187,7 +3202,7 @@ File: zadani.pdf Graphic file (type pdf)
 <use zadani.pdf>
 Package pdftex.def Info: zadani.pdf used on input line 313.
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
- <zadani.pdf, id=1656, page=1, 597.23125pt x 845.1575pt>
+ <zadani.pdf, id=1660, page=1, 597.23125pt x 845.1575pt>
 File: zadani.pdf Graphic file (type pdf)
 
 <use zadani.pdf, page 1>
@@ -3222,7 +3237,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 315.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 315.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 315.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: ACFD7CB5D1B091A19DFE149DE1AAAA5B;3899.
+(rerunfilecheck)             Checksum: 5874474438EBC773E494A9EE45A6AAAC;3915.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -3233,12 +3248,12 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 315.
  ) 
 Here is how much of TeX's memory you used:
- 15701 strings out of 494878
- 236062 string characters out of 6178666
- 427962 words of memory out of 5000000
- 17682 multiletter control sequences out of 15000+600000
+ 15702 strings out of 494446
+ 236069 string characters out of 6170277
+ 428824 words of memory out of 5000000
+ 17812 multiletter control sequences out of 15000+600000
  87098 words of font info for 72 fonts, out of 8000000 for 9000
- 46 hyphenation exceptions out of 8191
+ 274 hyphenation exceptions out of 8191
  43i,18n,66p,1163b,2357s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ec-sc.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
@@ -3247,10 +3262,10 @@ nc/dvips/tex-gyre/q-ec-sc.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
 type1/public/tex-gyre/qhvr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qp
 lb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qplr.pfb></usr/share/texmf
 /fonts/type1/public/tex-gyre/qplri.pfb>
-Output written on thesis.pdf (96 pages, 972732 bytes).
+Output written on thesis.pdf (97 pages, 974041 bytes).
 PDF statistics:
- 1883 PDF objects out of 2073 (max. 8388607)
- 1708 compressed objects within 18 object streams
- 882 named destinations out of 1000 (max. 500000)
+ 1889 PDF objects out of 2073 (max. 8388607)
+ 1713 compressed objects within 18 object streams
+ 883 named destinations out of 1000 (max. 500000)
  568 words of extra memory for PDF output out of 10000 (max. 10000000)
 

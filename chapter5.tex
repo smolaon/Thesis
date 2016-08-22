@@ -470,4 +470,14 @@ Stejně jako v předchozím případě byl nutný test konektivity po spuštěn�
 \caption{Test konectivity zkrze Fortigate VM\label{fig:test_fortios}}
 \end{figure}
 
-\section{Shrnutí získaných poznatků}
+\section{Shrnutí získaných poznatků a zhodnocení}
+
+V této kapitole byly navrhnuto a otestováno několik příkladů, kterými lze přistupovat k managementu a orchestraci VNF. Zde bude uvedeno stručné shrnutí a zhodnocení těchto řešení. Zároveň budou zmíněny poznatky, které byly při jejich realizaci získány.
+
+Z uvedených příkladů pro LbaaB je jasné, že pokud existuje přímá integrace s použitou platformou, tak management VNF může být velice jednoduché automatizovat zkrze již poskytnuté nástroje této platformy. Toto platí pro obě testované technologie.
+
+Porovnáme-li mezi se bodou HAproxy a platformu AVI networks, tak zjistíme, že obě řešení lze využít pro produkční použití. HAproxy je spíše určená pro uživatelé, kteří potřebují jednodušší load balancer, který nemusí obsahovat velkou škálu konfigurace. Oproti tomu AVI networks je určená pro pokročilejší uživatelé, kteří chtějí vetší možnost konfigurace a monitorování. V obou případech byla provedena implementace automatického managementu. Bohužel v případě AVI networks tato implementace nemohla být otestována. Avšak obě implementace byli vytvořeny téměř stejným způsobem. Možnosti automatického managementu jsou tedy v obou případech srovnatelné.
+
+V případě FwaaS je situace složitější. Jak pro Fortigate VM, tak pro PfSense byl použit stejný heat template. Lze tedy říci, že možnosti pro jejich automatické vytvoření jsou v obou případech stejné a souvisejí tedy s použitou platformou. V tomto případě byl zvolen OpenStack s OpenContrailem. Díky využití OpenContrailu bylo možné využít tzv. Service chaining. Ten umožnoval jednoduché řízení datového toku zkrze obě řešení. 
+
+Avšak co se týče možností automatické konfigurace obou technologii, tak zde jsou již značné rozdíly, které souvisejí s podporou danou jejich poskytovately. V případě PfSense bylo otestováno několik možností. Nakonec však muselo být zvoleno řešení v podobě předkonfigurovaného image. Tohoto řešení má výhody, především v tom, že se uživatel nemusí vůbec řešit konfiguraci. Pouze použite daný image a vše funguje tak, jak má. U Fortigate VM 
