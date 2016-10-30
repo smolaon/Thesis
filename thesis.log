@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.6.7)  29 AUG 2016 10:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.8.7)  29 AUG 2016 22:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **thesis.tex
 (./thesis.tex
 LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 16 language(s) loaded.
+Babel <3.9q> and hyphenation patterns for 7 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrreprt.cls
 Document Class: scrreprt 2015/10/03 v3.19a KOMA-Script document class (report)
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -1208,7 +1208,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+t'
 (hyperref)                not defined in PD1 encoding,
 (hyperref)                removing `\textasciicaron' on input line 41.
 
-<images/network.png, id=332, 1105.12875pt x 654.445pt>
+<images/network.png, id=331, 1105.12875pt x 654.445pt>
 File: images/network.png Graphic file (type png)
 
 <use images/network.png>
@@ -1230,7 +1230,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 55.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 53.
 
 [5] <images/vize_NFV.png, id=344, 840.13875pt x 387.4475pt>
 File: images/vize_NFV.png Graphic file (type png)
@@ -1588,7 +1588,7 @@ or-king v pro-st°edí Open-
 
 
 Overfull \hbox (0.41925pt too wide) in paragraph at lines 136--137
-\T1/qpl/m/n/12 byla vy-tvo-rena ini-ci-a-tiva OP-NFV [[]] , která se snaºí vy-t
+\T1/qpl/m/n/12 byla vy-tvo-°ena ini-ci-a-tiva OP-NFV [[]] , která se snaºí vy-t
 vo-°it ote-v°ený fra-mework
  []
 
@@ -2283,6 +2283,9 @@ Overfull \hbox (34.35628pt too wide) in paragraph at lines 396--397
  []
 
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
 (scrreprt)              been defined for compatiblitiy to Script 2.0 only.
@@ -2294,9 +2297,9 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 399.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 402.
 
-[52] <images/test_pfsense.png, id=840, 553.06625pt x 259.97125pt>
+[52] <images/test_pfsense.png, id=841, 553.06625pt x 259.97125pt>
 File: images/test_pfsense.png Graphic file (type png)
 
 <use images/test_pfsense.png>
@@ -2341,11 +2344,6 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
-Overfull \hbox (4.54836pt too wide) in paragraph at lines 446--447
-\T1/qpl/m/n/12 sle-du-jí-cího py-thon skriptu. Ten se p°i-hlásí do za-°í-zení p
-o-mocí po-skyt-nu-tých p°íhla-
- []
-
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
 )
@@ -2460,19 +2458,19 @@ hts / 2013 / 03 /
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--15
-[]\T1/qpl/m/n/12 SKOLDSTROM, Pon-tus, Ba-lazs SON-KOLY, An-dras GU-LYAS, et
+[]\T1/qpl/m/n/12 SKOLDSTROM, Pon-tus, Ba-lazs SON-KOLY, An-dras GU-LYAS,
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 14--15
-\T1/qpl/m/n/12 al. To-wards Uni-fied Pro-gra-m-ma-bi-lity of Cloud and Carrier 
-In-
+\T1/qpl/m/n/12 et al. \T1/qpl/m/it/12 To-wards Uni-fied Pro-gra-m-ma-bi-lity of
+ Cloud and Carrier In-
  []
 
 
-Underfull \hbox (badness 7379) in paragraph at lines 14--15
-\T1/qpl/m/n/12 frastructure. In: 2014 Third Eu-ro-pean Workshop on Soft-ware De
--fi-
+Underfull \hbox (badness 10000) in paragraph at lines 14--15
+\T1/qpl/m/it/12 frastructure. \T1/qpl/m/n/12 In: 2014 Third Eu-ro-pean Workshop
+ on Soft-ware De-fi-
  []
 
 
@@ -2521,7 +2519,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--19
 r . htm ?
  []
 
-[1
+[59
 
 
 
@@ -2572,7 +2570,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 33.
 
-[2]
+[60]
 Underfull \hbox (badness 7291) in paragraph at lines 40--41
 []\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, ^^PETSI GS NF
 V 002
@@ -2664,7 +2662,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 48.
 
-[3]
+[61]
 Underfull \hbox (badness 2564) in paragraph at lines 49--50
 []\T1/qpl/m/n/12 ETSI In-dustry Spe-ci-fi-cation Group (ISG) NFV, \T1/qpl/m/it/
 12 ETSI GS NFV-INF 004
@@ -2748,9 +2746,9 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 59.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 60.
 
-[4]
+[62]
 Underfull \hbox (badness 10000) in paragraph at lines 72--73
 []\T1/qpl/m/n/12 OpenContrail. \T1/qpl/m/it/12 Open-Con-trail Ar-chi-tecture Do
 -cu-men-tation\T1/qpl/m/n/12 . [on-line]. 2016
@@ -2774,9 +2772,9 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 79.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 80.
 
-[5]
+[63]
 Underfull \hbox (badness 1117) in paragraph at lines 80--81
 []\T1/qpl/m/n/12 ITProPortal. \T1/qpl/m/it/12 The top en-ter-prise fi-rewalls o
 f 2015\T1/qpl/m/n/12 . [on-line]. 2015 [cit. 2016-
@@ -2843,7 +2841,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 95.
 
-[6])
+[64])
 
 Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              You should note, that in 1994 font command `\rm' has
@@ -2858,7 +2856,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 294.
 
-[7] (./thesis.lof [8
+[65] (./thesis.lof [66
 
 
 
@@ -2883,7 +2881,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 302.
 
-[9] (./thesis.lot)
+[67] (./thesis.lot)
 \tf@lot=\write7
 \openout7 = `thesis.lot'.
 
@@ -2902,14 +2900,14 @@ Class scrreprt Warning: \float@listhead detected!
 (scrreprt)              deprecated \float@listhead interface  on input line 306
 .
 
-[10
+[68
 
 
 ] (./thesis.lol)
 \tf@lol=\write8
 \openout8 = `thesis.lol'.
 
- [11
+ [69
 
 
 ]
@@ -2919,9 +2917,9 @@ Class scrreprt Warning: \float@listhead detected!
 
 Package hyperref Warning: Composite letter `\textasciicaron+r'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 1.
+(hyperref)                removing `\textasciicaron' on input line 2.
 
-[12
+[1
 
 
 
@@ -2929,7 +2927,7 @@ Package hyperref Warning: Composite letter `\textasciicaron+r'
 chapter A.
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [13
+) [2
 
 
 ]
@@ -2945,7 +2943,156 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 62.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 63.
+
+[3]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 94.
+
+[4]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 126.
+
+[5]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 158.
+
+[6]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 190.
+
+[7]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 212.
+
+[8]
+chapter B.
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [9
+
+
+]
+chapter C.
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
+) [10
+
+
+]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 280.
+
+[11]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 312.
+
+[12]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 344.
+
+[13]
+
+Class scrreprt Warning: Usage of deprecated font command `\rm'!
+(scrreprt)              You should note, that in 1994 font command `\rm' has
+(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
+(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
+(scrreprt)              shouldn't use such commands any longer and within
+(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
+(scrreprt)              See `fntguide.pdf' for more information about
+(scrreprt)              recommended font commands.
+(scrreprt)              Note also, that KOMA-Script will remove the definition
+(scrreprt)              of `\rm' anytime until release of about version 3.20.
+(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
+(scrreprt)              by `\normalfont \rmfamily ' on input line 376.
 
 [14]
 
@@ -2960,7 +3107,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 93.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 399.
 
 [15]
 
@@ -2975,7 +3122,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 125.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 430.
 
 [16]
 
@@ -2990,162 +3137,13 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 157.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 433.
 
 [17]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 189.
-
-[18]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 211.
-
-[19]
-chapter B.
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [20
-
-
-]
-chapter C.
-(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [21
-
-
-]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 279.
-
-[22]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 311.
-
-[23]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 343.
-
-[24]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 375.
-
-[25]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 398.
-
-[26]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 429.
-
-[27]
-
-Class scrreprt Warning: Usage of deprecated font command `\rm'!
-(scrreprt)              You should note, that in 1994 font command `\rm' has
-(scrreprt)              been defined for compatiblitiy to Script 2.0 only.
-(scrreprt)              Now, after two decades of LaTeX2e and NFSS2, you
-(scrreprt)              shouldn't use such commands any longer and within
-(scrreprt)              KOMA-Script usage of `\rm' is definitely deprecated.
-(scrreprt)              See `fntguide.pdf' for more information about
-(scrreprt)              recommended font commands.
-(scrreprt)              Note also, that KOMA-Script will remove the definition
-(scrreprt)              of `\rm' anytime until release of about version 3.20.
-(scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 432.
-
-[28]
 chapter D.
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [29
+) [18
 
 
 ]
@@ -3161,13 +3159,13 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              Note also, that KOMA-Script will remove the definition
 (scrreprt)              of `\rm' anytime until release of about version 3.20.
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
-(scrreprt)              by `\normalfont \rmfamily ' on input line 468.
+(scrreprt)              by `\normalfont \rmfamily ' on input line 469.
 
-[30]
+[19]
 chapter E.
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2015/12/03 v1.1r UTF-8 support for inputenc
-) [31
+) [20
 
 
 ])
@@ -3185,7 +3183,7 @@ Class scrreprt Warning: Usage of deprecated font command `\rm'!
 (scrreprt)              But for now, KOMA-Script will replace deprecated `\rm'
 (scrreprt)              by `\normalfont \rmfamily ' on input line 310.
 
-[32] <zadani_s_podpisem.pdf, id=1657, 614.05411pt x 844.5954pt>
+[21] <zadani_s_podpisem.pdf, id=1656, 614.05411pt x 844.5954pt>
 File: zadani_s_podpisem.pdf Graphic file (type pdf)
 
 <use zadani_s_podpisem.pdf>
@@ -3196,7 +3194,7 @@ File: zadani_s_podpisem.pdf Graphic file (type pdf)
 Package pdftex.def Info: zadani_s_podpisem.pdf used on input line 313.
 (pdftex.def)             Requested size: 614.0526pt x 844.59334pt.
 
-<zadani_s_podpisem.pdf, id=1660, page=1, 614.05411pt x 844.5954pt>
+<zadani_s_podpisem.pdf, id=1659, page=1, 614.05411pt x 844.5954pt>
 File: zadani_s_podpisem.pdf Graphic file (type pdf)
 
 <use zadani_s_podpisem.pdf, page 1>
@@ -3220,7 +3218,7 @@ File: zadani_s_podpisem.pdf Graphic file (type pdf)
 <use zadani_s_podpisem.pdf, page 1>
 Package pdftex.def Info: zadani_s_podpisem.pdf, page1 used on input line 313.
 (pdftex.def)             Requested size: 597.55255pt x 821.8985pt.
- [33
+ [22
 
  <./zadani_s_podpisem.pdf>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 315.
@@ -3243,12 +3241,12 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 315.
  ) 
 Here is how much of TeX's memory you used:
- 15702 strings out of 494446
- 236168 string characters out of 6170277
- 428824 words of memory out of 5000000
- 17812 multiletter control sequences out of 15000+600000
+ 15702 strings out of 494878
+ 236141 string characters out of 6178666
+ 426962 words of memory out of 5000000
+ 17682 multiletter control sequences out of 15000+600000
  87098 words of font info for 72 fonts, out of 8000000 for 9000
- 274 hyphenation exceptions out of 8191
+ 46 hyphenation exceptions out of 8191
  43i,18n,66p,1163b,2357s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/tex-gyre/q-ec.enc}{/usr/share/texmf/fonts/e
 nc/dvips/tex-gyre/q-ec-sc.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
@@ -3257,10 +3255,10 @@ nc/dvips/tex-gyre/q-ec-sc.enc}</usr/share/texlive/texmf-dist/fonts/type1/public
 type1/public/tex-gyre/qhvr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qp
 lb.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qplr.pfb></usr/share/texmf
 /fonts/type1/public/tex-gyre/qplri.pfb>
-Output written on thesis.pdf (97 pages, 1385734 bytes).
+Output written on thesis.pdf (97 pages, 1386214 bytes).
 PDF statistics:
- 1883 PDF objects out of 2073 (max. 8388607)
- 1708 compressed objects within 18 object streams
+ 1882 PDF objects out of 2073 (max. 8388607)
+ 1707 compressed objects within 18 object streams
  883 named destinations out of 1000 (max. 500000)
  568 words of extra memory for PDF output out of 10000 (max. 10000000)
 

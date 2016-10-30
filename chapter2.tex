@@ -1,17 +1,17 @@
 \chapter{Základní problematika virtualizace síťových funkcí}
 
-Tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuální síťových funkcí. Nejprve uveden přehled a krátký popis virtualizace a cloud computingu spolu s jejich přínosem pro IT. Následně je vysvětlena potřeba virtualizace síťových funkcí. Zde jsou porovnány jednotlivé přístupy k řešení a návrhu počítačových sítí. Zárověň je zde vysvětlen i základní koncept virtualizace síťových funkcí.
+Tato kapitola se zabývá základní analýzou a popisem problematiky spojené s oblastí virtuálních síťových funkcí. Nejprve uveden přehled a krátký popis virtualizace a cloud computingu spolu s jejich přínosem pro IT. Následně je vysvětlena potřeba virtualizace síťových funkcí. Zde jsou porovnány jednotlivé přístupy k řešení a návrhu počítačových sítí. Zároveň je zde vysvětlen i základní koncept virtualizace síťových funkcí. Dále je v této kapitole zmíněna i souvislost virtualizace síťových funkcí se softwarově definovanými sítěmi.
 
 \section{Virtualizace a Cloud Computing}
 
-Virtualizace je technologie, která změnila způsob, jakým se přistupuje k IT infrastruktuře. V tradičním modelu IT infrastuktury servery podporují pouze jeden operační systém v daném čase. Na tomto systému obvykle běží pouze jedna aplikace. Přestože by na tomto systému mohlo běžet více aplikací, tak je lepší držet aplikace odděleně na různých systech z důvodu minimalizace potencionálních bodů selhání. Pokud například nastane s aplikací problém, tak častým řešením je restartování systému. Pokud by na systému bylo více aplikací, znamenalo by to jejich vyřazení z provozu po dobu restartu, který může trvat velice dlouho. \cite{VM_book}
+Virtualizace je technologie, která změnila způsob, jakým se přistupuje k IT infrastruktuře. V tradičním modelu IT infrastuktury servery podporují pouze jeden operační systém v daném čase. Na tomto systému obvykle běží pouze jedna aplikace. Přestože by na tomto systému mohlo běžet více aplikací, tak je lepší držet aplikace odděleně na různých systémech z důvodu minimalizace potencionálních bodů selhání. Pokud například nastane s aplikací problém, tak častým řešením je restartování systému. Pokud by na systému bylo více aplikací, znamenalo by to jejich vyřazení z provozu po dobu restartu, který může trvat velice dlouho. \cite{VM_book}
 
-Z výše zmíněných důvodů došlo k velkému rozvoji a nasazování virtualizace. Virtualizací obecně označujeme techniky, které umožňují k dostupným hardwarovým zdrojům přistupovat jiným způsobem, než jakým fyzicky existují. Je tomu díky softwaru, který tento hardware abstrahuje a vytvoří tím virtuální prostředí. Virtualizované prostředí se dá snadněji přizpůsobit potřebám uživatelů, případně skrýt pro uživatele nepodstatné detaily (jako např. rozmístění hardwarových prostředků). Tím je tedy umožněno na jednom fyzickém serveru provozovat více od sebe oddělených virtuálních strojů, které mají každý svůj vlastní operačních systému s aplikacemi.
+Z výše zmíněných důvodů došlo k velkému rozvoji a nasazování virtualizace. Virtualizací obecně označujeme techniky, které umožňují k dostupným hardwarovým zdrojům přistupovat jiným způsobem, než jakým fyzicky existují. Je tomu díky softwaru, který tento hardware abstrahuje a vytvoří tím virtuální prostředí. Virtualizované prostředí se dá snadněji přizpůsobit potřebám uživatelů, případně skrýt pro uživatele nepodstatné detaily (jako např. rozmístění hardwarových prostředků). Tím je tedy umožněno na jednom fyzickém serveru provozovat více od sebe oddělených virtuálních strojů, které mají každý svůj vlastní operační systém s aplikacemi.
 
 Software, který slouží pro virtualizaci, se nazývá hypervisor. Jak zmiňuje Popel a Goldberg v \cite{VM_architektura}, tak existují tyto dva základní typy hypervisorů:
 
 \begin{itemize}
-\item Typ 1 (Nativní - Bare-metal) - Tento hypervisor běží přímo na fyzickém hardwaru. Tím umožňuje provozovat více operačních systému na jednom fyzickém stroji. Příkladem takového hypervisoru je VMware ESXi, XEN a KVM.
+\item Typ 1 (Nativní - Bare-metal) - Tento hypervisor běží přímo na fyzickém hardwaru. Tím umožňuje provozovat více operačních systémů na jednom fyzickém stroji. Příkladem takového hypervisoru je VMware ESXi, XEN a KVM.
 \item Typ 2 (Hostovaný) - Na rozdíl od předchozího případu tento typ hypervisoru běží v prostředí operačního systému. Příkladem je například velice oblíbený Virtualbox či VMware Workstation.
 \end{itemize}
 
@@ -24,7 +24,7 @@ Obrázek \ref{fig:virtualization} zobrazuje schématický popis obou typů hyper
 \caption{Schéma hypervisorů \label{fig:virtualization}}
 \end{figure}
 
-Virtualizace je základní technologie, na které je postavena virtualizace síťových funkcí. Ve většině připadů je však využití pouze jednoho hypervizoru telekomunikačními provozovately a velkými společnostmi nedostačující a je proto nutné využít cloud computingu.
+Virtualizace je základní technologie, na které je postavena virtualizace síťových funkcí. Ve většině případů je však využití pouze jednoho hypervizoru telekomunikačními provozovateli a velkými společnostmi nedostačující a je proto nutné využít cloud computing.
 
 Existuje několik definic pro cloud computing. Nejčastější používaná definice pro cloud computing je \cite{nist_definition}, kde je uvedeno, že je to  model umožnující využívání společného poolu počítačových zdrojů vzdáleně přes počítačovou síť. Tyto zdroje mohou být flexibilně alokovány a uvolňovány dle potřeby. Základní charakteristiky cloudu jsou tedy:
 
@@ -32,15 +32,15 @@ Existuje několik definic pro cloud computing. Nejčastější používaná defi
 \item Služby dostupné na požádání
 \item Všudypřítomný přístup k síti
 \item Sdílení zdrojů
-\item Vysokou elasticitu a flexibilitu
+\item Vysoká elasticita a flexibilita
 \item Měření využitých zdrojů
 \end{itemize}
 
-Z technického hlediska je cloud resp. cloudoví infrastruktura několik společně propojených serverů v clusteru. Na těchto serverech běží hypervisor, který vytvoří virtuální infrastrukturu. Tímto způsobem je tvořen společný pool zdrojů. Pro vytváření cloudových služeb zde ještě musí existovat cloudová platforma, která dokáže celou tuto virtuální infrastrukturu centrálně spravovat. Výhodou tohoto přístupu je efeknivní využívání dostupných výpočetních zdrojů a velká flexibilita v poskytování a využívání služeb. Více informací lze najít například v \cite{cloud_book}.
+Z technického hlediska je cloud resp. cloudová infrastruktura několik společně propojených serverů v clusteru. Na těchto serverech běží hypervisor, který vytváří virtuální infrastrukturu. Tímto způsobem je tvořen společný pool zdrojů. Pro vytváření cloudových služeb zde ještě musí existovat cloudová platforma, která dokáže celou tuto virtuální infrastrukturu centrálně spravovat. Výhodou tohoto přístupu je efektivní využívání dostupných výpočetních zdrojů a velká flexibilita v poskytování a využívání služeb. Více informací lze najít například v \cite{cloud_book}.
 
 \section{Potřeba virtualizace síťových funkcí}
 
-Tradiční počítačové sítě jsou složené ze značného množství propojených hardwarových zařízením, jako jsou např. routery, switche a firewally. Tyto zařízení jsou speciálně určená pro daný účel a jejich řízení může být zkrze distribuované protokoly. Tím se počitačové sítě stali stabilními a vysoce výkonými, avšak omezilo je to ve flexibilitě. Tradiční schéma sítě je zobrazeno na obrázku č. \ref{fig:network}.
+Tradiční počítačové sítě jsou složené ze značného množství propojených hardwarových zařízením, jako jsou např. routery, switche a firewally. Tyto zařízení jsou speciálně určená pro daný účel a jejich řízení může být skrze distribuované protokoly. Díky tomu se počítačové sítě staly stabilními a vysoce výkonnými, avšak omezilo je to ve flexibilitě. Tradiční schéma sítě je zobrazeno na obrázku č. \ref{fig:network}.
 
 \begin{figure}[h]
 \begin{centering}
@@ -49,7 +49,7 @@ Tradiční počítačové sítě jsou složené ze značného množství propoje
 \caption{Tradiční schéma počítačové sítě} \label{fig:network}
 \end{figure}
 
-Z obrázku je patrné, že takovéto sítě se mohou skládat z desítek či i stovek hardwarových boxů. Management je tedy velice náročný a velice často může docházet chybám v důsledku lidské chyby. Bylo tedy nalést lepší řešení. V \cite{Middleboxes} je například navrhnuto přesunout vetšinu funkcionality do veřejného cloudu a tím správu sítě přenechat třetí straně. To však pro telekomunikační poskytovatele a většinu velkých firem není vhodné řešení. 
+Z obrázku je patrné, že takovéto sítě se mohou skládat z desítek či i stovek hardwarových boxů. Management je tedy velice náročný a velice často může docházet k chybám. Bylo tedy nalézt lepší řešení. V \cite{Middleboxes} je například navrhnuto přesunout většinu funkcionality do veřejného cloudu a tím správu sítě přenechat třetí straně. To však pro telekomunikační poskytovatele a většinu velkých firem není vhodné řešení. 
 
 Z tohoto důvodu bylo navrhnut koncept NFV. Celá myšlenka NFV je založena na tom, že dojde k separování softwarové funkcionality v síťových prvcích od proprietárního hardwaru, na kterém běží. Jak znázorňuje obrázek č. \ref{fig:vize_NFV}. 
 
@@ -91,7 +91,7 @@ mělo být poskytováno prostřednictvím nižší vrstvy, nazývané northbound
 \item Vrstva infrastruktura - Nejnižší vrstvou je samotný hardware pro předávání datagramů na fyzické úrovni. Pro funkčnost celé architektury je nutné, aby zde byla nasazena zařízení, která umí přijímat pokyny od control plane skrze southbound API.
 \end{itemize}
 
-Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak dle \cite{Toward_NFV} využití obou těchto technologii je nejlepší cestou pro telekomuniční poskytovatelé a velké firmy. Je to z důvodu toho, že se každá orientuje na jinou část datového provozu. To znázorněno na obrázku č. \ref{fig:sdn_nfv}.
+Přestože Softwarově definované sítě a virtualizace síťových funkcí jsou dvě různé technologie a koncepty, tak dle \cite{Toward_NFV} využití obou těchto technologii je nejlepší cestou pro telekomunikační poskytovatelé a velké firmy. Je to z důvodu toho, že se každá orientuje na jinou část datového provozu. To znázorněno na obrázku č. \ref{fig:sdn_nfv}.
 
 \begin{figure}[h]
 \begin{centering}
@@ -115,7 +115,7 @@ Service chaining není ve skutečnosti nic nového. V klasických počítačový
 \caption{Ukázka klasického service chainigu pomocí fyzických síťových prvků\label{fig:service_chaining}}
 \end{figure}
 
-Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Také je možné, že se potřeby pro jednotlivé síťové služeby mohou měnit v čase. Příklad takové sítě lze nalézt ve většině datových center. 
+Zde se provozovatel sítě rozhodl, že odchozí data z klientských stanic musí jít přes firewall, IDS a nakonec přes NAT do Internetu. Příchozí data mají logicky obrácené pořadí. Toto zapojení funguje dobře pro síť, kde není třeba rozlišovat cestu jakou proudí data jednotlivých uživatelských stanic. Ale není to optimální řešení pro sítě s více uživateli, kde každý požaduje jinou síťovou funkci. Také je možné, že se potřeby pro jednotlivé síťové služby mohou měnit v čase. Příklad takové sítě lze nalézt ve většině datových center. 
 
 Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existují jako virtuální stroje, tak mohou být dynamicky nasazovány dle aktuálním požadavků jednotlivých klientů a pomocí SDN mohou být tyto VM dynamicky pospojovány. Obrázek č. \ref{fig:service_chaining_new} ukazuje schéma zapojení, kde každý klient může mít jinou požadovanou cestu do internetu. Je možná i varianta, kde každý klient má své vlastní VNF s jinou konfigurací.
 
@@ -126,4 +126,4 @@ Zde tedy přichází na řadu VNF spolu s SDN. Protože jednotlivé VNF existuj�
 \caption{Ukázka VNF service chainigu\label{fig:service_chaining_new}}
 \end{figure}
 
-Je tedy vidět, že NFV a SDN jdou velice dobře dohromady a lze pomocí nich získat mnoho výhod. Vzhledem k tomu, že tato práce se zabývá managementem a orchestrací VNF, tak zde tedy nutné počítat s využitím SDN při návrhnu NFV frameworku, na kterém budou následně testovány jednostlivé VNF.
+Je tedy vidět, že NFV a SDN jdou velice dobře dohromady a lze pomocí nich získat mnoho výhod. Vzhledem k tomu, že tato práce se zabývá managementem a orchestrací VNF, tak zde tedy nutné počítat s využitím SDN při návrhu NFV frameworku, na kterém budou následně testovány jednotlivé VNF.

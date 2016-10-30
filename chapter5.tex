@@ -8,7 +8,7 @@ Před samotnou implementací je nutné vysvětlit, jakým způsobem budou VNF vy
 
 \subsection{Scénář LbaaS}
 
-Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery je obvikle nutné využít load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několik serverů. Tím bude zajištěna rozloha zátěže a zajištěn bezvýpadkový provoz.
+Jedním z často využívaných síťových funkcí je load balancing. Pokud chce uživatel v cloudu provozovat nějaký druh webové služby, která musí být vysoce dostupná nebo bude velice vytížená, tak bude ve většině případů potřebovat využít více než jeden server. Pro rozdělení zátěže mezi tyto servery je obvykle nutné využít load balancer. Ten bude spravovat příchozí komunikaci a distribuovat ji mezi několik serverů. Tím bude zajištěna rozloha zátěže a zajištěn bez-výpadkový provoz.
 
 Uvažujme tedy jednoduchý příklad, ve kterém bude uživatel požadovat použití dvou serverů, na kterých poběží webová služba v HA. Pro tuto službu bude chtít využít cloudovou platformu s podporou LbaaS. Uživatel samozřejmě požaduje, aby se celá infrastruktura a nastavení webové aplikace proběhlo automaticky s co možná nejméně manuálními zásahy. Celý proces by se tedy v praxi měl skládat z výběru vhodného templatu, zadáním požadovaných vstupních parametrů (IP adresy, názvy instancí, atd.) a následného spuštění templatu, který vše vytvoří. Obrázek č. \ref{fig:loadbalancer} zobrazuje požadovaný výstup takovéhoto procesu.
 
@@ -19,7 +19,7 @@ Uvažujme tedy jednoduchý příklad, ve kterém bude uživatel požadovat použ
 \caption{Firewall as a Service\label{fig:loadbalancer}}
 \end{figure}
 
-Je tedy vidět, že VNF pro load balancing by měla být již integrovanou součástí návrhu cloudové aplikace, resp. návrhu cloudového templatu pro orchestraci. V případě HAproxy by toto neměl být problém, protože je to standartní součást OpenStacku a OpenContrailu. Mělo by tedy jít využít standarního heat templatu, ve kterém bude nadefinované vše potřebné pro Load Balancer. Otázkou je, zda bude možné využít stejný postup i případě AVI networks řešení.
+Je tedy vidět, že VNF pro load balancing by měla být již integrovanou součástí návrhu cloudové aplikace, resp. návrhu cloudového templatu pro orchestraci. V případě HAproxy by toto neměl být problém, protože je to standardní součást OpenStacku a OpenContrailu. Mělo by tedy jít využít standardního heat templatu, ve kterém bude nadefinované vše potřebné pro Load Balancer. Otázkou je, zda bude možné využít stejný postup i případě AVI networks řešení.
 
 \subsection{Scénář FwaaS}
 
@@ -27,7 +27,7 @@ Další z často využívaných síťových funkcí je firewall, resp. síťové
 
 Příkladů užití FwaaS v cloudovém prostředí existuje značné množství, protože uživatelé mohou mít různé požadavky na řízení datového provozu. Uvažujme však nejjednodušší příklad, kterým je překlad adres tzv. NAT. V tomto případě uživatel chce vytvořit virtuální instanci, která by měla mít konektivitu k externí síti, ale zároveň nechce, aby daná instance byla dostupná z této externí sítě. 
 
-Otázkou zde je, jakým způsobem by měl být daný firewall nakonfigurován? Jak bylo popsáno kapitole \ref{sec:MANO}, tak existuje více možností. Konfigurace by mohla být doručena jako součást orchestračního templatu, např. v podobě skriptu, který by se provedl po spuštění firewall instance. Tento přístup však nemusí existovat podpora ze strany PfSense a Fortigatu. V tom případě bude muset být využita jiná metoda, pro kterou však ve většině případů musí být vyhrazený dedikovaný interface, určený právě pro management. Tento interface múže být využit i pro manuální zásahy do konfigurace. Obrázek č. \ref{fig:firewall} zobrazuje schématické zapojení pro FwaaS.
+Otázkou zde je, jakým způsobem by měl být daný firewall nakonfigurován? Jak bylo popsáno kapitole \ref{sec:MANO}, tak existuje více možností. Konfigurace by mohla být doručena jako součást orchestračního templatu, např. v podobě skriptu, který by se provedl po spuštění firewall instance. Tento přístup však nemusí existovat podpora ze strany PfSense a Fortigatu. V tom případě bude muset být využita jiná metoda, pro kterou však ve většině případů musí být vyhrazený dedikovaný interface, určený právě pro management. Tento interface může být využit i pro manuální zásahy do konfigurace. Obrázek č. \ref{fig:firewall} zobrazuje schématické zapojení pro FwaaS.
 
 \begin{figure}[h]
 \begin{centering}
@@ -39,7 +39,7 @@ Otázkou zde je, jakým způsobem by měl být daný firewall nakonfigurován? J
 
 \section{Realizace VNF pro LbaaS} \label{sec:realizace_lbaas}
 
-Zde již budou vysvětleny jednotlivé kroky související s realizací VNF pro LbaaS. Nejprve je ukázáno řešení s využitím HAproxy. Popsaný je zde obecný popis funkce haproxy, resp. LbaaS Neutronu a popis toho, jak byl využit pro tvorbu VNF. Po této ukázce následuje popis a vysvětlení realizace VNF související s platformou od AVI networks.
+Zde již budou vysvětleny jednotlivé kroky související s realizací VNF pro LbaaS. Nejprve je ukázáno řešení s využitím HAproxy. Popsaný je zde obecný popis funkce HAproxy, resp. LbaaS Neutronu a popis toho, jak byl využit pro tvorbu VNF. Po této ukázce následuje popis a vysvětlení realizace VNF související s platformou od AVI networks.
 
 \subsection{HAproxy - Neutron HAproxy agent}
 
@@ -63,20 +63,20 @@ Obrázek č. \ref{fig:NeutronLbaaS} zachycuje jednotlivé závislosti mezi těmi
 \caption{Neutron LbaaS\label{fig:NeutronLbaaS}}
 \end{figure}
 
-Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když příjde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku. 
+Celý proces probíhá tak, že každý virtuální server, který je asociovaný s daným poolem z něj obdrží IP adresu. Když přijde na VIP nějaký dotaz na danou webovou aplikaci, tak je tento dotaz předán dál na jednu z těchto přiřazeným IP adres. Pokud nastane s aplikací či serverem nějaký problém, který zachytí monitor, tak load balancer ip adresu tohoto serveru přestane posílat komunikaci, dokud není vše zase v pořádku. 
 
-Z výše uvedených informací vyplívá, že je nutné správně nadefinovat jednotlivé komponenty v heat templatu tak, abychom dosáhli požadovaného chování. Tím bude zajištěné správné a automatické řešení pro VNF.
+Z výše uvedených informací vyplývá, že je nutné správně nadefinovat jednotlivé komponenty v heat templatu tak, abychom dosáhli požadovaného chování. Tím bude zajištěné správné a automatické řešení pro VNF.
 
 \subsubsection{Heat template pro haproxy}
 
-Celý heat template pro LbaaS s HAproxy v sobě obsahuje několik prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Tvorba heat templatu vycházela z informací uvedených v dokumentaci \cite{HEAT}. Protože celý heat template je značně dlouhý, tak zde nebude ukazován celý jeho kód, ale pouze části týkájící se load balanceru. V případě zájmu lze celý template nalést v příloze. Template se tedy skládá z:
+Celý heat template pro LbaaS s HAproxy v sobě obsahuje několik prostředků, které se po jeho spuštění pokusí heat engine vytvořit. Tvorba heat templatu vycházela z informací uvedených v dokumentaci \cite{HEAT}. Protože celý heat template je značně dlouhý, tak zde nebude ukazován celý jeho kód, ale pouze části týkájící se load balanceru. V případě zájmu lze celý template nalézt v příloze. Template se tedy skládá z:
 
 \begin{itemize}
-\item Privátni síť - K této síti jsou připojeny obě webové instance, load balancer a router. Součástí je definice toho zdroje jsou je i subnet, který má dále paramentry týkající se DHCP ip adres.
-\item 2 x web instance - jedná se o virtuální instance s operačním systémem Ubuntu 14.04. Po spuštění heat templatu se na tyto instance nainstaluje Apache server a vytvoří se index.html. Díky tomu je možné následně otestovat zda load balancer distubuje komunikaci mezi těmito dvěma servery.
+\item Privátní síť - K této síti jsou připojeny obě webové instance, load balancer a router. Součástí je definice toho zdroje jsou je i subnet, který má dále parametry týkající se DHCP ip adres.
+\item 2 x web instance - jedná se o virtuální instance s operačním systémem Ubuntu 14.04. Po spuštění heat templatu se na tyto instance nainstaluje Apache server a vytvoří se index.html. Díky tomu je možné následně otestovat zda load balancer distrubuuje komunikaci mezi těmito dvěma servery.
 \item router - toto je Neutron router implementují SNAT. V tomto příkladě je využívaný webovými servery pro konektivitu k Internetu. Toto je nutné pro nainstalování programu Apache na webové servery.
 \item public síť - toto je veřejná síť, ze které je získána VIP pro load balancer. Na tuto VIP bude dále asociována floating ip. 
-\item members - po vytvoření instancí je nutné jejich přidání do poolu jako membery. Pokud webová aplikace na serverch využívá jiný port než port 80, je možné ho zde změnit.
+\item members - po vytvoření instancí je nutné jejich přidání do poolu jako membery. Pokud webová aplikace na serverech využívá jiný port než port 80, je možné ho zde změnit.
 
 \begin{lstlisting}[caption=Healt monitor]
 lb_pool_member_instance_01:
@@ -89,7 +89,7 @@ lb_pool_member_instance_01:
       weight: 1
 \end{lstlisting}
 
-\item health monitoring - zdroj pro monitoring. Dle zvolených parametrů je vidět, že každých 5 sekund bude poslán ping na servery a bude se čekat 5 sekund na odpověď. Pokud nepříjde, tak load balancer usoudí, že je daný server není v pořádku a přestane na něj přeposílat komunikaci.
+\item health monitoring - zdroj pro monitoring. Dle zvolených parametrů je vidět, že každých 5 sekund bude poslán ping na servery a bude se čekat 5 sekund na odpověď. Pokud nepřijde, tak load balancer usoudí, že je daný server není v pořádku a přestane na něj přeposílat komunikaci.
 
 \begin{lstlisting}[caption=Healt monitor]
 lb_ping_healt_monitor:
@@ -132,7 +132,7 @@ V reálném případě by si uživatel heat template vybral z katalogu. Avšak v
 heat stack-create -f heat/templates/lbaas_template.hot -e heat/env/lbaas_env.env lbaas
 \end{lstlisting}
 
-Tento příkaz vytvoří všechny prostředky uvedené v templatu pro load balancing. Na obrázku č. \ref{fig:lbaas_topologie} je zobrazek screenshot vytvořené topologie z OpenStack dashboardu. Jsou zde vidět vytvořené servery a sítě. Není zde zobrazen load balancer, protože tato vizualizace tento prvek nezobrazuje. Lze ho nalézt v jiné části dashboardu, ale pro názornost bude rovnou otestováno jeho správné chování.
+Tento příkaz vytvoří všechny prostředky uvedené v templatu pro load balancing. Na obrázku č. \ref{fig:lbaas_topologie} je zobrazen screenshot vytvořené topologie z OpenStack dashboardu. Jsou zde vidět vytvořené servery a sítě. Není zde zobrazen load balancer, protože tato vizualizace tento prvek nezobrazuje. Lze ho nalézt v jiné části dashboardu, ale pro názornost bude rovnou otestováno jeho správné chování.
 
 \begin{figure}[h]
 \begin{centering}
@@ -141,7 +141,7 @@ Tento příkaz vytvoří všechny prostředky uvedené v templatu pro load balan
 \caption{Vytvořená síťová topologie\label{fig:lbaas_topologie}}
 \end{figure}
 
-Otestování správného chování virtuálního load balanceru, lze provést opakovaným dotazem na právě vytvořené webové servery. Tím bude zároveň otestována jejich správná konfigurace. Pokud by totiž nevrátili správnou odpoveď je možné, že chyba může být i zde. 
+Otestování správného chování virtuálního load balanceru, lze provést opakovaným dotazem na právě vytvořené webové servery. Tím bude zároveň otestována jejich správná konfigurace. Pokud by totiž nevrátili správnou odpověď je možné, že chyba může být i zde. 
 
 Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dána jako parametr public adresa load balanceru. Celý výstup toho testování znázorňuje obrázek č. \ref{fig:lbaas_testing}. 
 
@@ -152,15 +152,15 @@ Dotaz na webové servery byl proveden pomocí příkazu curl, kterému byla dán
 \caption{Test konektivity a load balancingu\label{fig:lbaas_testing}}
 \end{figure}
 
-Po několika takovýchto dotazech na webové servery je vidět, že odpověď příchází střídavě od obou webových serverů. Probíhá mezi nimi tedy load balancing metodou round robin tak, jak bylo požadováno.
+Po několika takovýchto dotazech na webové servery je vidět, že odpověď přichází střídavě od obou webových serverů. Probíhá mezi nimi tedy load balancing metodou round robin tak, jak bylo požadováno.
 
 \subsection{AVI networks}
 
-Druhým řešením pro LbaaS, které bude popsané a otestované v této práci, bude platforma od AVI networks. Narozdíl od HAproxy není tato platforma standarní součástí OpenStacku. Z tohoto důvodu musela být nejprve do testovacího prostředí nainstalována. 
+Druhým řešením pro LbaaS, které bude popsané a otestované v této práci, bude platforma od AVI networks. Narozdíl od HAproxy není tato platforma standardní součástí OpenStacku. Z tohoto důvodu musela být nejprve do testovacího prostředí nainstalována. 
 
-Instalace spočívá ve vytvoření tenantu, ve kterém je nasledně vytvořena virtuální instance z image pro AVI Controller. Této instanci je následně nutné přidat IP adresu, aby k ní bylo možné přistoupit zkrze webový prohlížeč. Poté již následuje jednoduchá konfigurace, kde nutné správně nastavit připojení na keystone server. Tím je zajištěna integrace s OpenStackem. 
+Instalace spočívá ve vytvoření tenantu, ve kterém je následně vytvořena virtuální instance z image pro AVI Controller. Této instanci je následně nutné přidat IP adresu, aby k ní bylo možné přistoupit skrze webový prohlížeč. Poté již následuje jednoduchá konfigurace, kde nutné správně nastavit připojení na keystone server. Tím je zajištěna integrace s OpenStackem. 
 
-Po úspěšné instalaci vznikla v OpenStacku další služba, která umožňuje vytváření load balancerů ve všech tenantech. Vše funguje tak, že uživatel většinou přes AVI Controller dashboard, kde se přihlásí pomocí uživatele v keystonu, zvolí vytvoření virtální služby, kde vybere servery a nastaví požadované parametry. Na základě těchto udajů controller vytvoří tzv. Service Engine, který prování load balancing. Tento Service Engine vžak vznikne stále v tenantu určeném pro AVI networks, nikoliv v uživatelově tenantu. Obrázek č. \ref{fig:avi} znázorňuje toto řešení.
+Po úspěšné instalaci vznikla v OpenStacku další služba, která umožňuje vytváření load balancerů ve všech tenantech. Vše funguje tak, že uživatel většinou přes AVI Controller dashboard, kde se přihlásí pomocí uživatele v keystonu, zvolí vytvoření virtální služby, kde vybere servery a nastaví požadované parametry. Na základě těchto údajů controller vytvoří tzv. Service Engine, který provádí load balancing. Tento Service Engine vžak vznikne stále v tenantu určeném pro AVI networks, nikoliv v uživatelově tenantu. Obrázek č. \ref{fig:avi} znázorňuje toto řešení.
 
 \begin{figure}[h]
 \begin{centering}
@@ -169,14 +169,14 @@ Po úspěšné instalaci vznikla v OpenStacku další služba, která umožňuje
 \caption{Znázornění funkce AVI networks LbaaS, převzato z \cite{avi_networks} \label{fig:avi}}
 \end{figure}
 
-Přestože vytváření a ovládání LbaaS zkrze dashboard bylo otestováno a funguje, tak je zde příliš manuálních kroků. Avšak při analýze tohoto produktu bylo zjištěno, že AVI networks nově také poskytuje podporu pro vytváření potřebných zdrojů i pomocí heatu. 
+Přestože vytváření a ovládání LbaaS skrze dashboard bylo otestováno a funguje, tak je zde příliš manuálních kroků. Avšak při analýze tohoto produktu bylo zjištěno, že AVI networks nově také poskytuje podporu pro vytváření potřebných zdrojů i pomocí heatu. 
 
 \subsubsection{Heat template pro AVI networks}
 
 Pro tvorbu heat templatu pro AVI networks byl stejný template jako pro HAproxy. S tím rozdílem, že byly nahrazeny části týkající se load balanceru. Pro lepší čitelnost zde tedy nebudou uvedeny části, které jsou v obou templatech a budou zde popsány pouze části, které se liší. Jsou to tyto dvě části:
 
 \begin{itemize}
-\item AVI network pool - Obsahuje základní parametry pro load balancer. Je především definice serverů resp. jejich ip adresu, mezi keterými bude následně probíhat load balancing. Také je zde možná volba metody pro load balancing. Zde byla zvolena metoda round robin jako v předchozím příkladě. 
+\item AVI network pool - Obsahuje základní parametry pro load balancer. Je především definice serverů resp. jejich ip adresu, mezi kterými bude následně probíhat load balancing. Také je zde možná volba metody pro load balancing. Zde byla zvolena metoda round robin jako v předchozím příkladě. 
 
 \begin{lstlisting}[caption=AVI networks pool]
 pool:
@@ -215,7 +215,7 @@ pool:
 \end{lstlisting}
 
 
-\item AVI network healt monitor - Poslední částí je healt monitor pro sledování stavu jednotlivých serverů. V ukázce je vidět nastavení jednotlivých časovačů a také protokolu http. Monitor sleduje http odpoveď od serveru a pokud dostane odpoveď začínající 2xx či 3xx, tak označí server/aplikaci jako v pořádku a bude na ni zasílat data.
+\item AVI network healt monitor - Poslední částí je healt monitor pro sledování stavu jednotlivých serverů. V ukázce je vidět nastavení jednotlivých časovačů a také protokolu http. Monitor sleduje http odpověď od serveru. Pokud dostane odpověď začínající 2xx či 3xx, tak označí server/aplikaci jako v pořádku a bude na ni zasílat data.
 
 \begin{lstlisting}[caption=AVI networks virtual service]
 hm:
@@ -240,7 +240,7 @@ Takto by tedy měla být vytvořena automatizovaná VNF využívající platform
 
 \subsubsection{Testování heat templatu pro AVI networks}
 
-Při testování heat templatu pro AVI networks bylo očekáváno, že zde bude dosaženo stejného stavu jako při použití dashboardu. Bohužel po spuštění daného templatu nedošlo k vytvoření požadovaných resourců a jeho běh skončil errorem. Při dalším zkoumání bylo zjištěno, že v době psaní této práce je podpora heat ze strany AVI networks přiliš nová (přibližně měsíc) a není zde vše naprosto funkční. Z tohoto důvodu nemohl být tento heat template otestován. 
+Při testování heat templatu pro AVI networks bylo očekáváno, že zde bude dosaženo stejného stavu jako při použití dashboardu. Bohužel po spuštění daného templatu nedošlo k vytvoření požadovaných resourců a jeho běh skončil errorem. Při dalším zkoumání bylo zjištěno, že v době psaní této práce je podpora heat ze strany AVI networks příliš nová (přibližně měsíc) a není zde vše naprosto funkční. Z tohoto důvodu nemohl být tento heat template otestován. 
 
 \section{Realizace VNF pro FwaaS}
 
@@ -248,7 +248,7 @@ V této sekci jsou vysvětleny jednotlivé kroky související s realizací VNF 
 
 \subsection{Servisní instance v OpenContrailu}
 
-V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožnuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
+V OpenContrailu je sice možnost využívat implementaci routeru s SNAT, která umožňuje instancím v privátních sítích konektivitu s externí sítí. Pokud však uživatel potřebuje využít pokročilejší funkce firewallu, tak je možné vytvořit servisní instanci, která bude sloužit jako VNF. V té může být použit libovolný požadovaný image firewallu uživatele.
 
 Dle informací uvedených v \cite{opencontrail_web}, tak servisní instance v OpenContrailu je jednoduše virtuální stroj, který poskytuje danou VNF. Zároveň je však možné využívat Service Chainingu, který byl popsán v kapitole č. 2. Úplně nejjednodušším příkladem může být virtuální stroj s operačním systémem GNU/Linux, který může sloužit jako router mezi dvěma sítěmi. 
 
@@ -280,7 +280,7 @@ První z nich je Analyzer. Ten slouží k analýze a zachytávání síťového 
 \caption{Schéma zapojení servisní instance Analyzer\label{fig:service_instance_anal}}
 \end{figure}
 
-Je zde zřejmé, že pro účely této práce není Analyzer potřebný. Z tohoto důvodu bude dále uvažován pouze druhý typ servisní instance, kterým je Firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem, při vytváření servisní instance jako firewall, je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat i třetí síťový port, který slouží pro out-of-band management. Tento interface je vhodý předevím pro manuální management či pro management pomocí nějaké další entity.
+Je zde zřejmé, že pro účely této práce není Analyzer potřebný. Z tohoto důvodu bude dále uvažován pouze druhý typ servisní instance, kterým je Firewall. V tomto případě již servisní instance manipuluje s trafficem. Hlavní bodem, při vytváření servisní instance jako firewall, je přiřadit správné virtuální sítě k správným virtuálním síťovým portům. Servisní instance má obvykle dva síťové porty - left a right. Ty slouží pro propojení sítí do kterých jsou zapojeny. V některých případech je možné servisní instanci přidat i třetí síťový port, který slouží pro out-of-band management. Tento interface je vhodný především pro manuální management či pro management pomocí nějaké další entity.
 
 \begin{figure}[h]
 \begin{centering}
@@ -291,19 +291,19 @@ Je zde zřejmé, že pro účely této práce není Analyzer potřebný. Z tohot
 
 Pro procházení síťové komunikace mezi sítěmi je nutné jí explicitně povolit v OpenContrailu pomocí tzv. Servisní policy. V tomto případě jich bude využito k vynucení toho, aby byla data posílána skrze servisní instanci.
 
-Shrneme-li co vše je potřebné vytvořit pro FwaaS, tak je to servisní template, servisní instance z toho templatu a servisní policy. Toto vše lze naštěstí opět definovat v heat template, takže je možné toto všechno vytvořit automaticky jako v předchozím případě.
+Shrneme-li co vše je potřebné vytvořit pro FwaaS, tak je to servisní template, servisní instance z toho templatu a servisní policy. Toto vše lze naštěstí opět definovat v heat template, takže je možné všechno vytvořit automaticky jako v předchozím případě.
 
 \subsection{Heat template pro FwaaS}
 
-Heat template pro FwaaS byl navrhnut obdobně jako v případě LbaaS. Vzhledem k tomu, že template opět značně dlouhý, tak jeho kompletní verzi lze nalést v příloze. Tam lze také nalést enviroment file pro tento template. Zde bude uvedeno pouze to podstatné. Jeho součásti tedy jsou: 
+Heat template pro FwaaS byl navrhnut obdobně jako v případě LbaaS. Vzhledem k tomu, že je template opět značně dlouhý, tak jeho kompletní verzi lze nalézt v příloze. Tam lze také nalézt enviroment file pro tento template. Zde bude uvedeno pouze to podstatné. Jeho součásti tedy jsou: 
 
 \begin{itemize}
 
-\item virtuální instance pro testování - Tato instance budou sloužit pro otestování správné funkčnosti VNF. Její hlavní činností bude generování dat v síti.
+\item virtuální instance pro testování - Tato instance bude sloužit pro otestování správné funkčnosti VNF. Její hlavní činností bude generování dat v síti.
 
 \item privátní síť - V této síti bude vytvořena instance pro testování. K této síti bude také připojen jeden z interfaců virtuální instance.
 
-\item firewall template - Zde je ukázka pro vytvoření servisního tempaltu, který je použit v této práci. Většina parametrů by měla být dle názvu. Jediné co může být nejasné je paramenter "service interface type list". Do tohoto paramentru jsou v enviroment file vloženy názvy a pořadí jednotlivých interfaců. V našem případě používáme "management,right,left".
+\item firewall template - Zde je ukázka pro vytvoření servisního templatu, který je použit v této práci. Většina parametrů by měla být dle názvu. Jediné co může být nejasné je parameter "service interface type list". Do tohoto parametru jsou v enviroment file vloženy názvy a pořadí jednotlivých interfaců. V našem případě používáme "management,right,left".
 
 \begin{lstlisting}[caption=Servisní template]
 service_template:
@@ -322,7 +322,7 @@ service_template:
       static_routes_list: { "Fn::Split" : [ ",", Ref: static_routes_list ] }
 \end{lstlisting}
 
-\item firewall instance - Tady je ukázán předpis pro tvorbu servisní instance. Je zde vidět, že instance bude vytvořena z již popsaného servisního templatu. Dále uveden seznam síťových interfaců společně s tím, kam se mají napojit. První se připojí do defaultní management sítě, kterou automaticky vytvoří OpenContrail, druhý do veřejné sítě a třetí do privátní.
+\item firewall instance - Tady je ukázán předpis pro tvorbu servisní instance. Je zde vidět, že instance bude vytvořena z již popsaného servisního templatu. Dále je uveden seznam síťových interfaců společně s tím, kam se mají napojit. První se připojí do defaultní management sítě, kterou automaticky vytvoří OpenContrail, druhý do veřejné sítě a třetí do privátní.
 
 \begin{lstlisting}[caption=Servisní instance]
 service_instance:
@@ -347,7 +347,7 @@ service_instance:
     ]
 \end{lstlisting}
 
-\item contrail policy - Poslední co bylo nutné definovat pro FwaaS je servisní policy. Zde bylo pro jednoduchost povoleno vše z obou směrů pro servisnáí instanci. Tím bude jasné, že výsledný datový tok ovlivňuje pouze sdaná VNF.
+\item contrail policy - Poslední co bylo nutné definovat pro FwaaS je servisní policy. Zde bylo pro jednoduchost povoleno vše z obou směrů pro servisní instanci. Tím bude jasné, že výsledný datový tok ovlivňuje pouze daná VNF.
 
 \begin{lstlisting}[caption=Contrail network policy]
 private_policy:
@@ -370,7 +370,7 @@ private_policy:
 \end{lstlisting}
 \end{itemize}
 
-Tento template lze použít pro oba testované firewally. Jediné v čem se budou lišit jsou vstupní parametry, pro které budou dva oddělené enviroment soubory. Po spuštění daného templatu se vytvoří topologie, kterou znázorňuje obrázek č. \ref{fig:fwaas_topologie}. 
+Tento template lze použít pro oba testované firewally. Jediné v čem se budou lišit jsou vstupní parametry. Pro ně budou dva oddělené enviroment soubory. Po spuštění daného templatu se vytvoří topologie, kterou znázorňuje obrázek č. \ref{fig:fwaas_topologie}. 
 
 \begin{figure}[h]
 \begin{centering}
@@ -379,15 +379,15 @@ Tento template lze použít pro oba testované firewally. Jediné v čem se budo
 \caption{Síťová topologie\label{fig:fwaas_topologie}}
 \end{figure}
 
-Přestože výsledná síťová topologie je stejná pro PfSense i pro Fortigate VM, tak je dále nutné zajistit jejich správnou konfiguraci. Ta však dle bližším prozkoumání možností obou řešení bude značně odlišná. Proto již budou tyto informace uvedeny odděleně pro každý z obou firewallů. Je nutné ještě zmínit, že instance, ze které bude probíhat management, není součástí výše zmíněného templatu. Tato instance byla vytvořena samostatně. Je to z důvodu toho, že management nástoje by byly neústále smazávány při testování templatu a bylo by nutné nalést mechanismus, jak je vždy dostat zpět. 
+Přestože výsledná síťová topologie je stejná pro PfSense i pro Fortigate VM, tak je dále nutné zajistit jejich správnou konfiguraci. Ta však při bližším prozkoumání možností obou řešení bude značně odlišná. Proto již budou tyto informace uvedeny odděleně pro každý z obou firewallů. Je nutné ještě zmínit, že instance, ze které bude probíhat management, není součástí výše zmíněného templatu. Tato instance byla vytvořena samostatně. Je to z důvodu toho, že management nástroje by byly neustále smazávány při testování templatu a bylo by nutné nalézt mechanismus, jak je vždy dostat zpět. 
 
 \subsection{Management PfSense}\label{sub:interaction}
 
-Pro management PfSense bylo oddzkoušeno několik možností. Je tomu tak, protože se ukázalo, že není úplně snadné proces konfigurace s PfSense elegantně vyřešit. 
+Pro management PfSense bylo odzkoušeno několik možností. Je tomu tak, protože se ukázalo, že není úplně snadné proces konfigurace s PfSense elegantně vyřešit. 
 
 Vzhledem k tomu, že PfSense je postavený na operačním systému FreeBSD, tak úplně prvním uvažovaným řešením měl být skript, který by byl součástí heat templatu. K tomu by však bylo nutné, aby jeho součástí byl tzv. cloud-init, který by tento skript z heat templatu převzal a provedl. Jeho nainstalování do PfSense bohužel bylo neúspěšné. 
 
-Druhým přístupem bylo využítí konfiguračního managementu SaltStack. Informace o tomto nástroji, lze nalést zde \cite{salt}. Pro použití SaltStacku je nutné využít dvou jeho částí. První je tzv. Salt master. Ten obsahuje definici veškeré konfigurace pro infrastuktura, kterou spravuje. Ten je v námi uvažovaném případě nainstalovaný na management instanci a obsahuje potřebné informace pro správnou konfiguraci VNF. Druhou částí je tzv. Salt minion, který má za úkol přijímat příkazy od salt mastera a ty následně na cílové instanci definovaným způsobem vynutit. Avšak zde nastává problém, protože se opět nepodařilo správně nainstalovat salt miniona do PfSense instance.
+Druhým přístupem bylo využítí konfiguračního managementu SaltStack. Informace o tomto nástroji, lze nalézt zde \cite{salt}. Pro použití SaltStacku je nutné využít dvou jeho částí. První je tzv. Salt master. Ten obsahuje definici veškeré konfigurace pro infrastruktura, kterou spravuje. Ten je v námi uvažovaném případě nainstalovaný na management instanci a obsahuje potřebné informace pro správnou konfiguraci VNF. Druhou částí je tzv. Salt minion, který má za úkol přijímat příkazy od salt mastera a ty následně na cílové instanci definovaným způsobem vynutit. Avšak zde nastává problém, protože se opět nepodařilo správně nainstalovat salt miniona do PfSense instance.
 
 Po předchozích neúspěších byl tedy zvolen nejjednodušší možný způsob. Tím je přednastavení požadované konfigurace do image s PfSense. Toto se ukázalo jako optimální řešení. Je tomu tak, protože tento image musel být stejně předem ručně vytvořen ze staženého instalačního souboru a následně nahrán do prostředí OpenStack, kde mohl být poté využíván. Předkonfigurování proběhlo přes PfSense dashboard, jehož ukázku ilustruje obrázek č. \ref{fig:nat}
 
@@ -398,7 +398,7 @@ Po předchozích neúspěších byl tedy zvolen nejjednodušší možný způsob
 \caption{Konfigurace NAT v PfSense dashboardu\label{fig:nat}}
 \end{figure}
 
-Vše muselo být uspůsobeno tak, aby image byl co nejvíce generický. To znamená, že na všech interfacech bylo nastaveno dhcp, protože uživatel může zvolit naprosto jiné ip rozsahy než jsou používány v této práci. To samé platí pro pravidla, které PfSense využívá pro NAT. Ty museli počítat s tím, že na interfacech budou různé ip adresy, takže se v nich nesměla konkrétní ip adresa vyskytovat. Toho bylo dosaženo tak, že v pravidle pro NAT byla ip adresa resp. LAN subnet, který by je jinak specificky definovaný, byl nahrazen čtyřmi nulami (0.0.0.0). Tak bylo dosaženo dosaženo správného překladu adres, bez ohledu na přidělené ip adresy z OpenContrailu.
+Vše muselo být uzpůsobeno tak, aby image byl co nejvíce generický. To znamená, že na všech interfacech bylo nastaveno dhcp, protože uživatel může zvolit naprosto jiné ip rozsahy než jsou používány v této práci. To samé platí pro pravidla, které PfSense využívá pro NAT. Ty museli počítat s tím, že na interfacech budou různé ip adresy, takže se v nich nesměla konkrétní ip adresa vyskytovat. Toho bylo dosaženo tak, že v pravidle pro NAT byla ip adresa resp. LAN subnet, který by je jinak specificky definovaný, byl nahrazen čtyřmi nulami (0.0.0.0). Tak bylo dosaženo dosaženo správného překladu adres, bez ohledu na přidělené ip adresy z OpenContrailu.
 
 Toto řešení muselo být samozřejmě řádně otestováno. Test proběhl pomocí příkazu ping z testovací instance. Jak je vidět na obrázku č. \ref{fig:test_pfsense}, tak konektivita do externí sítě funguje.
 
@@ -406,14 +406,14 @@ Toto řešení muselo být samozřejmě řádně otestováno. Test proběhl pomo
 \begin{centering}
 \includegraphics[scale=0.5]{images/test_pfsense}
 \par\end{centering}
-\caption{Test konectivity zkrze PfSense\label{fig:test_pfsense}}
+\caption{Test konectivity skrze PfSense\label{fig:test_pfsense}}
 \end{figure}
 
 \subsection{Management Fortigate VM}
 
-Management Fortigate VM probíhal obdobně jako u PfSense. Nejprve proběhlo hledání možností konfigurace zkrze skript v heat templatu. Zde však chybí jakákoli podpora doinstalace sofwaru třetích stran, takže opět nemohl být použit cloud-init. Další hledání však objevilo, že Fortigate VM poskytuje API, které může být využito pro jeho management. K tomuto účelu bylo využito python knihovny a dokumentace \cite{pyfg}.
+Management Fortigate VM probíhal obdobně jako u PfSense. Nejprve proběhlo hledání možností konfigurace skrze skript v heat templatu. Zde však chybí jakákoli podpora doinstalace sofwaru třetích stran, takže opět nemohl být použit cloud-init. Další hledání však objevilo, že Fortigate VM poskytuje API, které může být využito pro jeho management. K tomuto účelu bylo využito python knihovny a dokumentace \cite{pyfg}.
 
-Celé toto řešení funguje tak, že je nejprve vytvořena potřebaná konfigurace jako textový soubor a ta se následně pomocí python skriptu nahraje do Fortigate VM instance. V následující ukázce je příklad konfigurace pro síťový interface1. Takto lze ovládat všechny porty, kterými zařízení disponuje. Nejdůležitější se opět ukázalo povolení dhcp na používaných interfacech. 
+Celé toto řešení funguje tak, že je nejprve vytvořena potřebná konfigurace jako textový soubor a ta se následně pomocí python skriptu nahraje do Fortigate VM instance. V následující ukázce je příklad konfigurace pro síťový interface1. Takto lze ovládat všechny porty, kterými zařízení disponuje. Nejdůležitější se opět ukázalo povolení dhcp na používaných interfacech. 
 
 \begin{lstlisting}[caption=Fortigate konfigurace pro interface]
 config system interface
@@ -443,7 +443,7 @@ set nat enable
 end
 \end{lstlisting}
 
-Obě tyto konfigurace následně mohli být nahrány do Fortigate VM pomocí následujícího python skriptu. Ten se přihlásí do zařízení pomocí poskytnutých příhlašovacích údajů a stahne si aktuální konfiguraci. V tomto případě konfiguraci pro všechny interfaci. Tu následně poroná s námi poskytnutou konfigurací a v případné změny odešle zpět do zařízení. Python skript pro nahrání konfigurace pro NAT je témeř stejný. Pouze otevírá jiný soubor a porovnává ho s konfigurací s sekci "firewall policy".
+Obě tyto konfigurace následně mohli být nahrány do Fortigate VM pomocí následujícího python skriptu. Ten se přihlásí do zařízení pomocí poskytnutých přihlašovacích údajů a stáhne si aktuální konfiguraci. V tomto případě konfiguraci pro všechny interfaci. Tu následně porovná s námi poskytnutou konfigurací a v případné změny odešle zpět do zařízení. Python skript pro nahrání konfigurace pro NAT je téměř stejný. Pouze otevírá jiný soubor a porovnává ho s konfigurací s sekci "firewall policy".
 
 \begin{lstlisting}[caption=Skript pro nahrání konfigurace interfaců]
 from pyFG import FortiOS
@@ -467,17 +467,17 @@ Stejně jako v předchozím případě byl nutný test konektivity po spuštěn�
 \begin{centering}
 \includegraphics[scale=0.5]{images/test_fortios}
 \par\end{centering}
-\caption{Test konectivity zkrze Fortigate VM\label{fig:test_fortios}}
+\caption{Test konectivity skrze Fortigate VM\label{fig:test_fortios}}
 \end{figure}
 
 \section{Shrnutí získaných poznatků a zhodnocení}
 
 V této kapitole byly navrhnuto a otestováno několik příkladů, kterými lze přistupovat k managementu a orchestraci VNF. Zde bude uvedeno stručné shrnutí a zhodnocení těchto řešení. Zároveň budou zmíněny poznatky, které byly při jejich realizaci získány.
 
-Z uvedených příkladů pro LbaaB je jasné, že pokud existuje přímá integrace s použitou platformou, tak management VNF může být velice jednoduché automatizovat zkrze již poskytnuté nástroje této platformy. Toto platí pro obě testované technologie.
+Z uvedených příkladů pro LbaaB je jasné, že pokud existuje přímá integrace s použitou platformou, tak management VNF může být velice jednoduché automatizovat skrze již poskytnuté nástroje této platformy. Toto platí pro obě testované technologie.
 
 Porovnáme-li mezi se bodou HAproxy a platformu AVI networks, tak zjistíme, že obě řešení lze využít pro produkční použití. HAproxy je spíše určená pro uživatelé, kteří potřebují jednodušší load balancer, který nemusí obsahovat velkou škálu konfigurace. Oproti tomu AVI networks je určená pro pokročilejší uživatelé, kteří chtějí vetší možnost konfigurace a monitorování. V obou případech byla provedena implementace automatického managementu. Bohužel v případě AVI networks tato implementace nemohla být otestována. Avšak obě implementace byli vytvořeny téměř stejným způsobem. Možnosti automatického managementu jsou tedy v obou případech srovnatelné.
 
-V případě FwaaS je situace složitější. Jak pro Fortigate VM, tak pro PfSense byl použit stejný heat template. Lze tedy říci, že možnosti pro jejich automatické vytvoření jsou v obou případech stejné a souvisejí tedy s použitou platformou. V tomto případě byl zvolen OpenStack s OpenContrailem. Díky využití OpenContrailu bylo možné využít tzv. Service chaining. Ten umožnoval jednoduché řízení datového toku zkrze obě řešení. 
+V případě FwaaS je situace složitější. Jak pro Fortigate VM, tak pro PfSense byl použit stejný heat template. Lze tedy říci, že možnosti pro jejich automatické vytvoření jsou v obou případech stejné a souvisejí tedy s použitou platformou. V tomto případě byl zvolen OpenStack s OpenContrailem. Díky využití OpenContrailu bylo možné využít tzv. Service chaining. Ten umožnoval jednoduché řízení datového toku skrze obě řešení. 
 
-Avšak co se týče možností automatické konfigurace obou technologii, tak zde jsou již značné rozdíly, které souvisejí s podporou danou jejich poskytovately. U obou případů bylo otestováno několik možností. Pro PfSense však nakonec muselo být zvoleno řešení v podobě předkonfigurovaného image. Tohoto řešení má výhody, především v tom, že se uživatel nemusí vůbec řešit konfiguraci. Pouze použit daný image a vše funguje tak, jak má. U Fortigate VM byla konfigurace doručena až po vytvoření celé virtuální infrastruktury. Pro toto řešení bylo využito API a python knihovna, která je k tomuto účelu poskytována. Zde výhodu značná flexibilita při konfiguraci. Je totiž možné ji měnit v průběhu celého životního cyclu instance. Oproti tomu je zde nevýhodou nutnost spustit skript manuálně po vytvoření virtuální infrastruktury.
+Avšak co se týče možností automatické konfigurace obou technologii, tak zde jsou již značné rozdíly, které souvisejí s podporou danou jejich poskytovateli. U obou případů bylo otestováno několik možností. Pro PfSense však nakonec muselo být zvoleno řešení v podobě předkonfigurovaného image. Tohoto řešení má výhody, především v tom, že se uživatel nemusí vůbec řešit konfiguraci. Pouze použit daný image a vše funguje tak, jak má. U Fortigate VM byla konfigurace doručena až po vytvoření celé virtuální infrastruktury. Pro toto řešení bylo využito API a python knihovna, která je k tomuto účelu poskytována. Zde výhodu značná flexibilita při konfiguraci. Je totiž možné ji měnit v průběhu celého životního cyclu instance. Oproti tomu je zde nevýhodou nutnost spustit skript manuálně po vytvoření virtuální infrastruktury.

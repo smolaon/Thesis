@@ -41,10 +41,10 @@
 \contentsline {subsection}{\numberline {5.3.4}Management Fortigate VM}{54}{subsection.5.3.4}
 \contentsline {section}{\numberline {5.4}Shrnut\IeC {\'\i } z\IeC {\'\i }skan\IeC {\'y}ch poznatk\IeC {\r u} a zhodnocen\IeC {\'\i }}{56}{section.5.4}
 \contentsline {chapter}{\numberline {6}Z\IeC {\'a}v\IeC {\v e}r}{58}{chapter.6}
-\contentsline {part}{Literatura}{I}{chapter.6}
-\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{XII}{chapter*.39}
-\contentsline {chapter}{\numberline {A}Heat template Lbaas - HAproxy}{XIII}{appendix.A}
-\contentsline {chapter}{\numberline {B}Enviroment file pro LbaaS - HAproxy}{XX}{appendix.B}
-\contentsline {chapter}{\numberline {C}Heat template FwaaS}{XXI}{appendix.C}
-\contentsline {chapter}{\numberline {D}Enviroment file pro LbaaS - Pfsense}{XXIX}{appendix.D}
-\contentsline {chapter}{\numberline {E}Enviroment file pro LbaaS - Fortigate VM}{XXXI}{appendix.E}
+\contentsline {part}{Literatura}{59}{chapter.6}
+\contentsline {part}{P\IeC {\v r}\IeC {\'\i }lohy}{I}{chapter*.39}
+\contentsline {chapter}{\numberline {A}Heat template Lbaas - HAproxy}{II}{appendix.A}
+\contentsline {chapter}{\numberline {B}Enviroment file pro LbaaS - HAproxy}{IX}{appendix.B}
+\contentsline {chapter}{\numberline {C}Heat template FwaaS}{X}{appendix.C}
+\contentsline {chapter}{\numberline {D}Enviroment file pro LbaaS - Pfsense}{XVIII}{appendix.D}
+\contentsline {chapter}{\numberline {E}Enviroment file pro LbaaS - Fortigate VM}{XX}{appendix.E}

@@ -2,19 +2,19 @@
 
 V předešlé kapitole byla vysvětlena základní problematika, která souvisí s virtualizací síťových funkcí, cloud computingem a softwarově definovanými sítěmi. Zároveň byla popsána referenční architektura frameworku pro virtualizaci síťových funkcí a popsána existující řešení vhodná pro jednotlivé části architektury.
 
-Tato kapitola bude již věnována konkrétnímu návrhu platformy pro testování NFV a VNF. Nejprve jsou zde popsány jednotlivé požadavky související s návrhem platformy pro NFV a následně jsou popsány požadavky i na jednotlivé VNF. Na základě těchto požadavků je poté navrhuta a popsána výsledná architektura.
+Tato kapitola bude již věnována konkrétnímu návrhu platformy pro testování NFV a VNF. Nejprve jsou zde popsány jednotlivé požadavky související s návrhem platformy pro NFV a následně jsou popsány požadavky i na jednotlivé VNF. Na základě těchto požadavků je poté navrhnuta a popsána výsledná architektura.
 
 \section{Požadavky a výběr platformy pro NFV Infrastrukturu}
 
 V předchozí kapitole bylo řečeno, že existuje několik možností, jakými může být NFV infrastruktura vytvořena. Z tohoto důvodu musí být definované specifické požadavky, které by měla splňovat NFV infrastruktura pro účely této práce. Podle nich následně může být zvolena specifická technologie. Na základě již uvedených informací o NFV a cílů této práce byli identifikovány následující požadavky:
 
 \begin{itemize}
-\item Otevřenost řešení - Vzhledem k tomu, že NFV je založeno na myšlence přechodu z proprietárních hardwarových boxů k standarním sofwarově definovaným funkcím, tak je rozumné využít opensource technologie i pro NFV Infrastrukturu. 
-\item Možnost automatizace a vytváření templatů - Jedním z cílů práce je VNF řešení, které by mohlo sloužit jako blueprint pro ostatní uživatelé. Proto musí být zvolené technologie, které mají podporu vytváření templatů. Těmi může být následně automaticky vytvořino celé či alespoň část řešení pro VNF. Zárověň však jejich tvorba musí být dostatečně flexibilní a jednoduchá, aby ji zvládli i uživatelé.
+\item Otevřenost řešení - Vzhledem k tomu, že NFV je založeno na myšlence přechodu z proprietárních hardwarových boxů k standardním softwarově definovaným funkcím, tak je rozumné využít opensource technologie i pro NFV Infrastrukturu. 
+\item Možnost automatizace a vytváření templatů - Jedním z cílů práce je VNF řešení, které by mohlo sloužit jako blueprint pro ostatní uživatelé. Proto musí být zvolené technologie, které mají podporu vytváření templatů. Těmi může být následně automaticky vytvořeno celé či alespoň část řešení pro VNF. Zárověň však jejich tvorba musí být dostatečně flexibilní a jednoduchá, aby ji zvládli i uživatelé.
 \item Podpora SDN - Dalším důležitým požadavkem je podpora softwarově definovaných sítí. Jak již bylo řečeno, tak přestože NFV a SDN jsou odlišené technologie, tak se velice dobře doplňují. Z tohoto důvodu by zvolená platforma pro NFV Infrastrukturu mělo podporovat i SDN. Díky tomu následně může být využíván service chainig pro jednotlivá VNF. 
 \end{itemize}
 
-Na základě těchto požadavků je v následující tabulce je uvedeno srovnání cloudových platforem z předchozí kapitoli.
+Na základě těchto požadavků je v následující tabulce je uvedeno srovnání cloudových platforem z předchozí kapitole.
 
 \newcommand{\mc}[2]{\multicolumn{#1}{c}{#2}}
 \definecolor{Gray}{gray}{0.85}
@@ -28,7 +28,7 @@ Na základě těchto požadavků je v následující tabulce je uvedeno srovnán
 \rowcolor{LightCyan}
 \mc{1}{}  & \mc{1}{VMware vCloud Suite} & \mc{1}{OpenStack} \\
 \hline
-Typ & opensource & proprietaci/licence  \\ 
+Typ & opensource & proprietarní/licence  \\ 
 \hline
 Podpora SDN & ANO (VMware NSX) & ANO (OpenContrail)  \\ 
 \hline
@@ -37,7 +37,7 @@ Service Chaning & ANO & ANO  \\
 Tvorba templatů pro orchestraci & Tvorba v GUI &  Tvorba v YAML formátu  \\ 
 \hline
 \end{tabular}
-\caption[Srovnání VMware vCloud Suite a OpenStacku]{Srovnání VMware vCloud Suite a OpenStacku na požadovaných parameterech}
+\caption[Srovnání VMware vCloud Suite a OpenStacku]{Srovnání VMware vCloud Suite a OpenStacku na požadovaných parametrech}
 \end{center}
 \end{table}
 
@@ -50,7 +50,7 @@ Dále je potřeba rozhodnout, který software bude použit pro implementaci jedn
 
 \begin{itemize}
 \item Dostupnost - Pro to, aby bylo vůbec možné uvažované řešení použít, tak je nutné, aby bylo dostupné pro testování. Dostupnost může být ve formě opensource či určité formy trial licence. 
-\item Kompatibilita s platformou x86 - Dalším požadavkem musí být kompatibilita s paltformou x86. Je tedy nutné, aby mohlo být využito klasických serverů pro řešení. 
+\item Kompatibilita s platformou x86 - Dalším požadavkem musí být kompatibilita s platformou x86. Je tedy nutné, aby mohlo být využito klasických serverů pro řešení. 
 \item Úspěšné spuštění na virtualizační platformě - Pro účely této práce musí být ověřeno, že dané řešení je schopné běžet na daném hypervizoru, který bude použit s OpenStackem. Tedy s hypevizorem KVM.
 \item Integrace s OpenStackem - V případě LbaaS je požadované, aby vybraný software měl určitou formu integrace s prostředím OpenStacku. Je to z důvodu lepší automatizace VNF.
 \end{itemize}
@@ -105,7 +105,7 @@ Kompatibilita x86 & ANO & ANO & ANO & ANO  \\
 \end{center}
 \end{table} 
 
-Z výše uvedených informací vyplívá, že pro implementaci LbaaS bude použita HAproxy a platforma, kterou poskytuje firma AVI networks. V případě softwaru pro FwaaS je zrejmé, že bude využit PfSense a Fortigate VM v 15 denní trial verzi. Cisco ASAv nebylo možné testovat kvůli licenčním poplatkům a Juniper vSRX se bohužel nepodařilo zprovoznit v KVM hypervizoru na testovací infrastruktuře.
+Z výše uvedených informací vyplývá, že pro implementaci LbaaS bude použita HAproxy a platforma, kterou poskytuje firma AVI networks. V případě softwaru pro FwaaS je zrejmé, že bude využit PfSense a Fortigate VM v 15 denní trial verzi. Cisco ASAv nebylo možné testovat kvůli licenčním poplatkům a Juniper vSRX se bohužel nepodařilo zprovoznit v KVM hypervizoru na testovací infrastruktuře.
 
 \section{Výsledná architektura použitého frameworku}
 
